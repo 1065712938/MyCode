@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/crazy/mini_catkin_ws/src/mini_robot_control/src/wiringPi.c
+stdio.h
+-
+stdint.h
+-
+stdlib.h
+-
+ctype.h
+-
+poll.h
+-
+unistd.h
+-
+errno.h
+-
+string.h
+-
+time.h
+-
+fcntl.h
+-
+pthread.h
+-
+sys/time.h
+-
+sys/mman.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+sys/wait.h
+-
+wiringPi.h
+/home/crazy/mini_catkin_ws/src/mini_robot_control/src/wiringPi.h
+

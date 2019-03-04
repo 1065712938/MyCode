@@ -1,0 +1,10 @@
+(cl:in-package custom_msg_topic-msg)
+(cl:export '(LEVELS_OF_ANGER-VAL
+          LEVELS_OF_ANGER
+          MIN_LIDAR_DATA-VAL
+          MIN_LIDAR_DATA
+          AVOIDANCE_CLASSIFICATION_GROUP-VAL
+          AVOIDANCE_CLASSIFICATION_GROUP
+          SPEED_CHANGE_OF_OBSTACLE-VAL
+          SPEED_CHANGE_OF_OBSTACLE
+))

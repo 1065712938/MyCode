@@ -1,0 +1,10 @@
+{
+	"filename" : "example.json",
+	"string" : "Hello World！",
+	"filesize" : 1024,
+	"inttype" : 123,
+	"floattype" : 3.14,
+	"doubletype" :1.12345,
+	"arrayint" : [1001,1002,1003,1004],
+}
+
