@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
+# Python 串口接收 JSON解析运用 将得到的点云数据发布
 import rospy
 import serial
 import time
@@ -42,12 +43,17 @@ def send_pose_point(PassPose,targetPos):
 def Analysis_json(recv):
    try:
      info = json.loads(recv)
+     #data2 ="[ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 }] "
+     #json2 = json.dumps(data2)
+     #print 'json2',json2
+     #ser.write(json2)
      print 'fianl_info',info
      # print('passPos = ',info["content"]["passPos"][1]["x"])
      print('passPos = ',len(info["content"]["passPos"]))
      print('targetPos = ',info["content"]["targetPos"]["x"])
      send_pose_point(info["content"]["passPos"],info["content"]["targetPos"])
    except:
+     
      print 'fail KKKKKKKKKKKKKKKKKKKKKKKKKKKKK'
 
 def Exclude_FA(bytes):
@@ -119,7 +125,7 @@ def Deal_with_usart():
     print count
     if count != 0:
           recv = ser.read(count)
-          #ser.write(recv)
+          # ser.write(recv)
           #print"recv22",recv
           print_hex(recv)
     ser.flushInput()
@@ -140,6 +146,12 @@ def main():
      flag = 1
      while flag == 1:
        Deal_with_usart()
+       #data1 ="[ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 }] "
+       data1 ={ "content": {"targetPos": {"x": 1.2,"y": 5.6},"passPos":[{ "x": 1.21,"y": 5.6},{"x": 1.22,"y": 5.6},{"x": 1.23,"y": 5.6}]},"command":"set_pos"} 
+
+       json1 = json.dumps(data1)
+       print 'json',json1
+       ser.write(json1)
        my_awesome_pointcloud = PointCloud()
        x =5.0
        my_awesome_pointcloud.points.append(Point32(x, 1.0, 0.0))
