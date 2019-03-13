@@ -40,20 +40,28 @@ def send_pose_point(PassPose,targetPos):
        # my_awesome_pointcloud.points.append(Point32(2.0, 2.0, 0.0))
        #my_awesome_pointcloud.points.append(Point32(3.0, 3.0, 0.0))
        set_pose.publish(my_awesome_pointcloud)
+def write_json(write_date):
+     Fb = 'fb'.decode('hex')
+     write_date_json = json.dumps(write_date)
+     print 'write_date_json',write_date_json
+     ser.write(write_date_json)
+     ser.write(Fb)
 def Analysis_json(recv):
    try:
      info = json.loads(recv)
-     #data2 ="[ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 }] "
-     #json2 = json.dumps(data2)
-     #print 'json2',json2
-     #ser.write(json2)
+     correct_date ={ "error_code":0} 
+     write_json(correct_date)
+     #correct_date1 = json.dumps(correct_date)
+     #print 'json',correct_date1
+     #ser.write(correct_date1)
      print 'fianl_info',info
      # print('passPos = ',info["content"]["passPos"][1]["x"])
      print('passPos = ',len(info["content"]["passPos"]))
      print('targetPos = ',info["content"]["targetPos"]["x"])
      send_pose_point(info["content"]["passPos"],info["content"]["targetPos"])
    except:
-     
+     error_date ={ "error_code":-1,"error_msg":"data lost Please reset"} 
+     write_json(error_date)
      print 'fail KKKKKKKKKKKKKKKKKKKKKKKKKKKKK'
 
 def Exclude_FA(bytes):
@@ -131,10 +139,19 @@ def Deal_with_usart():
     ser.flushInput()
     print ("send value is ")
 
+def write_robot_json(write_date):
+     FA = 'fa'.decode('hex')
+     write_date_json = json.dumps(write_date)
+     print 'write_date_json',write_date_json
+     ser.write(write_date_json)
+     ser.write(FA)
+
 def PoseCallBack(Twist):
     #ser.write(recv)
+    robot_date ={"content":{"position":{"x":Twist.angular.x,"y":Twist.angular.y},"speed":Twist.angular.z},"obstacle":Twist.linear.x,"command":"upload_status"}
+    write_robot_json(robot_date)
     print ("send value is %x",(Twist.linear.x))
-    ser.write((str(int(Twist.linear.x))))
+    #ser.write((str(int(Twist.linear.x))))
 
 def main():
      signal.signal(signal.SIGINT, quit)                                
@@ -147,11 +164,11 @@ def main():
      while flag == 1:
        Deal_with_usart()
        #data1 ="[ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 }] "
-       data1 ={ "content": {"targetPos": {"x": 1.2,"y": 5.6},"passPos":[{ "x": 1.21,"y": 5.6},{"x": 1.22,"y": 5.6},{"x": 1.23,"y": 5.6}]},"command":"set_pos"} 
+       #data1 ={ "content": {"targetPos": {"x": 1.2,"y": 5.6},"passPos":[{ "x": 1.21,"y": 5.6},{"x": 1.22,"y": 5.6},{"x": 1.23,"y": 5.6}]},"command":"set_pos"} 
 
-       json1 = json.dumps(data1)
-       print 'json',json1
-       ser.write(json1)
+       #json1 = json.dumps(data1)
+       #print 'json',json1
+       #ser.write(json1)
        my_awesome_pointcloud = PointCloud()
        x =5.0
        my_awesome_pointcloud.points.append(Point32(x, 1.0, 0.0))
