@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
+# Python 串口接收 JSON解析运用 将得到的点云数据发布
 import rospy
 import serial
 import time
