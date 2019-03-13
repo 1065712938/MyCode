@@ -36,7 +36,9 @@ float distan_Laser[360];
 float slow_down_laser[360];
 float Speed_change = 0;
 float Current_speed = 0;
+float Chose_XY      = 0;
 float get_max_obstacle_x = 0;
+float get_max_obstacle_y = 0;
 int   Obstacle_amount = 0;
 int   Obstacle_index_through = 0;
 int   Obstacle_index_stop = 0;
@@ -322,6 +324,55 @@ void filter_mutation_y(vector<Point3d> &whole_obstacles_point3)
 }
 
 
+
+/*
+函数名 ：filter_mutation_x
+参数  :传入whole_obstacles_point3的地址 同时修改其值
+功能  ：对容器whole_obstacles_point3中 同个障碍物不连续的y 进行滤波
+说明  ：
+*/
+
+void filter_mutation_x(vector<Point3d> &whole_obstacles_point3)
+{
+    Function obstacle_fun;
+    vector<Point3d> _whole_obstacles_point3;
+    _whole_obstacles_point3.push_back(whole_obstacles_point3.at(0));
+    for(int i = 1; i < (whole_obstacles_point3.size()-1);i++)
+     {
+          if( i == 1)
+          {
+              float cur_y  = whole_obstacles_point3.at(i).x;
+              float fut_y  = whole_obstacles_point3.at(i+1).x;
+              
+              if(abs(cur_y - fut_y)<Error_control_y_vaule)
+                {
+                  _whole_obstacles_point3.push_back(whole_obstacles_point3.at(i));
+                }
+          }
+          else if(i == (whole_obstacles_point3.size()-2))
+          {
+                float pre_y  = whole_obstacles_point3.at(i-1).x;
+                float cur_y  = whole_obstacles_point3.at(i).x;
+                if(abs(cur_y - pre_y)<Error_control_y_vaule)
+                {
+                  _whole_obstacles_point3.push_back(whole_obstacles_point3.at(i));
+                }
+          }
+          else
+          {
+                float pre_y  = whole_obstacles_point3.at(i-1).y;
+                float cur_y  = whole_obstacles_point3.at(i).y;
+                float fut_y  = whole_obstacles_point3.at(i+1).y;
+                if((abs(cur_y - pre_y)<Error_control_y_vaule)||(abs(cur_y - fut_y)<Error_control_y_vaule))
+                {
+                  _whole_obstacles_point3.push_back(whole_obstacles_point3.at(i));
+                }  
+          } 
+     }
+   _whole_obstacles_point3.push_back(whole_obstacles_point3.at(whole_obstacles_point3.size()-1));
+   whole_obstacles_point3.assign(_whole_obstacles_point3.begin(), _whole_obstacles_point3.end());
+}
+
 /*
 函数名 ：filter_max_y
 参数  :传入whole_obstacles_point3的地址 同时修改其值
@@ -350,24 +401,63 @@ void filter_max_y(vector<Point3d> &whole_obstacles_point3)
    }
 
 }
+
+
+
+/*
+函数名 ：filter_max_x
+参数  :传入whole_obstacles_point3的地址 同时修改其值
+功能  ：对容器whole_obstacles_point3中 边界异常出现的值 异常值个数小于等于3个时有效 进行滤波
+说明  ：
+*/
+
+void filter_max_x(vector<Point3d> &whole_obstacles_point3)
+{
+    Function obstacle_fun;
+    vector<Point3d> _whole_obstacles_point3;
+//   obstacle_fun.print_vector(whole_obstacles_point3);
+   if(whole_obstacles_point3.size()<6)
+   {
+     _whole_obstacles_point3.push_back(whole_obstacles_point3.at(0));
+     for(int i = 1; i < (whole_obstacles_point3.size()-1);i++)
+     {
+          float cur_z  = whole_obstacles_point3.at(i).x;
+          if((abs(cur_z - robot_pose.x)<0.8))
+          {
+            _whole_obstacles_point3.push_back(whole_obstacles_point3.at(i));
+          }  
+     }
+     _whole_obstacles_point3.push_back(whole_obstacles_point3.at(whole_obstacles_point3.size()-1));
+     whole_obstacles_point3.assign(_whole_obstacles_point3.begin(), _whole_obstacles_point3.end());
+   }
+
+}
+
 void Function::get_diff_point_fun(vector<Point3d> whole_obstacles_point3,float *diff_point3_y)
 {
     cout<<"whole_obstacles_point3.size() = "<<whole_obstacles_point3.size()<<endl;
-   // oFile_init<<"whole_obstacles_point3.size() = "<<whole_obstacles_point3.size()<<endl;
     for(int i = 0; i < (whole_obstacles_point3.size()-1); i++)
      {
-         if((i>0)&&(i<(whole_obstacles_point3.size()-1)))
-         {
-           get_max_obstacle_x = get_max_value_fun(whole_obstacles_point3.at(i).x);
-         }
-          pre_y  = whole_obstacles_point3.at(i).y;
-          dy = abs(whole_obstacles_point3.at(i+1).y - pre_y);
-        //  cout<<" x = "<<whole_obstacles_point3.at(i).x<<" y = "<<whole_obstacles_point3.at(i).y<<" z = "<<whole_obstacles_point3.at(i).z<<endl;
-//          oFile_init<< "dy"<< " "<<dy<<" "<<"y"<<" "<<whole_obstacles_point3.at(i).y<< " "<<"x"<<" "<<whole_obstacles_point3.at(i).x<<" "<< " i"<< " "<<whole_obstacles_point3.at(i).z<<endl;
-          diff_point3_y[i] = dy;
-     }
-//     oFile_init<< "next   next   next"<< " "<<endl;
-    
+        if((Chose_XY == 0)||(Chose_XY == 1)){
+            if((i>0)&&(i<(whole_obstacles_point3.size()-1)))
+            {
+              get_max_obstacle_x = get_max_value_fun(whole_obstacles_point3.at(i).x);
+            }
+              pre_y  = whole_obstacles_point3.at(i).y;
+              dy = abs(whole_obstacles_point3.at(i+1).y - pre_y);
+              diff_point3_y[i] = dy;
+        }
+        else{
+            if((i>0)&&(i<(whole_obstacles_point3.size()-1)))
+              {
+               get_max_obstacle_y = get_max_value_fun(whole_obstacles_point3.at(i).y);
+              }
+              pre_y  = whole_obstacles_point3.at(i).x;
+              dy = abs(whole_obstacles_point3.at(i+1).x - pre_y);
+              diff_point3_y[i] = dy;
+        }
+
+     }    
 }
 
 
@@ -544,18 +634,13 @@ void Avoidance_Callback(const sensor_msgs::LaserScan& LaserScan)
 */
 void get_current_speed_Callback(const geometry_msgs::Twist& twist) 
 {
-  Current_speed = twist.linear.x;
-  robot_pose.x = twist.angular.x;
-  robot_pose.y = twist.angular.y;
+  Current_speed    = twist.linear.x;
+  robot_pose.x     = twist.angular.x;
+  robot_pose.y     = twist.angular.y;
   robot_pose.angle = twist.linear.z;//*57.29578
-  cout<<"robot_pose.x = "<<robot_pose.x<<endl;
+  Chose_XY         =  twist.linear.y;
+  cout<<"robot_pose.x = "<<robot_pose.x<<" Chose_XY = "<<Chose_XY<<endl;
 }
-
-
-
-
-
-
 void return_amcl_get_pose1()
 {
     tf::TransformListener listener_amcl_pose;
@@ -716,18 +801,30 @@ void Deal_with_whole_pose(vector<Point3d> whole_obstacles_point3)
   float dy = 0;
   float final_chance_value = 0;
   Function obstacle_fun;
-  boundary_point3.x = 255;
-  boundary_point3.y = -Aisle_width_half;
+  boundary_point3.x = robot_pose.x + Aisle_width_half;//255
+  if(Chose_XY == 0)  boundary_point3.y = -Aisle_width_half;//变为横轴时 此处得改变
+  else  boundary_point3.y = Aisle_width_half;//变为横轴时 此处得改变
   boundary_point3.z = 1023;
+  
   whole_obstacles_point3.insert(whole_obstacles_point3.begin(),boundary_point3);
-  boundary_point3.x = 255;
-  boundary_point3.y = Aisle_width_half;
+  boundary_point3.x = robot_pose.x - Aisle_width_half;//255
+  if(Chose_XY == 0)  boundary_point3.y = Aisle_width_half;//变为横轴时 此处得改变
+  else  boundary_point3.y = -Aisle_width_half;//变为横轴时 此处得改变
+
   boundary_point3.z = 1024;
   whole_obstacles_point3.push_back(boundary_point3);
   filter_mutation_z(whole_obstacles_point3);
-  if(whole_obstacles_point3.size()>3)
-    filter_mutation_y(whole_obstacles_point3);
-  filter_max_y(whole_obstacles_point3);
+  if((Chose_XY == 0)||(Chose_XY == 1)){
+      if(whole_obstacles_point3.size()>3)
+      filter_mutation_y(whole_obstacles_point3);
+      filter_max_y(whole_obstacles_point3);
+  }
+  else{
+      if(whole_obstacles_point3.size()>3)
+      filter_mutation_x(whole_obstacles_point3);
+      filter_max_x(whole_obstacles_point3);
+  }
+
  // cout<<" whole_obstacles_point3.size11() = "<< whole_obstacles_point3.size()<<endl;
  // get_max_obstacle_x = get_max_value_fun(obstacle_x);
   int point_size = whole_obstacles_point3.size();
@@ -741,6 +838,7 @@ void Deal_with_whole_pose(vector<Point3d> whole_obstacles_point3)
   float diff_point3_y[point_size-1]={0};
   Stop_selecting_max.clear();
   diff_point3_max_y.clear();
+  //变为横轴时 此处得改变
   obstacle_fun.get_diff_point_fun(whole_obstacles_point3,diff_point3_y);
   obstacle_fun.get_max_index(diff_point3_y);
  // oFile_init<<"size() = "<<whole_obstacles_point3.size()<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" robot_pose.angle = "<<robot_pose.angle<<endl;
@@ -920,8 +1018,17 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
  {
       float R = 0;
       float K = 0;
-      float dx_one = abs(obstacles_x_one-robot_pose.x);
-      float dy_one = abs(obstacles_y_one-robot_pose.y);
+      float dx_one = 0;
+      float dy_one = 0;
+      if((Chose_XY == 0)||(Chose_XY == 1))
+      {
+            dx_one = abs(obstacles_x_one-robot_pose.x);
+            dy_one = abs(obstacles_y_one-robot_pose.y);
+      }
+      else{
+            dy_one = abs(obstacles_x_one-robot_pose.x);
+            dx_one = abs(obstacles_y_one-robot_pose.y);
+      }
       float distance = sqrt(pow(dy_one,2) + pow(dx_one,2));
       cout<<"distance = "<<distance<<" dx_one = "<<dx_one<<" dy_one = "<<dy_one<<endl; 
       if(dy_one<0.5)
@@ -995,8 +1102,9 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
         cout<<"                              全局接近目标点正常运行"<<endl;
       }
       cout<<"Current_speed = "<<Current_speed<<endl;
-      //  K = 0.2;
-      if((robot_pose.y-mid_y)>0)
+      //  K = 0.2;if((Chose_XY == 0)||(Chose_XY == 1))
+      if((((robot_pose.y-mid_y)>0)&&(Chose_XY == 0))||(((robot_pose.x-mid_y)<0)&&(Chose_XY==2))
+      ||(((robot_pose.y-mid_y)<0)&&(Chose_XY == 1)))
       {
         K = -K;
 //        oFile_init<< "To the right"<< " "<<" x = "<<robot_pose.x<<endl;
@@ -1039,13 +1147,18 @@ float get_closest_x(int get_Obstacle_index,float obstacles_x_one,float obstacles
 说明    ：
 
 */
-float special_position_control(float x,float y,float A)
+float special_position_control(float x,float y,float A,float critical_y,float critical_A)
 {
    float K_value = 0;
-   A = A*57.29578;
+   float replace_A = A*57.29578;
+   A = replace_A;
    //if((abs(y)<0.1)&&(abs(A)>25))
    cout<<" y = "<<y<<" A = "<<A<<endl;
-   if((abs(y)<0.2)&&(abs(A)>10))
+   if(Chose_XY == 1)
+   {
+     replace_A = 180-abs(A);
+   }
+   if((abs(y)<critical_y)&&(abs(replace_A)>critical_A))
    {
      // state = 2;
       if(A<0)
@@ -1085,7 +1198,8 @@ float Robot_Boundary_deal(float x,float y,float A)
 
     }
   }
-
+  if (Chose_XY == 1)
+  K_value = -K_value;
   return K_value;
 }
 
@@ -1123,7 +1237,9 @@ float According_to_obstacles_chance_speed(vector<Point3d> obstacles_point3,int p
       obstacles_y_two = obstacles_point3.at(get_Obstacle_index+1).y;
 //      cout<<"obstacles_x_one = "<<obstacles_x_one<<"obstacles_y_one = "<<obstacles_y_one<<endl;
 //      cout<<"obstacles_x_two = "<<obstacles_x_two<<"obstacles_y_two = "<<obstacles_y_two<<endl;
-      mid_y = (obstacles_y_one+obstacles_y_two)/2;
+      if((Chose_XY == 0)||(Chose_XY == 1))
+        mid_y = (obstacles_y_one+obstacles_y_two)/2;
+        else  mid_y = (obstacles_x_one+obstacles_x_two)/2;
       if(get_Obstacle_index == 0)
       { 
         obstacles_x_one = obstacles_x_two;
@@ -1153,7 +1269,6 @@ float According_to_obstacles_chance_speed(vector<Point3d> obstacles_point3,int p
       {
         Continued = 0;
       }
-       
       if((obstacles_num>2)&&((abs(180-obstacles_lidar_z)<=48)||(distan_Laser[obstacles_lidar_z]<0.5))&&(abs(relative_obstacle_point3.y)<0.55))
       {
         oFile_init<<"CCCCCCCCCCCC0KKKKKKKKKKKKKKK"<<endl;
@@ -1170,29 +1285,43 @@ float According_to_obstacles_chance_speed(vector<Point3d> obstacles_point3,int p
       //  oFile_init<<"no obstacles no obstacles no obstacles no obstacles="<<endl;
         cout<<"                                   不存在障碍物"<<endl;
         Continued = 0;
-       // flag = 0;
+        //flag = 0;//原本为屏蔽行
         K = 0;
         cout<<"get_max_obstacle_x = "<<get_max_obstacle_x<<"  robot_pose.x = "<<robot_pose.x<<endl;
-        if(abs(robot_pose.y)<=Robot_Boundary)
+        if((Chose_XY == 0)||(Chose_XY == 1))
         {
-           cout<<"rx-gx =  "<<robot_pose.x-get_max_obstacle_x<<endl;
-            //if(abs(robot_pose.x-get_max_obstacle_x)>1.0)//1.0
-
-            if((robot_pose.x-get_max_obstacle_x)>0.3)//1.0
+            if(abs(robot_pose.y)<=Robot_Boundary)
             {
-              K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle);
-              if(get_max_obstacle_x>0)
-              {
-              //   flag = 0;
-                state_one_flag = 0;
-              }
-             // oFile_init<<"state_one_flag "<<state_one_flag<<" r.x "<<robot_pose.x<<" get_max_obstacle_x "<<get_max_obstacle_x<<endl;
+              cout<<"rx-gx =  "<<robot_pose.x-get_max_obstacle_x<<endl;
+                //if(abs(robot_pose.x-get_max_obstacle_x)>1.0)//1.0
+                float robot_obs = 0;
+                if(Chose_XY == 0)
+                 robot_obs = robot_pose.x-get_max_obstacle_x;
+                else
+                 robot_obs = get_max_obstacle_x - robot_pose.x;
+                //if((robot_pose.x-get_max_obstacle_x)>0.3)//1.0
+                if((robot_obs)>0.3)
+                {
+                  if(Chose_XY == 0)
+                    K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.2,10);
+                  else{
+                    K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.2,10);
+                    K = -K;
+                  }
+                 
+                  if(get_max_obstacle_x>0)
+                  {
+                    flag = 0;
+                    state_one_flag = 0;
+                  }
+                // oFile_init<<"state_one_flag "<<state_one_flag<<" r.x "<<robot_pose.x<<" get_max_obstacle_x "<<get_max_obstacle_x<<endl;
+                }
             }
-        }
-        else
-        {
-            K = Robot_Boundary_deal(robot_pose.x,robot_pose.y,robot_pose.angle);
-        }   
+            else
+            {
+                K = Robot_Boundary_deal(robot_pose.x,robot_pose.y,robot_pose.angle);
+            }  
+         } 
       }
     cout<<"flag = "<<flag<<endl;
     return K;
@@ -1452,8 +1581,6 @@ void filter_mutation_i(vector<Point3d> &whole_obstacles_point3)
    whole_obstacles_point3.assign(_whole_obstacles_point3.begin(), _whole_obstacles_point3.end());
   // obstacle_fun.print_vector(_whole_obstacles_point3);
 }
-
-
 /*
 函数名：get_obstacle_point_fun
 功能  ：保存障碍物坐标 并做出相应的处理
@@ -1496,9 +1623,19 @@ void get_obstacle_point_fun()
             if(max_dis>1.4) flag_max_dis = 1;
             obstacle_x = robot_pose.x+get_distance_angle[i]*sin(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));
             obstacle_y = robot_pose.y+get_distance_angle[i]*cos(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));
-            float _obstacle_y=filter_obstacle_y(obstacle_y);
+            float _obstacle_y = 0;
+            float _obstacle_x = 0;
+            if((Chose_XY == 0)||(Chose_XY == 1)){
+                  _obstacle_y=filter_obstacle_y(obstacle_y);
+            }
+            else {
+                   _obstacle_x=filter_obstacle_y(obstacle_x);
+            } 
             test_pp++;
-            if((abs(_obstacle_y)<Aisle_width_half)&&(abs(obstacle_y)<Aisle_width_half))//1.0
+            
+            //变为横轴时 此处得改变
+            if(((abs(_obstacle_y)<Aisle_width_half)&&(abs(obstacle_y)<Aisle_width_half)&&((Chose_XY == 0)||(Chose_XY == 1)))
+               ||((abs(_obstacle_x-robot_pose.x)<Aisle_width_half)&&(abs(obstacle_x-robot_pose.x)<Aisle_width_half)&&(Chose_XY == 2)))//1.0
             {
             //   cout<<" i = "<<i<<" get_distance_angle[i] = "<<get_distance_angle[i]<<" robot_pose.angle = "<<robot_pose.angle<<" obstacle_x = "<<obstacle_x<<" obstacle_y = "<<obstacle_y<<endl;
                
@@ -1511,7 +1648,6 @@ void get_obstacle_point_fun()
                whole_point3_vector.push_back(whole_point3);
                obstacle_fun.get_relative_obstacle_point3(get_distance_angle,i);
             }
-            
           }
           i = i+lidar_gap;//5
       }
@@ -1530,7 +1666,6 @@ void get_obstacle_point_fun()
     Get_relative_obstacle_block_num(_Relative_point3,Obstacle_block_coordinates,Obstacle_block_num);
     Obstacle_block_coordinates[Obstacle_block_num] = _Relative_point3.size()-1; 
   //  cout<<"Obstacle_block_num = "<<Obstacle_block_num<<endl;
-
     Deal_with_whole_pose(whole_point3_vector);
 }
 int main(int argc, char **argv)
@@ -1548,14 +1683,17 @@ int main(int argc, char **argv)
     //send_vel.publish(twist);
     ros::Rate loop_rate(10);
     int Max_index = 0;
-    oFile_init.open("Processing_lidar_data_V1.csv",ios::out|ios::trunc);
+    //oFile_init.open("Processing_lidar_data_V1.csv",ios::out|ios::trunc);
+   // oFile_init.open("test_flash.csv",ios::out|ios::trunc);
     tf::StampedTransform transform; 
     custom_msg_topic::custom_msg msg;
     //float array[3] = {1.1,1.2,0.3};
     std::vector<float> Obstacle_information(Classification_group,Classification_group+10);
     msg.Avoidance_Classification_group = Obstacle_information;
-   
-   while(ros::ok())
+    float flash_pp = 0;
+    //如果文件存在，把文件长度设为0
+    oFile_init.open("test_flash2.csv",ios::out|ios::trunc);
+    while(ros::ok())
     {
         ros::spinOnce();
         std::vector<float> Obstacle_information(Classification_group,Classification_group+Divided_Amount);
@@ -1580,12 +1718,16 @@ int main(int argc, char **argv)
     //  oFile_init<< "section ahead liner222 "<< " "<<endl;
       cout<<"最后的值Speed_change = "<<Speed_change<<endl;
       msg.Speed_change_of_obstacle = Speed_change;
-      oFile_init<< "state = "<<state<<"  Speed_change "<<Speed_change<<" O_index"<<Obstacle_index_through<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" A = "<<robot_pose.angle*57.29578<<" Continued  "<<Continued<<" relative.x "<<relative_obstacle_point3.x<<" relative.y = "<<relative_obstacle_point3.y<<endl;
+      //oFile_init<< "state = "<<state<<"  Speed_change "<<Speed_change<<" O_index"<<Obstacle_index_through<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" A = "<<robot_pose.angle*57.29578<<" Continued  "<<Continued<<" relative.x "<<relative_obstacle_point3.x<<" relative.y = "<<relative_obstacle_point3.y<<endl;
       cout<< "state = "<<state<<"  Speed_change "<<Speed_change<<" O_index"<<Obstacle_index_through<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" A = "<<robot_pose.angle*57.29578<<" Continued  "<<Continued<<" relative.x "<<relative_obstacle_point3.x<<" relative.y = "<<relative_obstacle_point3.y<<endl;
-
+     // flash_pp++;
+     // cout<<"flash_pp = "<<flash_pp<<endl;
+     // oFile_init<<"flash_pp "<<flash_pp<<endl;
+      //oFile_init.flush();
       custom_msg_pub.publish(msg);
       loop_rate.sleep();
     }
     oFile_init.close();
+   
         return 0;
 }

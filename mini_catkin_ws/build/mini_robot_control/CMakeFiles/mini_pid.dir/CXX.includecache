@@ -219,6 +219,8 @@ tf/transform_listener.h
 -
 geometry_msgs/Twist.h
 -
+sensor_msgs/PointCloud.h
+-
 sensor_msgs/LaserScan.h
 -
 sensor_msgs/Imu.h

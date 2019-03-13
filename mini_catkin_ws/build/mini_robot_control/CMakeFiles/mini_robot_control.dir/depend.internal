@@ -385,6 +385,7 @@ mini_robot_control/CMakeFiles/mini_robot_control.dir/src/amcl_linear_x_ahead.cpp
  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h
  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 mini_robot_control/CMakeFiles/mini_robot_control.dir/src/trajectory_planning.cpp.o
+ /home/crazy/mini_catkin_ws/devel/include/custom_msg_topic/custom_msg.h
  /home/crazy/mini_catkin_ws/devel/include/tf2_msgs/FrameGraph.h
  /home/crazy/mini_catkin_ws/devel/include/tf2_msgs/FrameGraphRequest.h
  /home/crazy/mini_catkin_ws/devel/include/tf2_msgs/FrameGraphResponse.h

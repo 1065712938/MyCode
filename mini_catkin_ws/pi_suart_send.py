@@ -1,68 +1,44 @@
-#!/usr/bin/env python
-# Copyright 2017 HyphaROS Workshop.
-# Developer: HaoChih, LIN (hypha.ros@gmail.com)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-
-'''
-import serial
-import rospy
-import string
-import math
-import time
-import sys
-ser = serial.Serial("/dev/ttyAMA0", 115200)
-def main():
-    while True:
-         print('ww')
-         time.sleep(0.1)
-if __name__ == '__main__':
-        main()
-
-'''
-
 # -*- coding: utf-8 -*
 import rospy
 import serial
 import time
 import binascii  
 import struct
-import string 
-from geometry_msgs.msg import Twist
-matrix=[4]
-hex_matrix = [1]
-ser = serial.Serial("/dev/ttyAMA0", 115200) 
-def PoseCallBack(Twist):
-    count = ser.inWaiting()
-    if count != 0:
-           # recv = ser.read(count)
-          ser.write(recv)
-    ser.flushInput()
-#    print ser.baudrate
-#    print ("send value is %x",(Twist.linear.x))
-   # ser.write((hex(int(Twist.linear.x))))
-    ser.write((str(int(Twist.linear.x)))) 
-
-	
+import string
+import json 
+from std_msgs.msg import Header
+#from custom_msg_topic.custom_msg import Danger
+from geometry_msgs.msg import PoseArray
+matrix=[5]
+# 打开串口
+#ser = serial.Serial("/dev/ttyAMA0", 115200)
 def main():
-     rospy.init_node('state_sub',anonymous=False) 
-     rospy.Subscriber('/state_val',Twist,PoseCallBack)
-     rospy.spin()
+    while True:
+        # 获得接收缓冲区字符
+        time.sleep(0.8)
+        #count = ser.inWaiting()
+        count = 1
+        print count
+        if count != 0:
+            # 读取内容并回显
+            #recv = ser.read(count)
+            #ser.write(recv)
+            #info = json.loads(recv)
+            #print recv
+            # print(recv["content"]["targetPos"])
+            #json.dump(json_info,file)
+            info = json.loads('{"command":"set_target","content":{"passPos":[{"x":1.0,"y":0.0},{"x":2.0,"y":0.0},{"x":3.0,"y":3.0},{"x":3.0,"y":4.0},{"x":5.0,"y":5.0}],"targetPos":{"x":5.0,"y":5.0}}}')
+            print(info["content"]["targetPos"])
+        # 清空接收缓冲区
+        #ser.flushInput()
+        #print ser.baudrate#波特率
+        print ("He is %d years old",matrix[0])
+        # 必要的软件延时
+        time.sleep(0.1)
 if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
         if ser != None:
-
             ser.close()
+

@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/crazy/mini_catkin_ws/devel/include/custom_msg_topic/custom_msg.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/crazy/mini_catkin_ws/devel/include/tf2_msgs/FrameGraph.h
 ros/service_traits.h
 -
@@ -265,6 +281,8 @@ fstream
 -
 mini_robot_control/trajectory_plannin.h
 /home/crazy/mini_catkin_ws/src/mini_robot_control/src/mini_robot_control/trajectory_plannin.h
+custom_msg_topic/custom_msg.h
+/home/crazy/mini_catkin_ws/src/mini_robot_control/src/custom_msg_topic/custom_msg.h
 
 /opt/ros/kinetic/include/boost_161_condition_variable.h
 boost/thread/detail/platform.hpp

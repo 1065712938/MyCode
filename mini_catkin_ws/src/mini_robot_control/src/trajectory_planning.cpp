@@ -15,6 +15,8 @@
 #include <math.h>
 #include <fstream>
 #include "mini_robot_control/trajectory_plannin.h"
+#include "custom_msg_topic/custom_msg.h"
+
 using namespace std;
 float flag_array[20]={0};
 /*
@@ -47,6 +49,7 @@ void Track_pose(float L,float K,float x,float y,float x1,float y1);
 void Robot_Rotation(float L,float speed,float Set_Angle);
 void amcl_linear_Y_back(float V0,float V1,double Distance,char flag);
 void amcl_linear_back(float V0,float V1,double Distance,char flag);
+void amcl_linear_back_Avoidance(float V0,float V1,double Distance,char flag,int mode ,float speed_obs);
 void linear_motion(float V0,float V1,float Distance,char flag);
 void linear_motion_goahead(float V0,float V1,float Distance,char flag,float Pid_set);
 void Arc_path(float R,float L,float speed,float Distance);
@@ -55,6 +58,8 @@ void Arc_path_right(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right_goahdead(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right_back(float R,float L,float speed,float Distance,float Set_Angle);
 void Robot_Rotation_180(float L,float speed);
+void Buffer_emergency_stop(float vel,int num);
+
 void robot_line_Arc_path();
 void Build_map();
 
@@ -122,6 +127,23 @@ void Send_stop()
         twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;//angle_adjust_linear
         send_stop.publish(twist);
 
+     }
+}
+
+void Buffer_emergency_stop(float vel,int num)
+{
+    cout<<"Buffer_emergency_stop"<<endl;
+    ros::NodeHandle Buffer_emergency_stop;
+    ros::Publisher Send_goahead = Buffer_emergency_stop.advertise<geometry_msgs::Twist>("cmd_vel",1);//改为1
+    float send_vel = 0;
+    for(int i = 0;i<num;i++)
+     {
+        send_vel = send_vel - vel/num;
+        if(send_vel<0) send_vel = 0;
+        geometry_msgs::Twist twist;
+        twist.linear.x = send_vel; twist.linear.y = 0; twist.linear.z = 0;
+        twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;//angle_adjust_linear
+        Send_goahead.publish(twist);
      }
 }
 
@@ -752,8 +774,11 @@ void amcl_linear_back(float V0,float V1,double Distance,char flag)
                  cout<<"spac_All_adjust = "<<All_adjust<<"euler_linear[2]/2 = "<<euler_linear[2]/2<<"  sin = "<<sin((3.141592654-abs(euler_linear[2]))/2.0)<<"sin(1.57) = "<<sin(1.57)<<"W_y = "<<transform_amcl_pose.getOrigin().y()<<"Cur_speed = "<<Cur_speed<<endl;
               }
         }
+
+ 
         if (All_adjust<=-0.05) All_adjust = -0.05;//0.025
         if (All_adjust>0.05)  All_adjust = 0.05;
+
         geometry_msgs::Twist twist;
         twist.linear.x = Cur_speed; twist.linear.y = 0; twist.linear.z = 0;
         twist.angular.x = 0; twist.angular.y = 0; twist.angular.z =All_adjust;//All_adjust angle_adjust_linear+adjust_amcl_Yangle_adjust_linear -Cur_speed*0.05
@@ -765,6 +790,203 @@ void amcl_linear_back(float V0,float V1,double Distance,char flag)
        // cout << "x = "<<transform_linear.getOrigin().x() << "  y = "<<transform_linear.getOrigin().y() << endl ;
        // oFile_init<< "X"<< " "<<flag_array[8]<<" "<<"Y"<<" "<<flag_array[9]<<endl;
         oFile_init<< "W_X"<< " "<<transform_amcl_pose.getOrigin().x()<<" "<<"W_Y"<<" "<<transform_amcl_pose.getOrigin().y()<<"  "<<"A"<<"  "<<euler_linear[2]*57.29578<<" "<< "All_adjust1"<<"  "<<All_adjust<<" "<<"flag_plus "<<flag_plus<<" "<< "OX"<< " "<<transform_linear.getOrigin().x()<<" "<<"O_Y"<<" "<<transform_linear.getOrigin().y()<< " "<<endl;
+   }
+    oFile_init<< "section back liner "<< " "<<endl;
+}
+int   Selection_action_mode = 0;
+float Speed_change_of_obstacle = 0;
+
+void Avoidance_Callback(const custom_msg_topic::custom_msg& Danger) 
+{
+       Selection_action_mode = Danger.levels_of_anger;
+   //Selection_action_mode = 0;//不进行避碍 屏蔽此行进行正常避碍物
+      Speed_change_of_obstacle = Danger.Speed_change_of_obstacle;
+}
+
+/*
+ 函数名：void amcl_linear_back_Avoidance
+ 传入参数4个：
+            V0:初始速度
+            V1：末速度
+            Distance:加速减速距离 前进为正 后退为负
+            flag:选择前进和后退 1 前进 0 后退
+返回值：无
+实例：amcl_linear_motion(0.1,0.25,1,1)
+曾经出现的问题：加速度过大 导致机器人还没到达坐标点速度接近于0 进入死循环 
+解决办法 ：Acceletare = Acceletare*0.9
+*/
+void amcl_linear_back_Avoidance(float V0,float V1,double Distance,char flag,int state,int mode,float speed_obs)
+{
+   ros::NodeHandle n1;
+   ros::Publisher send_vel1 = n1.advertise<geometry_msgs::Twist>("cmd_vel",1);//改为1
+   ros::Publisher send_pose = n1.advertise<geometry_msgs::Twist>("send_pose",2);//改为1
+   ros::Subscriber get_avoidance = n1.subscribe("Avoidance_info", 1000, Avoidance_Callback);
+
+   tf::TransformListener listener_linear;
+   tf::StampedTransform transform_linear;
+   tf::TransformListener listener_amcl_pose;
+   tf::StampedTransform transform_amcl_pose;
+   Eigen::Quaterniond q_linear;
+   int flag_plus = 0;
+   float angle_adjust_linear = 0;
+   float Acceletare = 0; 
+   float Cur_speed  = V0;
+   double dur_time  = 0;
+   double Cur_Distance = 255;
+   float amcl_X = 0;
+   float amcl_Y = 0;
+   float adjust_amcl_Y = 0;
+   float All_adjust    = 0;
+   float pre_amcl_distance = 0;
+   double pre_odom_distance = 0;
+   int flag_while = 0;
+   float current_yaw = 0;
+   float speed_inc     = 0;
+   float speed_pre       = 0;
+
+   listener_linear.waitForTransform("/odom", "/base_link", ros::Time(0), ros::Duration(3.0));
+   listener_linear.lookupTransform("/odom", "/base_link", ros::Time(0), transform_linear);
+    pre_odom_distance = abs(transform_linear.getOrigin().x());
+ //  if(abs(V1)<abs(V0)) 
+ //     Acceletare = (pow(V1,2)-pow(V0,2))/(2*(Distance - pre_odom_distance))*0.8;
+ //   else
+  //     Acceletare = (pow(V1,2)-pow(V0,2))/(2*(Distance - pre_odom_distance));
+ //   oFile_init<< "section back liner "<< " "<<endl;
+ cout<<"Distance-0.1 = "<<Distance<<endl;
+   while((Cur_Distance>Distance)&&ros::ok()&&(flag_while<10))
+   {
+   //     cout<<"(abs(Cur_Distance-Distance) = "<<abs(Cur_Distance-Distance)<<endl;
+        ros::Time begin = ros::Time::now();
+        listener_linear.waitForTransform("/odom", "/base_link", ros::Time(0), ros::Duration(3.0));
+        listener_linear.lookupTransform("/odom", "/base_link", ros::Time(0), transform_linear);
+        listener_amcl_pose.waitForTransform("/map", "/base_link", ros::Time(0), ros::Duration(3.0));
+        listener_amcl_pose.lookupTransform("/map", "/base_link", ros::Time(0), transform_amcl_pose);
+    //    cout << "x = "<<transform_linear.getOrigin().x() << endl ;
+        q_linear.x() = transform_amcl_pose.getRotation().getX();
+        q_linear.y() = transform_amcl_pose.getRotation().getY();
+        q_linear.z() = transform_amcl_pose.getRotation().getZ();
+        q_linear.w() = transform_amcl_pose.getRotation().getW();
+        Eigen::Vector3d euler_linear = q_linear.toRotationMatrix().eulerAngles(0, 1, 2);
+        current_yaw = euler_linear[2]*57.29578;
+       // cout << "A = "<< euler_linear[2]*57.29578 << endl ;//得到的弧度值转化为角度值
+       // angle_adjust_linear = PID_realize(0,euler_linear[2]*57.29578);
+       // adjust_amcl_Y       = PID_realize(0,transform_amcl_pose.getOrigin().y());
+      //  pid.Kp=0.18;//角度直线参数
+      //  pid.Ki=0.2;
+       // pid.Kd=0.1;
+       pid.Kp=0.65;//角度直线参数 0.16 0.5 0.6 0.77
+       pid.Ki=0.7;//0.15 0.5 .7
+       pid.Kd=0.16;//0.08
+       adjust_amcl_Y       = -PID_realize(0,transform_amcl_pose.getOrigin().y());
+        All_adjust = adjust_amcl_Y;
+        ros::spinOnce();
+        ros::Duration(0.1).sleep();
+        ros::Time end = ros::Time::now();
+        ros::Duration end_be = end - begin;
+        //Cur_speed  = Cur_speed + Acceletare*(end_be.toSec());
+        //Acceletare = (pow(V1,2)-pow(Cur_speed,2))/(2*abs(Cur_Distance-Distance));
+
+           
+        if(flag == 1) //前进
+           Cur_speed = abs(Cur_speed);
+        else
+           Cur_speed = -abs(Cur_speed);
+        if((180-abs(current_yaw)>1)&&(abs(transform_amcl_pose.getOrigin().y())<0.04))//0.04 0.03
+        {
+            if(((transform_amcl_pose.getOrigin().y()>0)&&((current_yaw<-90)&&(current_yaw>-180)))||((transform_amcl_pose.getOrigin().y()<0)&&((current_yaw>90)&&(current_yaw<180))))
+              {
+                 All_adjust = -Cur_speed*sin((3.141592654-abs(euler_linear[2]))/2.0)*sin((3.141592654-abs(euler_linear[2]))/2.0)/transform_amcl_pose.getOrigin().y();
+                 //if((All_adjust>-0.01)&&(All_adjust<0))
+                 //All_adjust = -0.01;
+                // if((All_adjust<0.01)&&(All_adjust>0))
+                 //All_adjust = 0.01;
+                 flag_plus++;
+                 //cout<<"spac_All_adjust = "<<All_adjust<<"euler_linear[2]/2 = "<<euler_linear[2]/2<<"  sin = "<<sin((3.141592654-abs(euler_linear[2]))/2.0)<<"sin(1.57) = "<<sin(1.57)<<"W_y = "<<transform_amcl_pose.getOrigin().y()<<"Cur_speed = "<<Cur_speed<<endl;
+              }
+        }
+        if(Selection_action_mode == 0){ //不存在障碍物
+             All_adjust = All_adjust;
+             if(state == 0) //0 表示加速状态
+             {        
+                Cur_speed  = Cur_speed + Acceletare*(end_be.toSec())+speed_inc;
+                Acceletare = (pow(V1,2)-pow(Cur_speed,2))/(2*abs(Distance - Cur_Distance));
+                cout<<"Acceletare = "<<Acceletare<<"  end_time = "<<end_be.toSec()<<endl;
+             }
+             else
+              {
+                //在匀速阶段要判断 Distance - Cur_Distance 值过大 考虑给一个固定值
+                Acceletare = (pow(V1,2)-pow(Cur_speed,2))/(2*abs(Distance - Cur_Distance));
+                Cur_speed  = Cur_speed + Acceletare*(end_be.toSec())+speed_inc;
+              }
+             speed_inc = 0;
+            speed_pre = Cur_speed;
+          }
+        else if(Selection_action_mode == 1) //表示离障碍物较远
+        {
+             ros::Time end = ros::Time::now();
+             ros::Duration end_be = end - begin;
+             if(Cur_speed>speed_pre)
+               Cur_speed = speed_pre;//全局变量 
+             float Acc = (Cur_speed*Cur_speed - 0.2*0.2)/(2.0*2);
+            // cout<<"Cur_speed = "<<Cur_speed<<"  Acc1 = "<<Acc<<endl;
+             Cur_speed = Cur_speed - Acc*end_be.toSec();//end_be.toSec() = 0.1
+            // if(Cur_speed<0.05)
+            // Cur_speed = 0.05;
+            if(Cur_speed<0.2)
+             Cur_speed = 0.2;
+            speed_pre = Cur_speed;
+            //All_adjust = All_adjust*10;
+            //speed_inc = V0/2;
+           //  cout<<" Cur_speed11 = "<< Cur_speed<<" min_lidar_data = "<<min_lidar_data<<"  inc_v = "<<(Cur_speed*Cur_speed - 0)/(2.0*min_lidar_data)*end_be.toSec()<<"  end_be.toSec() ="<<end_be.toSec()<<endl;
+        }
+        else{ //离障碍物很近 需要及停
+              Buffer_emergency_stop(Cur_speed,5);
+              Cur_speed  =  0;
+              All_adjust =  0;
+              speed_inc  =  V0;//0.1
+             // Send_stop(); //完全停止后 在
+             // ros::Duration(3).sleep(); 
+         //     cout<<"state = 2 停止 = "<<Selection_action_mode<<"Speed_change_of_obstacle = "<<Speed_change_of_obstacle<<endl;
+        }
+
+      if (abs(Cur_speed)>max(abs(V0),abs(V1)))
+            Cur_speed = max(abs(V0),abs(V1));
+        //if (abs(Cur_speed)<=0.05)
+        //    {
+        //       Cur_speed = 0.05;
+        //    }
+        //if (All_adjust<=-0.05) All_adjust = -0.05;//0.025
+        //if (All_adjust>0.05)  All_adjust = 0.05;
+    
+        if (All_adjust<=-0.085) All_adjust = -0.085;//0.019
+        if (All_adjust>0.085)  All_adjust = 0.085;
+
+       if(Speed_change_of_obstacle == 0){
+           All_adjust = All_adjust;
+        }
+        else{
+            if(Selection_action_mode == 1)
+            Cur_speed = 0.2;
+        //    cout<<"  Cur_speed = "<<Cur_speed<<" Speed_change_of_obstacle"<<Speed_change_of_obstacle<<endl;
+            All_adjust = Speed_change_of_obstacle;
+        }
+        geometry_msgs::Twist twist;
+        twist.linear.x = Cur_speed; twist.linear.y =1; 
+        twist.linear.z = euler_linear[2];
+        twist.angular.x = transform_amcl_pose.getOrigin().x();
+        twist.angular.y = transform_amcl_pose.getOrigin().y(); 
+        twist.angular.z =All_adjust;//All_adjust angle_adjust_linear+adjust_amcl_Yangle_adjust_linear -Cur_speed*0.05
+        send_vel1.publish(twist);
+        send_pose.publish(twist);
+       // cout<<"Cur_speed = "<<Cur_speed<<" All_adjust = "<<All_adjust<<endl;
+        //Cur_Distance = transform_linear.getOrigin().x();
+        Cur_Distance = transform_amcl_pose.getOrigin().x();
+        oFile_init<< "Selection_action_mode "<<Selection_action_mode<<" Speed_change_of_obstacle "<<Speed_change_of_obstacle<<" All_adjust "<<All_adjust<<" Cur_speed "<<Cur_speed<<" W_x "<<transform_amcl_pose.getOrigin().x()<<endl;
+        cout<< "Selection_action_mode "<<Selection_action_mode<<" Speed_change_of_obstacle "<<Speed_change_of_obstacle<<" All_adjust "<<All_adjust<<" Cur_speed "<<Cur_speed<<" W_x "<<transform_amcl_pose.getOrigin().x()<<endl;
+        cout << "W_x = "<<transform_amcl_pose.getOrigin().x() << "  W_y = "<<transform_amcl_pose.getOrigin().y() <<"flag_plus = "<<flag_plus<< endl ;
+       // cout << "x = "<<transform_linear.getOrigin().x() << "  y = "<<transform_linear.getOrigin().y() << endl ;
+       // oFile_init<< "X"<< " "<<flag_array[8]<<" "<<"Y"<<" "<<flag_array[9]<<endl;
+        //oFile_init<< "W_X"<< " "<<transform_amcl_pose.getOrigin().x()<<" "<<"W_Y"<<" "<<transform_amcl_pose.getOrigin().y()<<"  "<<"A"<<"  "<<euler_linear[2]*57.29578<<" "<< "All_adjust1"<<"  "<<All_adjust<<" "<<"flag_plus "<<flag_plus<<" "<< "OX"<< " "<<transform_linear.getOrigin().x()<<" "<<"O_Y"<<" "<<transform_linear.getOrigin().y()<< " "<<endl;
    }
     oFile_init<< "section back liner "<< " "<<endl;
 }
