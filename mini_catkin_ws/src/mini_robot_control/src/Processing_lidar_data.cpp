@@ -174,7 +174,7 @@ void Function:: print_vector(vector<Point3d> point3)
      for(int i = 0; i < point3.size(); i++)
      {
          //cout<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
-         oFile_init<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
+         //oFile_init<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
      }
 }
 

@@ -32,6 +32,7 @@ flag_array[11]
 */
 float g_odom_x = 0;
 float g_odom_y = 0;
+int Arc_flag   = 0;
 float ranges[360]={0};
 std::ofstream oFile_init;
 void Send_stop();
@@ -58,7 +59,9 @@ void Arc_path_right(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right_goahdead(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right_back(float R,float L,float speed,float Distance,float Set_Angle);
 void Robot_Rotation_180(float L,float speed);
+void Robot_Rotation_180_X(float L,float speed);
 void Buffer_emergency_stop(float vel,int num);
+float get_run_speed(double C_Pose,double G_Pose,float Cur_speed,float max_speed,float speed_inc);
 
 void robot_line_Arc_path();
 void Build_map();
@@ -108,6 +111,44 @@ float PID_realize(float Target_value,float Real_time_value)
     return incrementSpeed;
 
     //return pid.ActualSpeed;
+}
+
+
+
+
+
+/*
+ 函数名：float get_run_speed(double C_Pose,double G_Pose)
+ 传入参数4个：
+            C_Pose    : 当前坐标
+            G_Pose    ：目标坐标
+            Cur_speed : 当前速度值
+            max_speed : 设置的最大速度
+            speed_inc : 若停住后重新运行 赋值一个起始速度
+返回值：Cur_speed
+*/
+float get_run_speed(double C_Pose,double G_Pose,float Cur_speed,float max_speed,float speed_inc)
+{
+    float Acceletare = 0;
+    if((abs(G_Pose - C_Pose)<1)&&(Arc_flag==0))//减速 此处加上一个判断 是否需要 要跑弧线 则不减速 
+    {
+        Acceletare = (pow(0,2)-pow(Cur_speed,2))/(2*(1));
+        if(Cur_speed<0.2) 
+        Cur_speed  = Cur_speed + Acceletare*0.2+speed_inc;
+        else Cur_speed  = Cur_speed + Acceletare*0.3+speed_inc;
+        if(Cur_speed<0.05)
+         Cur_speed = 0.05; 
+    }
+    else if(abs(G_Pose - C_Pose)<2)//匀速
+    {
+        Cur_speed  = Cur_speed*1.0;
+    }
+    else{                         //加速
+        Acceletare = (pow(max_speed,2)-pow(Cur_speed,2))/(2*2.0);
+        Cur_speed  = Cur_speed + Acceletare*0.1+speed_inc;
+    }
+    cout<<"Acceletare = "<<Acceletare<<"  Cur_speed = "<<Cur_speed<<endl;
+    return Cur_speed;
 }
 
 /*
@@ -163,7 +204,6 @@ void Send_goahead(float vel)
         twist.linear.x = vel; twist.linear.y = 0; twist.linear.z = 0;
         twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0;//angle_adjust_linear
         Send_goahead.publish(twist);
-
      }
 }
 
@@ -906,6 +946,8 @@ void amcl_linear_back_Avoidance(float V0,float V1,double Distance,char flag,int 
         }
         if(Selection_action_mode == 0){ //不存在障碍物
              All_adjust = All_adjust;
+             Cur_speed  = get_run_speed(Cur_Distance,Distance,Cur_speed,V1,speed_inc);
+             /*
              if(state == 0) //0 表示加速状态
              {        
                 Cur_speed  = Cur_speed + Acceletare*(end_be.toSec())+speed_inc;
@@ -918,6 +960,8 @@ void amcl_linear_back_Avoidance(float V0,float V1,double Distance,char flag,int 
                 Acceletare = (pow(V1,2)-pow(Cur_speed,2))/(2*abs(Distance - Cur_Distance));
                 Cur_speed  = Cur_speed + Acceletare*(end_be.toSec())+speed_inc;
               }
+              */
+
              speed_inc = 0;
             speed_pre = Cur_speed;
           }
@@ -943,7 +987,7 @@ void amcl_linear_back_Avoidance(float V0,float V1,double Distance,char flag,int 
               Buffer_emergency_stop(Cur_speed,5);
               Cur_speed  =  0;
               All_adjust =  0;
-              speed_inc  =  V0;//0.1
+              speed_inc  =  0.1;//V0
              // Send_stop(); //完全停止后 在
              // ros::Duration(3).sleep(); 
          //     cout<<"state = 2 停止 = "<<Selection_action_mode<<"Speed_change_of_obstacle = "<<Speed_change_of_obstacle<<endl;
@@ -1586,6 +1630,54 @@ void Robot_Rotation_180(float L,float speed)
             twist.angular.x = 0; twist.angular.y = 0; twist.angular.z =0;
             send_vel1_Rotation.publish(twist);
             flag_array[1] = 1;
+        }
+        loop_rate_Robot_Rotation.sleep();
+    }
+}
+
+void Robot_Rotation_180_X(float L,float speed)
+{
+    cout<<"自转运动"<<endl;
+    ros::Rate loop_rate_Robot_Rotation(10);
+    ros::NodeHandle Rotation;
+    ros::Publisher send_vel1_Rotation = Rotation.advertise<geometry_msgs::Twist>("cmd_vel",1);//改为1
+    tf::TransformListener Rotation_test_linear;
+    tf::StampedTransform transform_Rotation_test;
+    Eigen::Quaterniond q_Rotation_test;
+    L = L/100.0;
+    float Angle_Rotation = 0;
+    float Pre_Angle_Rotation = 0;
+    char direction = 0;
+    flag_array[19] = 0;
+    while((flag_array[19]==0)&&ros::ok())
+    {
+        Rotation_test_linear.waitForTransform("/odom", "/base_link", ros::Time(0), ros::Duration(3.0));
+        Rotation_test_linear.lookupTransform("/odom", "/base_link", ros::Time(0), transform_Rotation_test);
+        q_Rotation_test.x() = transform_Rotation_test.getRotation().getX();
+        q_Rotation_test.y() = transform_Rotation_test.getRotation().getY();
+        q_Rotation_test.z() = transform_Rotation_test.getRotation().getZ();
+        q_Rotation_test.w() = transform_Rotation_test.getRotation().getW();
+        Eigen::Vector3d euler_linear = q_Rotation_test.toRotationMatrix().eulerAngles(0, 1, 2);
+        cout << "x = "<<transform_Rotation_test.getOrigin().x() << endl ;
+        cout << "A = "<< euler_linear[2]*57.29578 << endl ;//得到的弧度值转化为角度值
+        Angle_Rotation = euler_linear[2]*57.29578;//0-360度
+        cout<<"Angle_Rotation = "<<Angle_Rotation<<"  Pre_Angle_Rotation = "<<Pre_Angle_Rotation<<endl;
+
+        if((Angle_Rotation>=-178)&&(Angle_Rotation<=90))
+        {
+            geometry_msgs::Twist twist;
+            twist.linear.x =0;twist.linear.y = 0; twist.linear.z = 0;
+            twist.angular.x = 0; twist.angular.y = 0; twist.angular.z =speed/L;
+            send_vel1_Rotation.publish(twist);
+        }
+        else
+        {
+            cout<<"flag_array[19] = "<<flag_array[19]<<endl;
+             geometry_msgs::Twist twist;
+            twist.linear.x =0;twist.linear.y = 0; twist.linear.z = 0;
+            twist.angular.x = 0; twist.angular.y = 0; twist.angular.z =0;
+            send_vel1_Rotation.publish(twist);
+            flag_array[19] = 1;
         }
         loop_rate_Robot_Rotation.sleep();
     }

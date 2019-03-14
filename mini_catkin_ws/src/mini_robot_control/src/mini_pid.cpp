@@ -31,7 +31,7 @@
 using namespace std;
 float Avoidance_Classification_group[10];
 int Selection_action_mode = 0;
-int Arc_flag          = 0;
+//int Arc_flag          = 0;
 float usart_send_data = 0;
 float Arri_Table_flag = 0;
 float min_lidar_data  = 10;
@@ -39,6 +39,8 @@ float min_speed       = 0;
 float speed_pre       = 0;
 float Speed_change_of_obstacle = 0;
 float Chose_XY_       = 0;
+float Set_Point_X = 0;
+float Set_Point_Y = 0;
 #define Increase_speed    0
 #define Uniform_speed     1
 #define Decrease_speed    2
@@ -1262,37 +1264,6 @@ void amcl_linear_ahead_avoidance(float V0,float V1,double Distance,char flag,cha
 }
 
 
-/*
- 函数名：float get_run_speed(double C_Pose,double G_Pose)
- 传入参数4个：
-            C_Pose    : 当前坐标
-            G_Pose    ：目标坐标
-            Cur_speed : 当前速度值
-            max_speed : 设置的最大速度
-            speed_inc : 若停住后重新运行 赋值一个起始速度
-返回值：Cur_speed
-*/
-float get_run_speed(double C_Pose,double G_Pose,float Cur_speed,float max_speed,float speed_inc)
-{
-    float Acceletare = 0;
-    if((abs(G_Pose - C_Pose)<1)&&(Arc_flag==0))//减速 此处加上一个判断 是否需要 要跑弧线 则不减速 
-    {
-        Acceletare = (pow(0,2)-pow(Cur_speed,2))/(2*(1));
-        Cur_speed  = Cur_speed + Acceletare*0.3+speed_inc;
-        if(Cur_speed<0.05)
-         Cur_speed = 0.05; 
-    }
-    else if(abs(G_Pose - C_Pose)<2)//匀速
-    {
-        Cur_speed  = Cur_speed*1.0;
-    }
-    else{                         //加速
-        Acceletare = (pow(max_speed,2)-pow(Cur_speed,2))/(2*2.0);
-        Cur_speed  = Cur_speed + Acceletare*0.1+speed_inc;
-    }
-    cout<<"Acceletare = "<<Acceletare<<"  Cur_speed = "<<Cur_speed<<endl;
-    return Cur_speed;
-}
 
 /*
  函数名：void amcl_linear_ahead_avoidance
@@ -1366,7 +1337,7 @@ void linear_ahead_random(float V0,float V1,double Distance,char flag,char state,
         ros::Duration(0.1).sleep();
         ros::Time end = ros::Time::now();
         ros::Duration end_be = end - begin;
-        Selection_action_mode = 0;//仅测试
+       // Selection_action_mode = 0;//仅测试
        cout<<"OOOKKKKKSelection_action_mode = "<<Selection_action_mode<<endl;
         if(Selection_action_mode == 0){ //不存在障碍物
              All_adjust = All_adjust;
@@ -1434,7 +1405,7 @@ void linear_ahead_random(float V0,float V1,double Distance,char flag,char state,
         if (All_adjust>0.085)  All_adjust = 0.085;
         //避障时可以在此处加入全局变量 判断发原来的速度还是发停止命令
        //不使用避障时屏蔽下列代码
-        Speed_change_of_obstacle = 0;//仅测试
+        //Speed_change_of_obstacle = 0;//仅测试
         if(Speed_change_of_obstacle == 0){
            All_adjust = All_adjust;
         }
@@ -1621,29 +1592,73 @@ void Go_back_V06()
     amcl_get_pose(); 
 }
 
+
+void linear_back_Random()
+{
+    Send_stop();
+    ros::Duration(2.0).sleep();
+    Robot_Rotation_180_X(51.0,-0.1);
+    Send_stop();
+    float back_speed = 0;
+    if(Set_Point_X>4)
+    back_speed = 0.3;
+    else back_speed = 0.2;
+    amcl_linear_back(0.07,back_speed,Set_Point_X*4/5,1);
+    amcl_linear_back(back_speed,back_speed,Set_Point_X/5,1);
+    amcl_linear_back(back_speed,0.07,0,1);
+    Send_stop();
+}
+
 void Random_Pose_run()
 {
-  float Set_X = 13.5;
-  float Set_Y = 2.5;
+    while((Set_Point_X==0)&&(ros::ok()))
+    {
+      cout<<"Set_Point_X = "<<Set_Point_X<<endl;
+      cout<<"等待上位机发送指令"<<endl;
+      ros::spinOnce();
+     // loop_rate.sleep();
+    }
+  float Set_X = Set_Point_X;
+  float Set_Y = Set_Point_Y;
   float line_distance = 0;
   if(Set_Y==0)
   {
        line_distance = Set_X;
        Arc_flag = 0;
   }
+  else if(abs(Set_Y)<1)
+  {
+       Arc_flag = 1;
+       line_distance = Set_X - Set_Y;
+  }
   else{
     Arc_flag = 1;
     line_distance = Set_X - 2.0;
   }     
   linear_ahead_random(0.07,0.4,line_distance,0,Increase_speed,0);
-  Arc_path_right_optimization_avoidance(51.0,0.4,Set_X,83,0);
-  Send_goahead(0.36);
-  //cout<<"amcl_linear_Y_ahead"<<endl;
-  cout<<"0.6-min_speed = "<<0.6-min_speed<<endl;
-  amcl_linear_Y_ahead(0.4,0.05,2.5,1,2.0);
-  Send_stop();
-  Send_stop();
-
+  if(Arc_flag == 1)
+  {
+      Arc_path_right_optimization_avoidance(51.0,0.4,Set_X,83,0);
+      Send_goahead(0.36);
+      //cout<<"amcl_linear_Y_ahead"<<endl;
+      cout<<"0.6-min_speed = "<<0.6-min_speed<<endl;
+      amcl_linear_Y_ahead(0.4,0.05,2.5,1,2.0);
+      Send_stop();
+      Send_stop();
+      ros::Duration(2.0).sleep();
+      Robot_Rotation_180(41.0,-0.1);
+      Send_stop(); 
+      ros::Duration(1.0).sleep();
+      // Robot_Rotation(41.0,0.1,150);
+      amcl_get_pose();
+      amcl_get_pose();
+      Send_stop();
+      Send_stop();
+      Go_back_V06();
+  }
+  else{
+        linear_back_Random();
+      }
 }
 
 void Go_ahead_Avoidance()
@@ -1675,19 +1690,20 @@ void Go_back_Avoidance()
 {
     amcl_linear_Y_back(0.07,0.3,2,1);// amcl_linear_Y_ahead(0.1,0.2,2,1)
     //amcl_linear_Y_ahead(0.2,0.2,1,1);
-    Arc_path_right_back_optimization(1,51.0,0.2,0,85);
+    Arc_path_right_back_optimization(1,51.0,0.3,0,85);
    // Arc_path_right_back(1.5,41.0,-0.1,0.45*3.141*0.5,8);//
     //amcl_linear_back(-0.1,-0.1,10,0);//10.5
    // amcl_linear_back(-0.2,-0.25,10.5,0);//10.5
    // amcl_linear_back(0.2,0.25,10,1);
     cout<<"圆弧结束"<<endl;
-    Send_goahead(0.3);
+    Send_goahead(0.2);
     cout<<"回到0"<<endl;
-    amcl_linear_back_Avoidance(0.3,0.4,10,1,Increase_speed,Selection_action_mode,Speed_change_of_obstacle);
+    Arc_flag=0;
+    amcl_linear_back_Avoidance(0.2,0.3,0,1,Increase_speed,Selection_action_mode,Speed_change_of_obstacle);
     cout<<"回到1"<<endl;
-    amcl_linear_back_Avoidance(0.4,0.4,3.0,1,Uniform_speed,Selection_action_mode,Speed_change_of_obstacle);
-     cout<<"回到2"<<endl;
-    amcl_linear_back_Avoidance(0.4,0.0,-0.05,1,Decrease_speed,Selection_action_mode,Speed_change_of_obstacle);
+    //amcl_linear_back_Avoidance(0.4,0.4,3.0,1,Uniform_speed,Selection_action_mode,Speed_change_of_obstacle);
+    // cout<<"回到2"<<endl;
+    //amcl_linear_back_Avoidance(0.4,0.0,-0.05,1,Decrease_speed,Selection_action_mode,Speed_change_of_obstacle);
      cout<<"回到原点"<<endl;
    // amcl_linear_back(-0.25,-0.25,1,0);
    
@@ -1770,18 +1786,23 @@ void Avoidance_info_Callback(const custom_msg_topic::custom_msg& Danger)
   // cout<<"Selection_action_mode = "<<usart_send_data<<" min_lidar_data = "<<min_lidar_data<<endl;
    //sleep(0.1);
 }
+
 void Set_Pose_Callback(const sensor_msgs::PointCloud& Points) 
 {
   cout<<"size = "<<Points.points.size()<<endl;
-  for(unsigned int i = 0; i < Points.points.size(); i++)
-  {
-     cout<<" "<<Points.points[i]<<endl;
-  }
+  int pint_size =  Points.points.size();
+ // for(unsigned int i = 0; i < Points.points.size(); i++)
+ // {
+  //   cout<<"坐标 "<<Points.points[i]<<endl;
+  //}
+  if(pint_size>0)
+    Set_Point_X = Points.points[pint_size-1].x;
+    Set_Point_Y = Points.points[pint_size-1].y;
+  cout<<"Set_Point_X = "<<Set_Point_X<<"  Set_Point_Y = "<<Set_Point_Y<<endl;
   g_Set_Points = Points;
 }
 void Write_json()
 {
-  
     Json::Value root;
     // 组装json内容
     root["occupation"]  = "paladin";
@@ -1891,10 +1912,12 @@ int main(int argc, char **argv)
   //  }
   // Go_ahead_V06();
   // Go_back_V06();
-     Random_Pose_run();
+
+      Random_Pose_run();
+
    // Go_ahead_Avoidance();
    // Send_stop();
-   // Go_back_Avoidance();
+    //Go_back_Avoidance();
    
    //  cout<<"匀速"<<endl;
   // cout<<"直线X 0  开始"<<endl;
@@ -1909,7 +1932,7 @@ int main(int argc, char **argv)
         cout<<" 退出直线运行 Speed_change_of_obstacle = "<<Speed_change_of_obstacle<<endl;
          if(g_Set_Points.points.size()>0)
            cout<<" g_Set_Points = "<<g_Set_Points.points[0]<<endl;
-       // amcl_get_pose(); 
+        amcl_get_pose(); 
        // run_get_pose();
         Send_stop();
       //auto_ration();

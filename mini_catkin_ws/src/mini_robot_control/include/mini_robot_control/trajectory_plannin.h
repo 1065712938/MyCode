@@ -9,6 +9,7 @@ void run_get_pose();
 void amcl_get_pose();
 extern float g_odom_x;
 extern float g_odom_y;
+extern int Arc_flag;
 extern float ranges[360];
 extern float flag_array[20];
 extern std::ofstream oFile_init;
@@ -26,7 +27,10 @@ void Arc_path_left(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right_goahdead(float R,float L,float speed,float Distance,float Set_Angle);
 void Arc_path_right_back(float R,float L,float speed,float Distance,float Set_Angle);
+float get_run_speed(double C_Pose,double G_Pose,float Cur_speed,float max_speed,float speed_inc);
+
 void Robot_Rotation_180(float L,float speed);
+void Robot_Rotation_180_X(float L,float speed);
 void Buffer_emergency_stop(float vel,int num);
 void robot_line_Arc_path();
 void Build_map();
