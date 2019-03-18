@@ -45,6 +45,7 @@ float Set_Point_Y = 0;
 #define Uniform_speed     1
 #define Decrease_speed    2
 sensor_msgs::PointCloud g_Set_Points;
+
 void auto_ration()
 {
     cout<<"auto_ration"<<endl;
@@ -1593,49 +1594,63 @@ void Go_back_V06()
 }
 
 
-void linear_back_Random()
+void linear_back_Random(float _Set_Point_X)
 {
     Send_stop();
     ros::Duration(2.0).sleep();
     Robot_Rotation_180_X(51.0,-0.1);
     Send_stop();
     float back_speed = 0;
-    if(Set_Point_X>4)
-    back_speed = 0.3;
+   // _Set_Point_X = 10;取消上位机控制
+    if(_Set_Point_X>4)
+      back_speed = 0.4;
     else back_speed = 0.2;
-    amcl_linear_back(0.07,back_speed,Set_Point_X*4/5,1);
-    amcl_linear_back(back_speed,back_speed,Set_Point_X/5,1);
-    amcl_linear_back(back_speed,0.07,0,1);
+    amcl_linear_back_Random(0.07,back_speed,_Set_Point_X*4/5,1);
+    amcl_linear_back_Random(back_speed,back_speed,_Set_Point_X/5,1);
+    amcl_linear_back_Random(back_speed,0.07,-0.06,1);
     Send_stop();
 }
 
 void Random_Pose_run()
 {
-    while((Set_Point_X==0)&&(ros::ok()))
-    {
-      cout<<"Set_Point_X = "<<Set_Point_X<<endl;
-      cout<<"等待上位机发送指令"<<endl;
-      ros::spinOnce();
-     // loop_rate.sleep();
-    }
-  float Set_X = Set_Point_X;
-  float Set_Y = Set_Point_Y;
-  float line_distance = 0;
-  if(Set_Y==0)
+  ros::Rate loop_rate(10);
+  while((g_Set_Points.points.size()==0)&&(ros::ok()))
   {
-       line_distance = Set_X;
-       Arc_flag = 0;
+    cout<<"Set_Point_X = "<<Set_Point_X<<endl;
+    cout<<"等待上位机发送指令"<<endl;
+    ros::spinOnce();
+   loop_rate.sleep();
   }
-  else if(abs(Set_Y)<1)
+
+  float Set_X = 0;
+  float Set_Y = 0;
+  for(unsigned int i = 0; i < g_Set_Points.points.size(); i++)
   {
-       Arc_flag = 1;
-       line_distance = Set_X - Set_Y;
+       cout<<"目标坐标 1"<<g_Set_Points.points[i]<<endl;
+        Set_X  = g_Set_Points.points[i].x;//Set_Point_X
+        Set_Y = g_Set_Points.points[i].y;//Set_Point_Y
+        float line_distance = 0;
+        if(Set_Y==0)
+        {
+            line_distance = Set_X;
+            Arc_flag = 0;
+        }
+        else if(abs(Set_Y)<1)
+        {
+            Arc_flag = 1;
+            line_distance = Set_X - Set_Y;
+        }
+        else{
+          Arc_flag = 1;
+          line_distance = Set_X - 2.0;
+        }     
+        linear_ahead_random(0.07,0.4,line_distance,0,Increase_speed,0);
+        if(Arc_flag == 0)
+        {
+            Send_stop();
+            ros::Duration(2.0).sleep();
+        }
   }
-  else{
-    Arc_flag = 1;
-    line_distance = Set_X - 2.0;
-  }     
-  linear_ahead_random(0.07,0.4,line_distance,0,Increase_speed,0);
   if(Arc_flag == 1)
   {
       Arc_path_right_optimization_avoidance(51.0,0.4,Set_X,83,0);
@@ -1657,7 +1672,7 @@ void Random_Pose_run()
       Go_back_V06();
   }
   else{
-        linear_back_Random();
+        linear_back_Random(Set_X);
       }
 }
 
@@ -1790,16 +1805,30 @@ void Avoidance_info_Callback(const custom_msg_topic::custom_msg& Danger)
 void Set_Pose_Callback(const sensor_msgs::PointCloud& Points) 
 {
   cout<<"size = "<<Points.points.size()<<endl;
-  int pint_size =  Points.points.size();
- // for(unsigned int i = 0; i < Points.points.size(); i++)
- // {
-  //   cout<<"坐标 "<<Points.points[i]<<endl;
-  //}
+  int pint_size    = Points.points.size();
+  int passPose_num = Points.points[0].x;
+  int tarPose_num  = Points.points[0].y;
+  g_Set_Points.points.resize(tarPose_num);
+  for(unsigned int i = 0; i < Points.points.size(); i++)
+  {
+     cout<<"坐标 "<<Points.points[i]<<endl;
+  }
+  for(unsigned int i = 0; i < tarPose_num; i++)
+  {
+     //cout<<"目标坐标 "<<Points.points[passPose_num+1+i]<<endl;
+     g_Set_Points.points[i] = Points.points[passPose_num+1+i];
+  }
+  for(unsigned int i = 0; i < g_Set_Points.points.size(); i++)
+  {
+     cout<<"目标坐标 "<<g_Set_Points.points[i]<<endl;
+  }
   if(pint_size>0)
-    Set_Point_X = Points.points[pint_size-1].x;
-    Set_Point_Y = Points.points[pint_size-1].y;
-  cout<<"Set_Point_X = "<<Set_Point_X<<"  Set_Point_Y = "<<Set_Point_Y<<endl;
-  g_Set_Points = Points;
+  {
+      Set_Point_X = Points.points[pint_size-1].x;
+      Set_Point_Y = Points.points[pint_size-1].y;
+  }
+
+  //g_Set_Points = Points;
 }
 void Write_json()
 {
@@ -1910,7 +1939,7 @@ int main(int argc, char **argv)
   //  {
  //    rectangle_run();
   //  }
-  // Go_ahead_V06();
+ // Go_ahead_V06();
   // Go_back_V06();
 
       Random_Pose_run();
@@ -1930,8 +1959,8 @@ int main(int argc, char **argv)
     while(ros::ok())
     {
         cout<<" 退出直线运行 Speed_change_of_obstacle = "<<Speed_change_of_obstacle<<endl;
-         if(g_Set_Points.points.size()>0)
-           cout<<" g_Set_Points = "<<g_Set_Points.points[0]<<endl;
+         //if(g_Set_Points.points.size()>0)
+          // cout<<" g_Set_Points = "<<g_Set_Points.points[0]<<endl;
         amcl_get_pose(); 
        // run_get_pose();
         Send_stop();
