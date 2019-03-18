@@ -31,7 +31,8 @@ def send_pose_point(PassPose,targetPos):
        print ',PassPose',len(PassPose)
        for i in range(0,len(PassPose)):
            my_awesome_pointcloud.points.append(Point32(PassPose[i]["x"], PassPose[i]["y"], 0.0))
-       my_awesome_pointcloud.points.append(Point32(targetPos["x"], targetPos["y"], 0.0))
+       for i in range(0,len(targetPos)):
+           my_awesome_pointcloud.points.append(Point32(targetPos[i]["x"], targetPos[i]["y"], 0.0))
        set_pose.publish(my_awesome_pointcloud)
 def write_json(write_date):
      Fb = 'fb'.decode('hex')
@@ -46,7 +47,8 @@ def Analysis_json(recv):
      write_json(correct_date)
      print 'fianl_info',info
      print('passPos = ',len(info["content"]["passPos"]))
-     print('targetPos = ',info["content"]["targetPos"]["x"])
+     print('targetPos = ',info["content"]["targetPos"][0]["x"])
+     print('targetPos = ',info["content"]["targetPos"][1]["x"])
      send_pose_point(info["content"]["passPos"],info["content"]["targetPos"])
    except:
      error_date ={ "error_code":-1,"error_msg":"data lost Please reset"} 
@@ -81,7 +83,7 @@ def Deal_with_usart():
     if count != 0:
           recv = ser.read(count)
           # ser.write(recv)
-          #print"recv22",recv
+          print"recv22",recv
           print_hex(recv)
     ser.flushInput()
     print ("send value is ")
@@ -111,7 +113,7 @@ def main():
        my_awesome_pointcloud = PointCloud()
        # rospy.spin()
        print 'OOOKKK'
-       time.sleep(0.5)
+       time.sleep(0.1)
 if __name__ == '__main__':
     try:
         main()
