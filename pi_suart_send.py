@@ -29,6 +29,7 @@ def send_pose_point(PassPose,targetPos):
        set_pose = rospy.Publisher('set_robot_pose', PointCloud, queue_size=10)
        my_awesome_pointcloud = PointCloud()
        print ',PassPose',len(PassPose)
+       my_awesome_pointcloud.points.append(Point32(len(PassPose), len(targetPos), 0.0))
        for i in range(0,len(PassPose)):
            my_awesome_pointcloud.points.append(Point32(PassPose[i]["x"], PassPose[i]["y"], 0.0))
        for i in range(0,len(targetPos)):
@@ -47,8 +48,8 @@ def Analysis_json(recv):
      write_json(correct_date)
      print 'fianl_info',info
      print('passPos = ',len(info["content"]["passPos"]))
-     print('targetPos = ',info["content"]["targetPos"][0]["x"])
-     print('targetPos = ',info["content"]["targetPos"][1]["x"])
+     #print('targetPos = ',info["content"]["targetPos"][0]["x"])
+     #print('targetPos = ',info["content"]["targetPos"][1]["x"]) 当选一个目标点时会报错
      send_pose_point(info["content"]["passPos"],info["content"]["targetPos"])
    except:
      error_date ={ "error_code":-1,"error_msg":"data lost Please reset"} 
@@ -59,7 +60,7 @@ def Exclude_FA(bytes):
     FA = 'fa'.decode('hex')
     for i in bytes:
       if i.encode('hex') == 'fa':
-        print i
+        print 'fa index= ',i
         bytes=bytes.translate(None,FA)
     Analysis_json(bytes) 
 replce_str = ''
