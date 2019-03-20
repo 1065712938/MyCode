@@ -48,8 +48,8 @@ def Analysis_json(recv):
      write_json(correct_date)
      print 'fianl_info',info
      print('passPos = ',len(info["content"]["passPos"]))
-     print('targetPos = ',info["content"]["targetPos"][0]["x"])
-     print('targetPos = ',info["content"]["targetPos"][1]["x"])
+     #print('targetPos = ',info["content"]["targetPos"][0]["x"])
+     #print('targetPos = ',info["content"]["targetPos"][1]["x"]) 当选一个目标点时会报错
      send_pose_point(info["content"]["passPos"],info["content"]["targetPos"])
    except:
      error_date ={ "error_code":-1,"error_msg":"data lost Please reset"} 
@@ -60,7 +60,7 @@ def Exclude_FA(bytes):
     FA = 'fa'.decode('hex')
     for i in bytes:
       if i.encode('hex') == 'fa':
-        print i
+        print 'fa index= ',i
         bytes=bytes.translate(None,FA)
     Analysis_json(bytes) 
 replce_str = ''

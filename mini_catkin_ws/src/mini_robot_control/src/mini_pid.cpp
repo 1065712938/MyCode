@@ -684,22 +684,18 @@ void Arc_path_right_back_optimization(float R,float L,float speed,float Distance
         K = L*speed*pow(sin(radian/2.0),2)/(Distance_diff*1.3+L*pow(sin(radian/2.0),2));//左右轮子速度和车体速度的差
         K = -K;
       //  cout<<"abs(K) = "<<abs(K)<<endl;
-        if(abs(K)>speed) //K地为负数
+        if(abs(K)>speed/2.0) //K地为负数
         {
-          K = -speed+0.001;
+          K = -speed/2.0+0.001;
         //  cout<<"K = speed-0.001 = "<<K<<endl;
         }
            
-      //  cout<<"K = "<<K<<endl;
+        cout<<"K = "<<K<<endl;
         //K = L*speed/(2*R+L);
        //amcl_get_pose();//打印AMCL坐标值  if((Angle_Arc<=Set_Angle)||(Angle_Arc>90))
 
        if((Angle_Arc<=-172)||(Angle_Arc>90))
         {
-    //        cout<<"flag_array[3] = "<<flag_array[3]<<endl;
- //           twist.linear.x =0;twist.linear.y = 0; twist.linear.z = 0;
- //           twist.angular.x = 0; twist.angular.y = 0; twist.angular.z =0;
- //           send_vel1_Arc_path.publish(twist);
             flag_array[3] = 1;
         }
         else
@@ -709,13 +705,7 @@ void Arc_path_right_back_optimization(float R,float L,float speed,float Distance
             twist.linear.x =speed+K;twist.linear.y = 0; twist.linear.z = 0;
             twist.angular.x = 0; twist.angular.y = 0; twist.angular.z =K/L;//K
             send_vel1_Arc_path.publish(twist);
-
-
         }
-     //   loop_rate_Arc_path.sleep();
-      //  ros::Time end = ros::Time::now();
-      //  ros::Duration end_be = end - begin1;
-     //   cout<<"end_be.toSec() = "<<end_be.toSec()<<endl;
     }
     cout<<"Angle_Arc = "<<Angle_Arc<<endl;
 }
@@ -1343,20 +1333,6 @@ void linear_ahead_random(float V0,float V1,double Distance,char flag,char state,
         if(Selection_action_mode == 0){ //不存在障碍物
              All_adjust = All_adjust;
              Cur_speed  = get_run_speed(Cur_Distance,Distance,Cur_speed,V1,speed_inc);
-             /*
-             if(state == 0) //0 表示加速状态
-             {        
-                Cur_speed  = Cur_speed + Acceletare*(end_be.toSec())+speed_inc;
-                Acceletare = (pow(V1,2)-pow(Cur_speed,2))/(2*(Distance - Cur_Distance));
-                cout<<"Acceletare = "<<Acceletare<<"  end_time = "<<end_be.toSec()<<endl;
-             }
-             else
-              {
-                //在匀速阶段要判断 Distance - Cur_Distance 值过大 考虑给一个固定值
-                Acceletare = (pow(V1,2)-pow(Cur_speed,2))/(2*(Distance - Cur_Distance));
-                Cur_speed  = Cur_speed + Acceletare*(end_be.toSec())+speed_inc;
-              }
-              */
              speed_inc = 0;
             speed_pre = Cur_speed;
           }
@@ -1405,7 +1381,7 @@ void linear_ahead_random(float V0,float V1,double Distance,char flag,char state,
         if (All_adjust<=-0.085) All_adjust = -0.085;//0.019
         if (All_adjust>0.085)  All_adjust = 0.085;
         //避障时可以在此处加入全局变量 判断发原来的速度还是发停止命令
-       //不使用避障时屏蔽下列代码
+       //不使用避障时屏蔽下行代码
         //Speed_change_of_obstacle = 0;//仅测试
         if(Speed_change_of_obstacle == 0){
            All_adjust = All_adjust;
@@ -1583,7 +1559,7 @@ void Go_back_V06()
     cout<<"回到1"<<endl;
     amcl_linear_back(0.6,0.6,3.0,1);
      cout<<"回到2"<<endl;
-    amcl_linear_back(0.6,0,-0.06,1);
+    amcl_linear_back(0.6,0,-0.25,1);//-0.06
      cout<<"回到原点"<<endl;
    // amcl_linear_back(-0.25,-0.25,1,0);
    
@@ -1603,11 +1579,15 @@ void linear_back_Random(float _Set_Point_X)
     float back_speed = 0;
    // _Set_Point_X = 10;取消上位机控制
     if(_Set_Point_X>4)
-      back_speed = 0.4;
+     back_speed = 0.4;
     else back_speed = 0.2;
     amcl_linear_back_Random(0.07,back_speed,_Set_Point_X*4/5,1);
     amcl_linear_back_Random(back_speed,back_speed,_Set_Point_X/5,1);
     amcl_linear_back_Random(back_speed,0.07,-0.06,1);
+    // back_speed = 0.2;
+    // amcl_linear_back_Random_Avoidance02(0.2,back_speed,_Set_Point_X*4/5,1);
+    // amcl_linear_back_Random_Avoidance02(back_speed,back_speed,_Set_Point_X/5,1);
+    // amcl_linear_back_Random_Avoidance02(back_speed,0.07,-0.06,1);
     Send_stop();
 }
 
@@ -1621,7 +1601,6 @@ void Random_Pose_run()
     ros::spinOnce();
    loop_rate.sleep();
   }
-
   float Set_X = 0;
   float Set_Y = 0;
   for(unsigned int i = 0; i < g_Set_Points.points.size(); i++)

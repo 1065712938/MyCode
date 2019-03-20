@@ -209,6 +209,13 @@ void Function:: print_array(float array[])
      cout<<" i = "<<i<<" array[i] = "<<array[i]<<endl;
   }
 }
+
+/*
+函数名：get_max_index
+参数  :
+功能  ：得到最大的dy 的索引值 和dy
+说明  ：
+*/
 void Function::get_max_index(float array[])
 {
      int num = 0;
@@ -219,7 +226,13 @@ void Function::get_max_index(float array[])
      float max = *max_element(array, array + (num-1));
      int max_index = distance(array, max_element(array, array + (num-1)));
 }
-
+/*
+函数名：get_relative_control_point
+参数  :相对坐标集合点
+功能  ：得到其中一个相对坐标的点 进行避障
+说明  ：point3.at(num).y 选择中间的那个障碍物 实验效果较好 
+m      in_pose.y  实验效果较差
+*/
 float Function::get_relative_control_point(vector<Point3d> point3)
 {
    Function obstacle_fun;
@@ -376,7 +389,8 @@ void filter_mutation_x(vector<Point3d> &whole_obstacles_point3)
 /*
 函数名 ：filter_max_y
 参数  :传入whole_obstacles_point3的地址 同时修改其值
-功能  ：对容器whole_obstacles_point3中 边界异常出现的值 异常值个数小于等于3个时有效 进行滤波
+功能  ：对容器whole_obstacles_point3中 边界异常出现的值 异常值个数小于等于6个时有效 进行滤波
+得到离车体较近的距离
 说明  ：
 */
 
@@ -432,7 +446,12 @@ void filter_max_x(vector<Point3d> &whole_obstacles_point3)
    }
 
 }
-
+/*
+函数名 get_diff_point_fun
+参数  : 
+功能  ：得到dy的容器diff_point3_y 
+说明  ：
+*/
 void Function::get_diff_point_fun(vector<Point3d> whole_obstacles_point3,float *diff_point3_y)
 {
     cout<<"whole_obstacles_point3.size() = "<<whole_obstacles_point3.size()<<endl;
@@ -570,7 +589,12 @@ float relative_obstacle_control(float point_x,float point_y)
   }
   return value;
 }
-
+/*
+函数名 According_relative_obstacle_chance_speed
+参数  :
+功能  ：根据相对障碍物得到控制速度
+说明  ：
+*/
 float According_relative_obstacle_chance_speed()
 {
  // Function obstacle_fun;
@@ -638,7 +662,7 @@ void get_current_speed_Callback(const geometry_msgs::Twist& twist)
   robot_pose.x     = twist.angular.x;
   robot_pose.y     = twist.angular.y;
   robot_pose.angle = twist.linear.z;//*57.29578
-  Chose_XY         =  twist.linear.y;
+  Chose_XY         =  twist.linear.y;//
   cout<<"robot_pose.x = "<<robot_pose.x<<" Chose_XY = "<<Chose_XY<<endl;
 }
 void return_amcl_get_pose1()
@@ -860,7 +884,7 @@ void Deal_with_whole_pose(vector<Point3d> whole_obstacles_point3)
     if(Obstacle_index_through == Default_value)
     {
         final_chance_value = According_relative_obstacle_chance_speed();
-         cout<<"靠近障碍物 = "<<final_chance_value<<endl;
+         cout<<"靠近障碍物 停止= "<<final_chance_value<<endl;
     }
    // if(Obstacle_index_through == Default_value)
    //  Obstacle_index_stop = obstacle_fun.get_stop_index(whole_obstacles_point3);
@@ -1014,69 +1038,155 @@ float get_Arc_control_vaule(float E,float angle)
   vaule = Current_speed*sin(angle/2)*sin(angle/2)/E;
   return vaule;
 }
+
+/*
+函数名   Go_control
+传入参数 ：
+功能    ：机器人前进 根据障碍物的全局坐标得到控制值
+说明    ：
+
+*/
+float Go_control(float dy,float dx)
+{
+   float K = 0;
+   float R = 0;
+   if(dy<0.5)
+    {
+          if(dx<0.6){
+              // R  = pow(dy_one,3) + pow(dx_one,3);//2
+              R  = 1024;//1.7 1024 不调节 R 取很大的值
+              oFile_init<<"dx R = "<<R<<endl;
+              cout<<"dx<0.6 R = "<<R<<endl;
+          }
+          else{
+                  if(dx>1.0)
+                  {
+                    R  = (pow(dy,5) + pow(dx,5));//
+                  //  if(dx_one>1.2){
+                      //if(dy_one<0.29)
+                        if(R<1.7) R = 1.7;
+                        // R = 1;
+                  //   }
+                  }
+                else{
+                  R  = 1.5;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
+                }
+              //  oFile_init<<"else R = "<<R<<endl;
+                  cout<<"else  R = "<<R<<endl;
+                //  if(R<1.7) R = 1.7;
+          }
+          
+          //考虑 mid_point_y 变化过快 待验证
+          // cout<<"  mid_y = "<<mid_y<<"  r_y = "<<robot_pose.y<<"  r_x = "<<robot_pose.x<<endl;
+          //Current_speed = 0.2;
+          if(R<0.5)  K = Current_speed*0.5;
+          else
+          {
+              //K = Current_speed/(2*R+robot_L);//左右轮子速度和车体速度的差
+                K = Current_speed/(2*R);//K = LV/（2R）
+                if(K>Current_speed*0.5)
+                    K = Current_speed*0.5;
+                if(R == 1024)
+                  K = 0;
+          }
+     }
+     else{
+         K = 0;
+     }
+     return K;
+}
+
+/*
+函数名   back_control
+传入参数 ：
+功能    ：机器人返回 根据障碍物的全局坐标得到控制值
+说明    ：
+
+*/
+float back_control(float dy,float dx)
+{
+   float K = 0;
+   float R = 0;
+   if(dy<0.5)
+    {
+          if(dx<0.6){
+              // R  = pow(dy_one,3) + pow(dx_one,3);//2
+              R  = 1024;//1.7 1024 不调节 R 取很大的值 在其它地方已经处理过了
+              oFile_init<<"dx R = "<<R<<endl;
+              cout<<"dx<0.6 R = "<<R<<endl;
+          }
+          else{
+                  if(dx>0.8)//0.8
+                  {
+                    R  = (pow(dy,5) + pow(dx,5));//
+                  //  if(dx_one>1.2){
+                      //if(dy_one<0.29)
+                        if(R<1.7) R = 1.7;
+                        // R = 1;
+                  //   }
+                  }
+                else{
+                  R  = 1.5;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
+                }
+              //  oFile_init<<"else R = "<<R<<endl;
+                  cout<<"else  R = "<<R<<endl;
+                //  if(R<1.7) R = 1.7;
+          }
+          
+          //考虑 mid_point_y 变化过快 待验证
+          // cout<<"  mid_y = "<<mid_y<<"  r_y = "<<robot_pose.y<<"  r_x = "<<robot_pose.x<<endl;
+          //Current_speed = 0.2;
+          if(R<0.5)  K = Current_speed*0.5;
+          else
+          {
+              //K = Current_speed/(2*R+robot_L);//左右轮子速度和车体速度的差
+                K = Current_speed/(2*R);//K = LV/（2R）
+                if(K>Current_speed*0.5)
+                    K = Current_speed*0.5;
+                if(R == 1024)
+                  K = 0;
+          }
+     }
+     else{
+         K = 0;
+     }
+     return K;
+}
+
+/*
+函数名   get_chance_value
+传入参数 ：
+功能    ： 根据全局坐标得到控制速度
+说明    ： 
+
+*/
 float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
  {
       float R = 0;
       float K = 0;
       float dx_one = 0;
       float dy_one = 0;
-      if((Chose_XY == 0)||(Chose_XY == 1))
-      {
+
+      if(Chose_XY == 0){
             dx_one = abs(obstacles_x_one-robot_pose.x);
             dy_one = abs(obstacles_y_one-robot_pose.y);
+            K = Go_control(dy_one,dx_one);
+      }
+      else if(Chose_XY == 1){
+            dx_one = abs(obstacles_x_one-robot_pose.x);
+            dy_one = abs(obstacles_y_one-robot_pose.y);
+            K = back_control(dy_one,dx_one);
       }
       else{
             dy_one = abs(obstacles_x_one-robot_pose.x);
             dx_one = abs(obstacles_y_one-robot_pose.y);
+            K = Go_control(dy_one,dx_one);
       }
       float distance = sqrt(pow(dy_one,2) + pow(dx_one,2));
       cout<<"distance = "<<distance<<" dx_one = "<<dx_one<<" dy_one = "<<dy_one<<endl; 
-      if(dy_one<0.5)
-      {
-              if(dx_one<0.6){
-                 // R  = pow(dy_one,3) + pow(dx_one,3);//2
-                  R  = 1024;//1.7 不调节 R 取很大的值
-                  oFile_init<<"dx_one R = "<<R<<endl;
-                  cout<<"dx_one<0.6 R = "<<R<<endl;
-              }
-              else{
-                      if(dx_one>1.0)
-                      {
-                        R  = (pow(dy_one,5) + pow(dx_one,5));//
-                      //  if(dx_one>1.2){
-                          //if(dy_one<0.29)
-                            if(R<1.7) R = 1.7;
-                            // R = 1;
-                      //   }
-                      }
-                    else{
-                      R  = 1.5;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
-                    }
-                  //  oFile_init<<"else R = "<<R<<endl;
-                      cout<<"else  R = "<<R<<endl;
-                    //  if(R<1.7) R = 1.7;
-              }
-              
-              //考虑 mid_point_y 变化过快 待验证
-              // cout<<"  mid_y = "<<mid_y<<"  r_y = "<<robot_pose.y<<"  r_x = "<<robot_pose.x<<endl;
-              //Current_speed = 0.2;
-              if(R<0.5)  K = Current_speed*0.5;
-              else
-              {
-                  //K = Current_speed/(2*R+robot_L);//左右轮子速度和车体速度的差
-                    K = Current_speed/(2*R);//K = LV/（2R）
-                    if(K>Current_speed*0.5)
-                        K = Current_speed*0.5;
-                    if(R == 1024)
-                     K = 0;
-              }
-     }
-     else{
-         K = 0;
-     }
-//      oFile_init<< "dx_one"<< " "<<dx_one<<"  "<< "dy_one"<< " "<<dy_one<<"  "<<" x = "<<robot_pose.x<<"  "<<" R = "<<R<<"  "<<" K = "<<K<<endl;
+     
+//    oFile_init<< "dx_one"<< " "<<dx_one<<"  "<< "dy_one"<< " "<<dy_one<<"  "<<" x = "<<robot_pose.x<<"  "<<" R = "<<R<<"  "<<" K = "<<K<<endl;
       float K1 = get_Arc_control_vaule(abs(mid_y-robot_pose.y),abs(robot_pose.angle)+P_i/4);
-      
      // cout<<"R_y = "<<robot_pose.y<<" mid_y = "<<mid_y<<endl;
       cout<<"R = "<<R<<"   K = "<<K<<"   K1 = "<<K1<<endl;
     //  K = K1;
@@ -1308,7 +1418,6 @@ float According_to_obstacles_chance_speed(vector<Point3d> obstacles_point3,int p
                     K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.2,10);
                     K = -K;
                   }
-                 
                   if(get_max_obstacle_x>0)
                   {
                     flag = 0;
@@ -1632,7 +1741,6 @@ void get_obstacle_point_fun()
                    _obstacle_x=filter_obstacle_y(obstacle_x);
             } 
             test_pp++;
-            
             //变为横轴时 此处得改变
             if(((abs(_obstacle_y)<Aisle_width_half)&&(abs(obstacle_y)<Aisle_width_half)&&((Chose_XY == 0)||(Chose_XY == 1)))
                ||((abs(_obstacle_x-robot_pose.x)<Aisle_width_half)&&(abs(obstacle_x-robot_pose.x)<Aisle_width_half)&&(Chose_XY == 2)))//1.0

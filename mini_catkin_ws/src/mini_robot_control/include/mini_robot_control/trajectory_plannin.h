@@ -21,6 +21,7 @@ void amcl_linear_Y_back(float V0,float V1,double Distance,char flag);
 void amcl_linear_back(float V0,float V1,double Distance,char flag);
 void amcl_linear_back_Random(float V0,float V1,double Distance,char flag);
 void amcl_linear_back_Avoidance(float V0,float V1,double Distance,char flag,int state,int mode,float speed_obs);
+void amcl_linear_back_Random_Avoidance02(float V0,float V1,double Distance,char flag);
 void linear_motion(float V0,float V1,float Distance,char flag);
 void linear_motion_goahead(float V0,float V1,float Distance,char flag,float Pid_set);
 void Arc_path(float R,float L,float speed,float Distance);
