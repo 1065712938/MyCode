@@ -63,6 +63,7 @@ int  Continued = 1;
 const float ratation_value = 0.1;//0.2
 const float P_i = 3.1415926;
 const float stop_rel_point_x      = 0.65;//0.65 1.25
+const float stop_rel_point_x1      = 0.65;//0.65 1.25
 const float stop_rel_point_y      = 0.29;
 const float Robot_Boundary        = 0.68;//0.65 0.7
 float obstacle_x = 0;
@@ -79,6 +80,7 @@ int flag = 0;
 typedef Point_<double> Point2d;
 typedef Point3_<double> Point3d;
 std::vector<int>  save_date;
+std::vector<int>  save_continuous_date;
 std::vector<int>  diff_point3_max_y;
 std::vector<int>  Stop_selecting_max;
 vector<Point3d> _whole_obstacles_point3;
@@ -174,7 +176,7 @@ void Function:: print_vector(vector<Point3d> point3)
      for(int i = 0; i < point3.size(); i++)
      {
          //cout<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
-         //oFile_init<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
+         oFile_init<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
      }
 }
 
@@ -242,7 +244,7 @@ float Function::get_relative_control_point(vector<Point3d> point3)
     // obstacle_fun.print_vector(_Relative_point3);
      Result_pose min_pose = obstacle_fun.get_min_x_y(_Relative_point3);
      int num = point3.size()/2;
-     relative_obstacle_point3.x = min_pose.x;//point3.at(num).x
+     relative_obstacle_point3.x =  point3.at(num).x;// min_pose.x
      relative_obstacle_point3.y =  point3.at(num).y;//min_pose.y
   //   cout<<"min_pose min_x = "<<min_pose.x<<"   relative_obstacle_point3.x = "<<relative_obstacle_point3.x<<endl;
      return point3.at(num).y;
@@ -868,9 +870,11 @@ void Deal_with_whole_pose(vector<Point3d> whole_obstacles_point3)
  // oFile_init<<"size() = "<<whole_obstacles_point3.size()<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" robot_pose.angle = "<<robot_pose.angle<<endl;
   for(int i = 0;i<point_size-1;i++)
    {
-    //  cout<<"diff_point3_y[i] = "<<diff_point3_y[i]<<endl;
+      cout<<"diff_point3_y[i] = "<<diff_point3_y[i]<<endl;
+     // oFile_init<<"diff_point3_y[i] = "<<diff_point3_y[i]<<endl;
       if(diff_point3_y[i]>=0.7)
       {
+       // oFile_init<<"diff_point3_y[i] = "<<diff_point3_y[i]<<endl;
         diff_point3_max_y.push_back(i);
       }
       else
@@ -1109,28 +1113,32 @@ float back_control(float dy,float dx)
    float R = 0;
    if(dy<0.5)
     {
-          if(dx<0.6){
+          if((dx<0.6)||(dx>1.6)){
               // R  = pow(dy_one,3) + pow(dx_one,3);//2
               R  = 1024;//1.7 1024 不调节 R 取很大的值 在其它地方已经处理过了
               oFile_init<<"dx R = "<<R<<endl;
               cout<<"dx<0.6 R = "<<R<<endl;
           }
           else{
-                  if(dx>0.8)//0.8
+                 
+                  if(dx>1.0)//0.8
                   {
-                    R  = (pow(dy,5) + pow(dx,5));//
+                    R  = (pow(dy,6) + pow(dx,6));//
                   //  if(dx_one>1.2){
                       //if(dy_one<0.29)
-                        if(R<1.7) R = 1.7;
+                        if(R<3.3) R = 3.3;
                         // R = 1;
                   //   }
+                   cout<<"dx>0.8"<<endl;
                   }
                 else{
-                  R  = 1.5;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
+                  R  = 3.3;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
                 }
               //  oFile_init<<"else R = "<<R<<endl;
                   cout<<"else  R = "<<R<<endl;
                 //  if(R<1.7) R = 1.7;
+               oFile_init<< "OOOOOdx"<< " "<<dx<<"  "<< "dy"<< " "<<dy<<"  "<<" x = "<<robot_pose.x<<"  y = "<<robot_pose.y<<"  "<<" R = "<<R<<"  "<<" K = "<<K<<endl;
+
           }
           
           //考虑 mid_point_y 变化过快 待验证
@@ -1184,8 +1192,8 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
       }
       float distance = sqrt(pow(dy_one,2) + pow(dx_one,2));
       cout<<"distance = "<<distance<<" dx_one = "<<dx_one<<" dy_one = "<<dy_one<<endl; 
-     
-//    oFile_init<< "dx_one"<< " "<<dx_one<<"  "<< "dy_one"<< " "<<dy_one<<"  "<<" x = "<<robot_pose.x<<"  "<<" R = "<<R<<"  "<<" K = "<<K<<endl;
+      
+      oFile_init<< "dx_one"<< " "<<dx_one<<"  "<< "dy_one"<< " "<<dy_one<<" mid_y ="<<mid_y<<" y "<<robot_pose.y<<" x = "<<robot_pose.x<<"  "<<" R = "<<R<<"  "<<" K = "<<K<<"Chose_XY = "<<Chose_XY<<endl;
       float K1 = get_Arc_control_vaule(abs(mid_y-robot_pose.y),abs(robot_pose.angle)+P_i/4);
      // cout<<"R_y = "<<robot_pose.y<<" mid_y = "<<mid_y<<endl;
       cout<<"R = "<<R<<"   K = "<<K<<"   K1 = "<<K1<<endl;
@@ -1196,7 +1204,7 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
       float point_y = relative_obstacle_point3.y;
       //if(((distance<0.6)&&(_point_y<0.35))||(flag == 1)||((point_x<stop_rel_point_x)&&(abs(point_y)<stop_rel_point_y)))
       cout<<" 测试point_x = "<<point_x<<" point_y = "<<point_y<<"  flag = "<<Continued<<endl;
-      if(((Continued == 1)&&(point_x<(stop_rel_point_x+0.2)))||((point_x<stop_rel_point_x+0.15)&&(abs(point_y)<(stop_rel_point_y-0.05))))
+      if(((Continued == 1)&&(point_x<(stop_rel_point_x1+0.2)))||((point_x<stop_rel_point_x1+0.15)&&(abs(point_y)<(stop_rel_point_y-0.05))))
       //if(((Continued == 1)&&(point_x<(stop_rel_point_x+0.2))&&(abs(point_y)<(stop_rel_point_y+0.05)))||((point_x<stop_rel_point_x+0.15)&&(abs(point_y)<(stop_rel_point_y-0.05))))
       {
         state = 2;
@@ -1204,9 +1212,18 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
         oFile_init<<"222222222222222KKKKKKKKKKK"<<" point_x "<<point_x<<" point_y  "<<point_y<<" Continued  "<<Continued<<endl;
         cout<<"distance = "<<distance<<"_point_y = "<<_point_y<<endl;
         cout<<"原地旋转                      全局接近目标点stop"<<endl;
-        if(abs(robot_pose.angle*57.29578)<80)
-          K = ratation_value;//0.2  Current_speed
-        else K = 0;
+        if(Chose_XY == 0)
+          {
+            if(abs(robot_pose.angle*57.29578)<80)
+            K = ratation_value;//0.2  Current_speed
+            else K = 0;
+          }
+        if(Chose_XY == 1)
+          {
+            if(abs(robot_pose.angle*57.29578)>100)
+             K = ratation_value;//0.2  Current_speed
+            else K = 0;
+          }
       }
       else{
         cout<<"                              全局接近目标点正常运行"<<endl;
@@ -1216,7 +1233,8 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
       if((((robot_pose.y-mid_y)>0)&&(Chose_XY == 0))||(((robot_pose.x-mid_y)<0)&&(Chose_XY==2))
       ||(((robot_pose.y-mid_y)<0)&&(Chose_XY == 1)))
       {
-        K = -K;
+        //turn_left = 0;
+         K = -K;
 //        oFile_init<< "To the right"<< " "<<" x = "<<robot_pose.x<<endl;
         cout<<"向右"<<endl;
       }
@@ -1224,6 +1242,7 @@ float get_chance_value(float obstacles_x_one,float obstacles_y_one,float mid_y)
 //        oFile_init<< "To the left"<< " "<<" x = "<<robot_pose.x<<endl;
         cout<<"向左"<<endl;
       }
+
    return K;
  }
 /*
@@ -1272,10 +1291,12 @@ float special_position_control(float x,float y,float A,float critical_y,float cr
    {
      // state = 2;
       if(A<0)
-      K_value = ratation_value;//*1.5
+      K_value = ratation_value*1.0;//*1.5
       else
-      K_value = (-ratation_value);//*1.5
+      K_value = (-ratation_value)*1.0;//*1.5
       cout<<"已远离障碍物 进入旋转体调节"<<endl;
+      oFile_init<<"special_position_control"<<" replace_A "<<replace_A<<"y = "<<y<<endl;
+
    }
    else K_value = 0;
    return K_value;
@@ -1350,6 +1371,8 @@ float According_to_obstacles_chance_speed(vector<Point3d> obstacles_point3,int p
       if((Chose_XY == 0)||(Chose_XY == 1))
         mid_y = (obstacles_y_one+obstacles_y_two)/2;
         else  mid_y = (obstacles_x_one+obstacles_x_two)/2;
+      oFile_init<<"oy_one = "<<obstacles_y_one<<" oy_two = "<<obstacles_y_two<<" mid_y = "<<mid_y<<endl;
+
       if(get_Obstacle_index == 0)
       { 
         obstacles_x_one = obstacles_x_two;
@@ -1730,8 +1753,17 @@ void get_obstacle_point_fun()
          {
            // state = 1;
             if(max_dis>1.4) flag_max_dis = 1;
-            obstacle_x = robot_pose.x+get_distance_angle[i]*sin(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));
-            obstacle_y = robot_pose.y+get_distance_angle[i]*cos(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));
+            if(Chose_XY == 1)
+            {
+              //  /2.0 改进角度
+              float Chose_XY_A = (P_i-abs(robot_pose.angle))*(robot_pose.angle/abs(robot_pose.angle));
+              obstacle_x = robot_pose.x-abs(get_distance_angle[i]*sin(P_i/2.0-Chose_XY_A+(((i-180)/180.0)*P_i)));
+              obstacle_y = robot_pose.y+get_distance_angle[i]*cos(P_i/2.0-Chose_XY_A+(((i-180)*1.2/180.0)*P_i));
+            }
+            else{
+              obstacle_x = robot_pose.x+get_distance_angle[i]*sin(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));
+              obstacle_y = robot_pose.y+get_distance_angle[i]*cos(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));
+            }
             float _obstacle_y = 0;
             float _obstacle_x = 0;
             if((Chose_XY == 0)||(Chose_XY == 1)){
@@ -1749,8 +1781,8 @@ void get_obstacle_point_fun()
                
                whole_point3.x = obstacle_x ;//- robot_pose.x
                whole_point3.y = obstacle_y ;//- robot_pose.y
-            //   cout<<"obstacle_x = "<<obstacle_x<<"  get_max_value = "<<get_max_value<<"  get_max_obstacle_x = "<<get_max_obstacle_x<<endl;
-             //  oFile_init<<"obstacle_x "<<obstacle_x<<" "<<"obstacle_y "<<obstacle_y<<" "<<" rx = "<<robot_pose.x<<" ry = "<<robot_pose.y<<" get_d_a = "<<get_distance_angle[i]<<" i = "<<i<<" robot_pose.angle = "<<robot_pose.angle<<endl;
+               cout<<"obstacle_x = "<<obstacle_x<<"  obstacle_y = "<<obstacle_y<<"  get_max_obstacle_x = "<<get_max_obstacle_x<<endl;
+               //oFile_init<<"obstacle_x "<<obstacle_x<<" "<<"obstacle_y "<<obstacle_y<<" "<<" rx = "<<robot_pose.x<<" ry = "<<robot_pose.y<<" get_d_a = "<<get_distance_angle[i]<<" i = "<<i<<" robot_pose.angle = "<<robot_pose.angle<<endl;
               // get_max_obstacle_x = get_max_value_fun(obstacle_x);
                whole_point3.z = i;//robot_pose.angle
                whole_point3_vector.push_back(whole_point3);
@@ -1766,7 +1798,7 @@ void get_obstacle_point_fun()
    // cout<<"min_pose min_x = "<<min_pose.x<<"get_min_x_y min_y = "<<min_pose.y<<endl;
     filter_mutation_i(_Relative_point3);
     oFile_init<<"_Relative_point3KKKKKKKKKKKKKKKKKKKKKK"<<endl;
-    obstacle_fun.print_vector(_Relative_point3);
+    //obstacle_fun.print_vector(_Relative_point3);
     obstacle_fun.get_relative_control_point(_Relative_point3);
     
    // obstacle_fun.print_vector(_Relative_point3);
@@ -1826,7 +1858,7 @@ int main(int argc, char **argv)
     //  oFile_init<< "section ahead liner222 "<< " "<<endl;
       cout<<"最后的值Speed_change = "<<Speed_change<<endl;
       msg.Speed_change_of_obstacle = Speed_change;
-      //oFile_init<< "state = "<<state<<"  Speed_change "<<Speed_change<<" O_index"<<Obstacle_index_through<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" A = "<<robot_pose.angle*57.29578<<" Continued  "<<Continued<<" relative.x "<<relative_obstacle_point3.x<<" relative.y = "<<relative_obstacle_point3.y<<endl;
+      oFile_init<< "state = "<<state<<"  Speed_change "<<Speed_change<<" O_index"<<Obstacle_index_through<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" A = "<<robot_pose.angle*57.29578<<" Continued  "<<Continued<<" relative.x "<<relative_obstacle_point3.x<<" relative.y = "<<relative_obstacle_point3.y<<endl;
       cout<< "state = "<<state<<"  Speed_change "<<Speed_change<<" O_index"<<Obstacle_index_through<<" x = "<<robot_pose.x<<" y = "<<robot_pose.y<<" A = "<<robot_pose.angle*57.29578<<" Continued  "<<Continued<<" relative.x "<<relative_obstacle_point3.x<<" relative.y = "<<relative_obstacle_point3.y<<endl;
      // flash_pp++;
      // cout<<"flash_pp = "<<flash_pp<<endl;

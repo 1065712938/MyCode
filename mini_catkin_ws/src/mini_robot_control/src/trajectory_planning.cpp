@@ -1041,7 +1041,7 @@ void amcl_linear_back_Random_Avoidance02(float V0,float V1,double Distance,char 
    listener_linear.waitForTransform("/odom", "/base_link", ros::Time(0), ros::Duration(3.0));
    listener_linear.lookupTransform("/odom", "/base_link", ros::Time(0), transform_linear);
     pre_odom_distance = abs(transform_linear.getOrigin().x());
- cout<<"Distance-0.1 = "<<Distance<<endl;
+   cout<<"Distance-0.1 = "<<Distance<<endl;
    while((Cur_Distance>Distance)&&ros::ok()&&(flag_while<10))
    {
    //     cout<<"(abs(Cur_Distance-Distance) = "<<abs(Cur_Distance-Distance)<<endl;
@@ -1057,8 +1057,8 @@ void amcl_linear_back_Random_Avoidance02(float V0,float V1,double Distance,char 
         q_linear.w() = transform_amcl_pose.getRotation().getW();
         Eigen::Vector3d euler_linear = q_linear.toRotationMatrix().eulerAngles(0, 1, 2);
         current_yaw = euler_linear[2]*57.29578;
-       pid.Kp=0.65;//角度直线参数 0.16 0.5 0.6 0.77
-       pid.Ki=0.7;//0.15 0.5 .7
+       pid.Kp=0.45;//角度直线参数 0.16 0.5 0.6 0.77
+       pid.Ki=0.2;//0.15 0.5 .7
        pid.Kd=0.16;//0.08
        adjust_amcl_Y       = -PID_realize(0,transform_amcl_pose.getOrigin().y());
         All_adjust = adjust_amcl_Y;
@@ -1106,12 +1106,13 @@ void amcl_linear_back_Random_Avoidance02(float V0,float V1,double Distance,char 
 
       if (abs(Cur_speed)>max(abs(V0),abs(V1)))
             Cur_speed = max(abs(V0),abs(V1));
-        if (All_adjust<=-0.085) All_adjust = -0.085;//0.019
-        if (All_adjust>0.085)  All_adjust = 0.085;
+        if (All_adjust<=-0.055) All_adjust = -0.055;//0.085
+        if (All_adjust>0.055)  All_adjust = 0.055;
 
-        //float space_adjust = A_sepCline(Cur_Distance,transform_amcl_pose.getOrigin().y(),euler_linear[2],0.1,10,Cur_speed);
-        //if(space_adjust!= 0)
-        //  All_adjust = space_adjust;
+        //float space_adjust = A_sepCline(Cur_Distance,transform_amcl_pose.getOrigin().y(),euler_linear[2],0.1,8,Cur_speed);
+        float space_adjust = 0;
+        if(space_adjust!= 0)
+          All_adjust = space_adjust;
 
        if(Speed_change_of_obstacle == 0){
            All_adjust = All_adjust;
@@ -1130,7 +1131,7 @@ void amcl_linear_back_Random_Avoidance02(float V0,float V1,double Distance,char 
         send_vel1.publish(twist);
         send_pose.publish(twist);
         Cur_Distance = transform_amcl_pose.getOrigin().x();
-        oFile_init<< "Selection_action_mode "<<Selection_action_mode<<" Speed_change_of_obstacle "<<Speed_change_of_obstacle<<" All_adjust "<<All_adjust<<" Cur_speed "<<Cur_speed<<" W_x "<<transform_amcl_pose.getOrigin().x()<<endl;
+        oFile_init<< "Selection_action_mode "<<Selection_action_mode<<" Speed_change_of_obstacle "<<Speed_change_of_obstacle<<" All_adjust "<<All_adjust<<" Cur_speed "<<Cur_speed<<" W_x "<<transform_amcl_pose.getOrigin().x()<<" W_y "<<transform_amcl_pose.getOrigin().y()<<" A"<<current_yaw<<endl;
         cout<< "Selection_action_mode "<<Selection_action_mode<<" Speed_change_of_obstacle "<<Speed_change_of_obstacle<<" All_adjust "<<All_adjust<<" Cur_speed "<<Cur_speed<<" W_x "<<transform_amcl_pose.getOrigin().x()<<endl;
         cout << "W_x = "<<transform_amcl_pose.getOrigin().x() << "  W_y = "<<transform_amcl_pose.getOrigin().y() <<"flag_plus = "<<flag_plus<< endl ;
     }

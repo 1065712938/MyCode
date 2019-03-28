@@ -52,6 +52,12 @@
         "bitset": "cpp",
         "iomanip": "cpp",
         "memory": "cpp",
-        "algorithm": "cpp"
-    }
+        "algorithm": "cpp",
+        "eigen": "cpp"
+    },
+    "python.autoComplete.extraPaths": [
+        "/home/crazy/mini_catkin_ws/devel/lib/python2.7/dist-packages",
+        "/home/crazy/catkin_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/kinetic/lib/python2.7/dist-packages"
+    ]
 }
