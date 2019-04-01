@@ -1068,12 +1068,13 @@ float Go_control(float dy,float dx)
                     R  = (pow(dy,5) + pow(dx,5));//
                   //  if(dx_one>1.2){
                       //if(dy_one<0.29)
-                        if(R<1.7) R = 1.7;
+                        //if(R<1.7) R = 1.7;
+                        if(R<3.3) R = 3.3;
                         // R = 1;
                   //   }
                   }
                 else{
-                  R  = 1.5;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
+                  R  = 3.3;// 1.5 pow(dy_one,0.5) + pow(dx_one,0.5)
                 }
               //  oFile_init<<"else R = "<<R<<endl;
                   cout<<"else  R = "<<R<<endl;
@@ -1291,9 +1292,9 @@ float special_position_control(float x,float y,float A,float critical_y,float cr
    {
      // state = 2;
       if(A<0)
-      K_value = ratation_value*1.0;//*1.5
+      K_value = ratation_value*0.8;//*1.5
       else
-      K_value = (-ratation_value)*1.0;//*1.5
+      K_value = (-ratation_value)*0.8;//*1.5
       cout<<"已远离障碍物 进入旋转体调节"<<endl;
       oFile_init<<"special_position_control"<<" replace_A "<<replace_A<<"y = "<<y<<endl;
 
@@ -1436,9 +1437,9 @@ float According_to_obstacles_chance_speed(vector<Point3d> obstacles_point3,int p
                 if((robot_obs)>0.3)
                 {
                   if(Chose_XY == 0)
-                    K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.2,10);
+                    K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.15,10);
                   else{
-                    K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.2,10);
+                    K = special_position_control(robot_pose.x,robot_pose.y,robot_pose.angle,0.15,10);
                     K = -K;
                   }
                   if(get_max_obstacle_x>0)
@@ -1758,7 +1759,7 @@ void get_obstacle_point_fun()
               //  /2.0 改进角度
               float Chose_XY_A = (P_i-abs(robot_pose.angle))*(robot_pose.angle/abs(robot_pose.angle));
               obstacle_x = robot_pose.x-abs(get_distance_angle[i]*sin(P_i/2.0-Chose_XY_A+(((i-180)/180.0)*P_i)));
-              obstacle_y = robot_pose.y+get_distance_angle[i]*cos(P_i/2.0-Chose_XY_A+(((i-180)*1.2/180.0)*P_i));
+              obstacle_y = robot_pose.y+get_distance_angle[i]*cos(P_i/2.0-Chose_XY_A+(((i-180)*1.15/180.0)*P_i));
             }
             else{
               obstacle_x = robot_pose.x+get_distance_angle[i]*sin(P_i/2.0-robot_pose.angle+(((180-i)/180.0)*P_i));

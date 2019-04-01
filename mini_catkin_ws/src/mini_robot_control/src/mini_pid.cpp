@@ -1319,8 +1319,8 @@ void linear_ahead_random(float V0,float V1,double Distance,char flag,char state,
         q_linear.w() = transform_amcl_pose.getRotation().getW();
         Eigen::Vector3d euler_linear = q_linear.toRotationMatrix().eulerAngles(0, 1, 2);
         current_yaw = euler_linear[2]*57.29578;
-        pid.Kp=0.46;//0.16 度直线参数
-        pid.Ki=0.15;
+        pid.Kp=0.5;//0.16 度直线参数
+        pid.Ki=0.3;
         pid.Kd=0.08;
         adjust_amcl_Y       = PID_realize(pid_value,transform_amcl_pose.getOrigin().y());
         All_adjust = adjust_amcl_Y;  
@@ -1578,25 +1578,23 @@ void linear_back_Random(float _Set_Point_X)
     Send_stop();
     float back_speed = 0;
    // _Set_Point_X = 10;取消上位机控制
-    if(_Set_Point_X>4) ////增加上位机控制
-     back_speed = 0.4;
-    else back_speed = 0.2;
-    amcl_linear_back_Random(0.07,back_speed,_Set_Point_X*4/5,1);
-    amcl_linear_back_Random(back_speed,back_speed,_Set_Point_X/5,1);
-    amcl_linear_back_Random(back_speed,0.07,-0.06,1);
-    /*
+    // if(_Set_Point_X>4)
+    //  back_speed = 0.4;
+    // else back_speed = 0.2;
+    // amcl_linear_back_Random(0.07,back_speed,_Set_Point_X*4/5,1);
+    // amcl_linear_back_Random(back_speed,back_speed,_Set_Point_X/5,1);
+    // amcl_linear_back_Random(back_speed,0.07,-0.06,1);
     back_speed = 0.2;
     amcl_linear_back_Random_Avoidance02(0.2,back_speed,_Set_Point_X*4/5,1);
     amcl_linear_back_Random_Avoidance02(back_speed,back_speed,_Set_Point_X/5,1);
     amcl_linear_back_Random_Avoidance02(back_speed,0.13,-0.06,1);
-    */
     Send_stop();
 }
 
 void Random_Pose_run()
 {
   ros::Rate loop_rate(10);
-  while((g_Set_Points.points.size()==0)&&(ros::ok()))//增加上位机控制
+//  while((g_Set_Points.points.size()==0)&&(ros::ok()))
   {
     cout<<"Set_Point_X = "<<Set_Point_X<<endl;
     cout<<"等待上位机发送指令"<<endl;
@@ -1605,13 +1603,13 @@ void Random_Pose_run()
   }
   float Set_X = 0;
   float Set_Y = 0;
-  for(unsigned int i = 0; i < g_Set_Points.points.size(); i++)//增加上位机控制
+ // for(unsigned int i = 0; i < g_Set_Points.points.size(); i++)
   {
         //cout<<"目标坐标 1"<<g_Set_Points.points[i]<<endl;
-        Set_X  = g_Set_Points.points[i].x;//Set_Point_X //增加上位机控制
-        Set_Y = g_Set_Points.points[i].y;//Set_Point_Y
-        // Set_X  = 6;// 取消上位机控制
-        // Set_Y  = 0;//
+        //Set_X  = g_Set_Points.points[i].x;//Set_Point_X
+        //Set_Y = g_Set_Points.points[i].y;//Set_Point_Y
+        Set_X  = 6;//Set_Point_X
+        Set_Y  = 0;//Set_Point_Y
         float line_distance = 0;
         if(Set_Y==0)
         {
@@ -1627,8 +1625,8 @@ void Random_Pose_run()
           Arc_flag = 1;
           line_distance = Set_X - 2.0;
         }     
-         linear_ahead_random(0.07,0.4,line_distance,0,Increase_speed,0);//增加上位机控制
-        //linear_ahead_random(0.2,0.2,line_distance,0,Increase_speed,0);        
+        // linear_ahead_random(0.07,0.4,line_distance,0,Increase_speed,0);
+        linear_ahead_random(0.2,0.2,line_distance,0,Increase_speed,0);        
         if(Arc_flag == 0)
         {
             Send_stop();
@@ -1906,7 +1904,7 @@ int main(int argc, char **argv)
     int           count=0;
     float angle_adjust = 0;
     float Angle_Arc    = 0;
-    oFile_init.open("mini_pid_V1.csv",ios::out|ios::trunc);
+    oFile_init.open("mini_pid_V.csv",ios::out|ios::trunc);
     tf::StampedTransform transform; 
     Eigen::Quaterniond q_Arc_path_test;
   //  Json::Value root;
@@ -1990,4 +1988,3 @@ int main(int argc, char **argv)
     oFile_init.close();
     return 0;
 }
-
