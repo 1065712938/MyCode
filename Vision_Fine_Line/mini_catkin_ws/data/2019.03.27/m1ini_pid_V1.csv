@@ -1,0 +1,668 @@
+mode 1 Cur_speed 0.2 All_adjust -8.48894e-05 arc_in_flag 1 Speed_ob 0 x 0.0228796 y 0.000217665 current_yaw -0.00379246
+mode 1 Cur_speed 0.2 All_adjust -1.52366e-05 arc_in_flag 1 Speed_ob 0 x 0.0228796 y 0.000217665 current_yaw -0.00379246
+mode 1 Cur_speed 0.2 All_adjust -3.26498e-05 arc_in_flag 1 Speed_ob 0 x 0.0228796 y 0.000217665 current_yaw -0.00379246
+mode 1 Cur_speed 0.2 All_adjust -3.22138e-05 arc_in_flag 1 Speed_ob 0 x 0.0397679 y 0.000216547 current_yaw -0.00379246
+mode 1 Cur_speed 0.2 All_adjust -3.21357e-05 arc_in_flag 1 Speed_ob 0 x 0.0566509 y 0.00021543 current_yaw -0.312947
+mode 1 Cur_speed 0.2 All_adjust 3.5541e-06 arc_in_flag 1 Speed_ob 0 x 0.0735312 y 0.00012323 current_yaw -0.312947
+mode 1 Cur_speed 0.2 All_adjust 1.00997e-05 arc_in_flag 1 Speed_ob 0 x 0.0904124 y 3.10244e-05 current_yaw -0.312947
+mode 1 Cur_speed 0.2 All_adjust 2.39314e-05 arc_in_flag 1 Speed_ob 0 x 0.107294 y -6.11846e-05 current_yaw -0.312947
+mode 1 Cur_speed 0.2 All_adjust 3.77625e-05 arc_in_flag 1 Speed_ob 0 x 0.124176 y -0.000153394 current_yaw -0.312947
+mode 1 Cur_speed 0.2 All_adjust 8.75539e-05 arc_in_flag 1 Speed_ob 0 x 0.157939 y -0.000337808 current_yaw -0.312947
+mode 1 Cur_speed 0.2 All_adjust 7.18875e-05 arc_in_flag 1 Speed_ob 0 x 0.174825 y -0.000430037 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000121492 arc_in_flag 1 Speed_ob 0 x 0.191704 y -0.000595075 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000140429 arc_in_flag 1 Speed_ob 0 x 0.208584 y -0.000760128 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000165187 arc_in_flag 1 Speed_ob 0 x 0.225464 y -0.000925184 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000189951 arc_in_flag 1 Speed_ob 0 x 0.242346 y -0.00109026 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000214711 arc_in_flag 1 Speed_ob 0 x 0.259228 y -0.00125533 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000303837 arc_in_flag 1 Speed_ob 0 x 0.292989 y -0.00158544 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000275778 arc_in_flag 1 Speed_ob 0 x 0.309869 y -0.00175049 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000313747 arc_in_flag 1 Speed_ob 0 x 0.326751 y -0.00191556 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000338502 arc_in_flag 1 Speed_ob 0 x 0.343632 y -0.00208062 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000363266 arc_in_flag 1 Speed_ob 0 x 0.360514 y -0.00224569 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.000388017 arc_in_flag 1 Speed_ob 0 x 0.377394 y -0.00241074 current_yaw -0.560217
+mode 1 Cur_speed 0.2 All_adjust 0.00047169 arc_in_flag 1 Speed_ob 0 x 0.397431 y -0.00272685 current_yaw -0.582423
+mode 1 Cur_speed 0.2 All_adjust 0.000962174 arc_in_flag 1 Speed_ob 0 x 0.453117 y -0.00421002 current_yaw -0.736643
+mode 1 Cur_speed 0.2 All_adjust 0.000695756 arc_in_flag 1 Speed_ob 0 x 0.474659 y -0.00467901 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.000752746 arc_in_flag 1 Speed_ob 0 x 0.491539 y -0.00490571 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.000806092 arc_in_flag 1 Speed_ob 0 x 0.508412 y -0.00513231 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.000840118 arc_in_flag 1 Speed_ob 0 x 0.52529 y -0.00535897 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.00087413 arc_in_flag 1 Speed_ob 0 x 0.542171 y -0.00558568 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.000908167 arc_in_flag 1 Speed_ob 0 x 0.559059 y -0.00581248 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.000942135 arc_in_flag 1 Speed_ob 0 x 0.575938 y -0.00603916 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.000976153 arc_in_flag 1 Speed_ob 0 x 0.592819 y -0.00626587 current_yaw -0.769418
+mode 1 Cur_speed 0.2 All_adjust 0.00142473 arc_in_flag 1 Speed_ob 0 x 0.607433 y -0.00755558 current_yaw -0.725633
+mode 1 Cur_speed 0.2 All_adjust 0.00245671 arc_in_flag 1 Speed_ob 0 x 0.616885 y -0.0112134 current_yaw -0.582032
+mode 1 Cur_speed 0.2 All_adjust 0.0017137 arc_in_flag 1 Speed_ob 0 x 0.632313 y -0.012045 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.00180386 arc_in_flag 1 Speed_ob 0 x 0.649185 y -0.0122082 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.00194553 arc_in_flag 1 Speed_ob 0 x 0.682947 y -0.0125347 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.00191776 arc_in_flag 1 Speed_ob 0 x 0.699826 y -0.012698 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0235021 arc_in_flag 1 Speed_ob 0.0235021 x 0.716712 y -0.0128613 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0235021 arc_in_flag 1 Speed_ob 0.0235021 x 0.733588 y -0.0130245 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0217748 arc_in_flag 1 Speed_ob 0.0217748 x 0.750467 y -0.0131878 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0236533 arc_in_flag 1 Speed_ob 0.0236533 x 0.767347 y -0.0133511 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0236534 arc_in_flag 1 Speed_ob 0.0236534 x 0.784227 y -0.0135143 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0225469 arc_in_flag 1 Speed_ob 0.0225469 x 0.817989 y -0.0138409 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0303198 arc_in_flag 1 Speed_ob 0.0303198 x 0.83487 y -0.0140042 current_yaw -0.554162
+mode 1 Cur_speed 0.2 All_adjust 0.0276213 arc_in_flag 1 Speed_ob 0.0276213 x 0.852377 y -0.013147 current_yaw -0.41092
+mode 1 Cur_speed 0.2 All_adjust 0.0365686 arc_in_flag 1 Speed_ob 0.0365686 x 0.87036 y -0.011487 current_yaw -0.210441
+mode 1 Cur_speed 0.2 All_adjust 0.0337971 arc_in_flag 1 Speed_ob 0.0337971 x 0.887242 y -0.011549 current_yaw 0.0252702
+mode 1 Cur_speed 0.2 All_adjust 0.0336594 arc_in_flag 1 Speed_ob 0.0336594 x 0.904124 y -0.0115416 current_yaw 0.298106
+mode 1 Cur_speed 0.2 All_adjust 0.0386064 arc_in_flag 1 Speed_ob 0.0386064 x 0.921005 y -0.0114537 current_yaw 0.570941
+mode 1 Cur_speed 0.2 All_adjust 0.0498974 arc_in_flag 1 Speed_ob 0.0498974 x 0.954767 y -0.0111173 current_yaw 1.06711
+mode 1 Cur_speed 0.2 All_adjust 0.042594 arc_in_flag 1 Speed_ob 0.042594 x 0.971645 y -0.0108029 current_yaw 1.33377
+mode 1 Cur_speed 0.2 All_adjust 0.0421384 arc_in_flag 1 Speed_ob 0.0421384 x 0.988522 y -0.01041 current_yaw 1.73043
+mode 1 Cur_speed 0.2 All_adjust 0.0485931 arc_in_flag 1 Speed_ob 0.0485931 x 1.00539 y -0.00990039 current_yaw 2.07768
+mode 1 Cur_speed 0.2 All_adjust 0.0554673 arc_in_flag 1 Speed_ob 0.0554673 x 1.02226 y -0.00928833 current_yaw 2.44961
+mode 1 Cur_speed 0.2 All_adjust 0.0550252 arc_in_flag 1 Speed_ob 0.0550252 x 1.03913 y -0.00856678 current_yaw 2.82154
+mode 1 Cur_speed 0.2 All_adjust 0.0673237 arc_in_flag 1 Speed_ob 0.0673237 x 1.05844 y -0.00707684 current_yaw 3.79702
+mode 1 Cur_speed 0.2 All_adjust 0.0680888 arc_in_flag 2 Speed_ob 0.0680888 x 1.08662 y -0.00278539 current_yaw 4.64864
+mode 1 Cur_speed 0.2 All_adjust 0.0665179 arc_in_flag 2 Speed_ob 0.0665179 x 1.10601 y -0.000664811 current_yaw 5.23254
+mode 1 Cur_speed 0.2 All_adjust 0.0772385 arc_in_flag 1 Speed_ob 0.0772385 x 1.12282 y 0.00087481 current_yaw 5.66638
+mode 1 Cur_speed 0.2 All_adjust 0.0767679 arc_in_flag 1 Speed_ob 0.0767679 x 1.13963 y 0.0025418 current_yaw 6.14358
+mode 1 Cur_speed 0.2 All_adjust 0.106901 arc_in_flag 1 Speed_ob 0.106901 x 1.15641 y 0.00434839 current_yaw 6.81262
+mode 1 Cur_speed 0.2 All_adjust 0.105584 arc_in_flag 1 Speed_ob 0.105584 x 1.17317 y 0.00635083 current_yaw 7.48166
+mode 1 Cur_speed 0.2 All_adjust 0.10383 arc_in_flag 1 Speed_ob 0.10383 x 1.20665 y 0.0107471 current_yaw 8.69603
+mode 1 Cur_speed 0.2 All_adjust 0.11534 arc_in_flag 1 Speed_ob 0.11534 x 1.22333 y 0.0132994 current_yaw 9.42702
+mode 1 Cur_speed 0.2 All_adjust 0.11534 arc_in_flag 1 Speed_ob 0.11534 x 1.23999 y 0.0160645 current_yaw 10.1147
+mode 1 Cur_speed 0.2 All_adjust 0.11534 arc_in_flag 1 Speed_ob 0.11534 x 1.25661 y 0.0190291 current_yaw 11.0376
+mode 1 Cur_speed 0.2 All_adjust 0.11534 arc_in_flag 1 Speed_ob 0.11534 x 1.27318 y 0.0222612 current_yaw 11.9729
+mode 1 Cur_speed 0.2 All_adjust -0.00455087 arc_in_flag 1 Speed_ob 0 x 1.29063 y 0.0260311 current_yaw 12.8995
+mode 1 Cur_speed 0.2 All_adjust -0.00513898 arc_in_flag 1 Speed_ob 0 x 1.30776 y 0.0299693 current_yaw 13.8555
+mode 1 Cur_speed 0.2 All_adjust -0.00733369 arc_in_flag 1 Speed_ob 0 x 1.34054 y 0.0380548 current_yaw 15.9119
+mode 1 Cur_speed 0.2 All_adjust -0.0068678 arc_in_flag 1 Speed_ob 0 x 1.35678 y 0.0426867 current_yaw 17.0028
+mode 1 Cur_speed 0.2 All_adjust -0.00795739 arc_in_flag 1 Speed_ob 0 x 1.37293 y 0.0476224 current_yaw 18.0616
+mode 1 Cur_speed 0.2 All_adjust -0.00879049 arc_in_flag 1 Speed_ob 0 x 1.38898 y 0.0528583 current_yaw 17.5109
+mode 1 Cur_speed 0.2 All_adjust -0.00949016 arc_in_flag 1 Speed_ob 0 x 1.40508 y 0.0579359 current_yaw 17.8827
+mode 1 Cur_speed 0.2 All_adjust -0.0103061 arc_in_flag 1 Speed_ob 0 x 1.42114 y 0.0631204 current_yaw 17.5364
+mode 1 Cur_speed 0.2 All_adjust -0.0110373 arc_in_flag 1 Speed_ob 0 x 1.43724 y 0.0682076 current_yaw 17.19
+mode 1 Cur_speed 0.2 All_adjust -0.0137158 arc_in_flag 1 Speed_ob 0 x 1.4695 y 0.0781862 current_yaw 17.19
+mode 1 Cur_speed 0.2 All_adjust -0.012871 arc_in_flag 1 Speed_ob 0 x 1.48559 y 0.083164 current_yaw 17.19
+mode 1 Cur_speed 0.2 All_adjust -0.0199349 arc_in_flag 1 Speed_ob 0 x 1.49832 y 0.103314 current_yaw 17.5518
+mode 1 Cur_speed 0.2 All_adjust -0.0158705 arc_in_flag 1 Speed_ob 0 x 1.51442 y 0.108405 current_yaw 17.3603
+mode 1 Cur_speed 0.2 All_adjust -0.0178183 arc_in_flag 1 Speed_ob 0 x 1.53053 y 0.113443 current_yaw 17.3603
+mode 1 Cur_speed 0.2 All_adjust -0.0185783 arc_in_flag 1 Speed_ob 0 x 1.54665 y 0.118481 current_yaw 17.3603
+mode 1 Cur_speed 0.2 All_adjust -0.0212966 arc_in_flag 1 Speed_ob 0 x 1.57886 y 0.128552 current_yaw 17.3603
+mode 1 Cur_speed 0.2 All_adjust -0.0204416 arc_in_flag 1 Speed_ob 0 x 1.59498 y 0.133589 current_yaw 17.3603
+mode 1 Cur_speed 0.2 All_adjust -0.0215999 arc_in_flag 1 Speed_ob 0 x 1.61109 y 0.138626 current_yaw 17.3603
+mode 1 Cur_speed 0.2 All_adjust -0.0223553 arc_in_flag 1 Speed_ob 0 x 1.6272 y 0.143663 current_yaw 17.1131
+mode 1 Cur_speed 0.2 All_adjust -0.0230839 arc_in_flag 1 Speed_ob 0 x 1.64333 y 0.148631 current_yaw 16.8473
+mode 1 Cur_speed 0.2 All_adjust -0.0238055 arc_in_flag 1 Speed_ob 0 x 1.65949 y 0.153524 current_yaw 16.5815
+mode 1 Cur_speed 0.2 All_adjust -0.0245177 arc_in_flag 1 Speed_ob 0 x 1.67339 y 0.158346 current_yaw 15.884
+mode 1 Cur_speed 0.2 All_adjust -0.0251667 arc_in_flag 1 Speed_ob 0 x 1.67507 y 0.162963 current_yaw 15.5734
+mode 1 Cur_speed 0.2 All_adjust -0.0258416 arc_in_flag 1 Speed_ob 0 x 1.68833 y 0.167492 current_yaw 15.5667
+mode 1 Cur_speed 0.2 All_adjust -0.0265269 arc_in_flag 1 Speed_ob 0 x 1.70458 y 0.172019 current_yaw 15.3193
+mode 1 Cur_speed 0.2 All_adjust -0.0271817 arc_in_flag 1 Speed_ob 0 x 1.72087 y 0.176483 current_yaw 15.0969
+mode 1 Cur_speed 0.2 All_adjust -0.0278296 arc_in_flag 1 Speed_ob 0 x 1.73717 y 0.180879 current_yaw 14.9241
+mode 1 Cur_speed 0.2 All_adjust -0.0284752 arc_in_flag 1 Speed_ob 0 x 1.75347 y 0.185225 current_yaw 14.7512
+mode 1 Cur_speed 0.2 All_adjust -0.0307889 arc_in_flag 1 Speed_ob 0 x 1.78612 y 0.193822 current_yaw 14.393
+mode 1 Cur_speed 0.2 All_adjust -0.0300222 arc_in_flag 1 Speed_ob 0 x 1.80248 y 0.198019 current_yaw 14.1767
+mode 1 Cur_speed 0.2 All_adjust -0.0309795 arc_in_flag 1 Speed_ob 0 x 1.81884 y 0.202153 current_yaw 13.8923
+mode 1 Cur_speed 0.2 All_adjust -0.031573 arc_in_flag 1 Speed_ob 0 x 1.83523 y 0.206206 current_yaw 13.5708
+mode 1 Cur_speed 0.2 All_adjust -0.0321516 arc_in_flag 1 Speed_ob 0 x 1.85164 y 0.210168 current_yaw 13.5708
+mode 1 Cur_speed 0.2 All_adjust -0.0317977 arc_in_flag 1 Speed_ob 0 x 1.87225 y 0.211679 current_yaw 13.3783
+mode 1 Cur_speed 0.2 All_adjust -0.0325127 arc_in_flag 1 Speed_ob 0 x 1.89149 y 0.21394 current_yaw 13.1964
+mode 1 Cur_speed 0.2 All_adjust -0.0349161 arc_in_flag 1 Speed_ob 0 x 1.92436 y 0.221648 current_yaw 12.8134
+mode 1 Cur_speed 0.2 All_adjust -0.0340907 arc_in_flag 1 Speed_ob 0 x 1.94082 y 0.225392 current_yaw 12.529
+mode 1 Cur_speed 0.2 All_adjust -0.0349376 arc_in_flag 1 Speed_ob 0 x 1.9573 y 0.229054 current_yaw 12.2137
+mode 1 Cur_speed 0.2 All_adjust -0.0354579 arc_in_flag 1 Speed_ob 0 x 1.9738 y 0.232625 current_yaw 11.8922
+mode 1 Cur_speed 0.2 All_adjust -0.0359649 arc_in_flag 1 Speed_ob 0 x 1.99032 y 0.236104 current_yaw 11.5273
+mode 1 Cur_speed 0.2 All_adjust -0.0364535 arc_in_flag 1 Speed_ob 0 x 2.00687 y 0.239479 current_yaw 11.1929
+mode 1 Cur_speed 0.2 All_adjust -0.0369303 arc_in_flag 1 Speed_ob 0 x 2.02344 y 0.242757 current_yaw 10.8585
+mode 1 Cur_speed 0.2 All_adjust -0.0386319 arc_in_flag 1 Speed_ob 0 x 2.05659 y 0.249118 current_yaw 10.2402
+mode 1 Cur_speed 0.2 All_adjust -0.0380263 arc_in_flag 1 Speed_ob 0 x 2.07317 y 0.252111 current_yaw 9.82069
+mode 1 Cur_speed 0.2 All_adjust -0.0397532 arc_in_flag 1 Speed_ob 0 x 2.08725 y 0.257691 current_yaw 9.40138
+mode 1 Cur_speed 0.2 All_adjust -0.0408314 arc_in_flag 1 Speed_ob 0 x 2.09979 y 0.264419 current_yaw 8.99566
+mode 1 Cur_speed 0.2 All_adjust -0.0401542 arc_in_flag 1 Speed_ob 0 x 2.11647 y 0.267059 current_yaw 8.58742
+mode 1 Cur_speed 0.2 All_adjust -0.0408306 arc_in_flag 1 Speed_ob 0 x 2.13316 y 0.26958 current_yaw 8.17917
+mode 1 Cur_speed 0.2 All_adjust -0.0411732 arc_in_flag 1 Speed_ob 0 x 2.14989 y 0.271984 current_yaw 7.4743
+mode 1 Cur_speed 0.2 All_adjust -0.0414615 arc_in_flag 1 Speed_ob 0 x 2.16662 y 0.27418 current_yaw 7.10954
+mode 1 Cur_speed 0.2 All_adjust -0.0417661 arc_in_flag 1 Speed_ob 0 x 2.18337 y 0.276269 current_yaw 6.76951
+mode 1 Cur_speed 0.2 All_adjust -0.0420493 arc_in_flag 1 Speed_ob 0 x 2.20014 y 0.278259 current_yaw 6.47273
+mode 1 Cur_speed 0.2 All_adjust -0.0423217 arc_in_flag 1 Speed_ob 0 x 2.21691 y 0.280162 current_yaw 6.13269
+mode 1 Cur_speed 0.2 All_adjust -0.0425754 arc_in_flag 1 Speed_ob 0 x 2.23369 y 0.281965 current_yaw 5.82976
+mode 1 Cur_speed 0.2 All_adjust -0.0428192 arc_in_flag 1 Speed_ob 0 x 2.25049 y 0.28368 current_yaw 5.52684
+mode 1 Cur_speed 0.2 All_adjust -0.0432321 arc_in_flag 1 Speed_ob 0 x 2.28297 y 0.285776 current_yaw 4.79344
+mode 1 Cur_speed 0.2 All_adjust -0.0410488 arc_in_flag 1 Speed_ob 0 x 2.29436 y 0.281545 current_yaw 4.40004
+mode 1 Cur_speed 0.2 All_adjust -0.0426026 arc_in_flag 1 Speed_ob 0 x 2.31003 y 0.281628 current_yaw 4.08038
+mode 1 Cur_speed 0.2 All_adjust -0.0427061 arc_in_flag 1 Speed_ob 0 x 2.32687 y 0.28283 current_yaw 3.74029
+mode 1 Cur_speed 0.2 All_adjust -0.0427579 arc_in_flag 1 Speed_ob 0 x 2.34372 y 0.283931 current_yaw 3.38158
+mode 1 Cur_speed 0.2 All_adjust -0.0428896 arc_in_flag 1 Speed_ob 0 x 2.36056 y 0.284926 current_yaw 2.99837
+mode 1 Cur_speed 0.2 All_adjust -0.0430034 arc_in_flag 1 Speed_ob 0 x 2.37741 y 0.285808 current_yaw 2.61516
+mode 1 Cur_speed 0.2 All_adjust -0.0434015 arc_in_flag 1 Speed_ob 0 x 2.41113 y 0.287349 current_yaw 1.83593
+mode 1 Cur_speed 0.2 All_adjust -0.04319 arc_in_flag 1 Speed_ob 0 x 2.42801 y 0.28789 current_yaw 1.42772
+mode 1 Cur_speed 0.2 All_adjust -0.0433042 arc_in_flag 1 Speed_ob 0 x 2.44489 y 0.28831 current_yaw 1.03805
+mode 1 Cur_speed 0.2 All_adjust -0.0434102 arc_in_flag 1 Speed_ob 0 x 2.47864 y 0.288816 current_yaw 0.333194
+mode 1 Cur_speed 0.2 All_adjust -0.042628 arc_in_flag 1 Speed_ob 0 x 2.48936 y 0.287139 current_yaw -0.065462
+mode 1 Cur_speed 0.2 All_adjust -0.0428229 arc_in_flag 1 Speed_ob 0 x 2.50296 y 0.28616 current_yaw -0.425247
+mode 1 Cur_speed 0.2 All_adjust -0.0429046 arc_in_flag 1 Speed_ob 0 x 2.53672 y 0.285909 current_yaw -1.11781
+mode 1 Cur_speed 0.2 All_adjust -0.042778 arc_in_flag 1 Speed_ob 0 x 2.5536 y 0.28558 current_yaw -1.45171
+mode 1 Cur_speed 0.2 All_adjust -0.0426965 arc_in_flag 1 Speed_ob 0 x 2.57048 y 0.285152 current_yaw -1.7856
+mode 1 Cur_speed 0.2 All_adjust -0.0426018 arc_in_flag 1 Speed_ob 0 x 2.58735 y 0.284626 current_yaw -2.16904
+mode 1 Cur_speed 0.2 All_adjust -0.0424868 arc_in_flag 1 Speed_ob 0 x 2.60422 y 0.283987 current_yaw -2.44102
+mode 1 Cur_speed 0.2 All_adjust -0.0423688 arc_in_flag 1 Speed_ob 0 x 2.62108 y 0.283268 current_yaw -2.73156
+mode 1 Cur_speed 0.2 All_adjust -0.0419203 arc_in_flag 1 Speed_ob 0 x 2.6548 y 0.281659 current_yaw -3.02211
+mode 1 Cur_speed 0.2 All_adjust -0.0420305 arc_in_flag 1 Speed_ob 0 x 2.67166 y 0.280769 current_yaw -3.75182
+mode 1 Cur_speed 0.2 All_adjust -0.0417558 arc_in_flag 1 Speed_ob 0 x 2.68851 y 0.279665 current_yaw -4.13525
+mode 1 Cur_speed 0.2 All_adjust -0.0402188 arc_in_flag 1 Speed_ob 0 x 2.7028 y 0.275 current_yaw -4.5598
+mode 0 Cur_speed 0.2 All_adjust -0.0393505 arc_in_flag 1 Speed_ob 0 x 2.71634 y 0.269173 current_yaw -5.05325
+mode 0 Cur_speed 0.2 All_adjust -0.0402622 arc_in_flag 1 Speed_ob 0 x 2.73316 y 0.267686 current_yaw -5.45522
+mode 0 Cur_speed 0.2 All_adjust -0.0396458 arc_in_flag 1 Speed_ob 0 x 2.74997 y 0.26608 current_yaw -5.8572
+mode 0 Cur_speed 0.2 All_adjust -0.0393684 arc_in_flag 1 Speed_ob 0 x 2.76676 y 0.264357 current_yaw -6.61157
+mode 0 Cur_speed 0.2 All_adjust -0.0390333 arc_in_flag 1 Speed_ob 0 x 2.78353 y 0.262413 current_yaw -6.95168
+mode 0 Cur_speed 0.2 All_adjust -0.0387207 arc_in_flag 1 Speed_ob 0 x 2.80029 y 0.26037 current_yaw -7.27317
+mode 0 Cur_speed 0.2 All_adjust -0.0383853 arc_in_flag 1 Speed_ob 0 x 2.81704 y 0.258233 current_yaw -7.60711
+mode 0 Cur_speed 0.2 All_adjust -0.0380345 arc_in_flag 1 Speed_ob 0 x 2.83377 y 0.255998 current_yaw -7.94097
+mode 0 Cur_speed 0.2 All_adjust -0.0376689 arc_in_flag 1 Speed_ob 0 x 2.85049 y 0.253666 current_yaw -8.26866
+mode 0 Cur_speed 0.2 All_adjust -0.0372896 arc_in_flag 1 Speed_ob 0 x 2.8672 y 0.251238 current_yaw -8.59636
+mode 0 Cur_speed 0.2 All_adjust -0.0355551 arc_in_flag 1 Speed_ob 0 x 2.90136 y 0.245277 current_yaw -9.30075
+mode 0 Cur_speed 0.2 All_adjust -0.034868 arc_in_flag 1 Speed_ob 0 x 2.92086 y 0.239122 current_yaw -9.84008
+mode 0 Cur_speed 0.2 All_adjust -0.0351057 arc_in_flag 1 Speed_ob 0 x 2.93776 y 0.235904 current_yaw -10.2284
+mode 0 Cur_speed 0.2 All_adjust -0.0344737 arc_in_flag 1 Speed_ob 0 x 2.95437 y 0.232906 current_yaw -10.5685
+mode 0 Cur_speed 0.2 All_adjust -0.0339683 arc_in_flag 1 Speed_ob 0 x 2.97097 y 0.22981 current_yaw -10.9457
+mode 0 Cur_speed 0.2 All_adjust -0.0334692 arc_in_flag 1 Speed_ob 0 x 2.98754 y 0.226605 current_yaw -11.3353
+mode 0 Cur_speed 0.2 All_adjust -0.0329532 arc_in_flag 1 Speed_ob 0 x 3.00409 y 0.223287 current_yaw -11.7249
+mode 0 Cur_speed 0.2 All_adjust -0.0310826 arc_in_flag 1 Speed_ob 0 x 3.03715 y 0.216426 current_yaw -12.4051
+mode 0 Cur_speed 0.2 All_adjust -0.0315985 arc_in_flag 1 Speed_ob 0 x 3.05364 y 0.212799 current_yaw -12.7513
+mode 0 Cur_speed 0.2 All_adjust -0.0307568 arc_in_flag 1 Speed_ob 0 x 3.0701 y 0.209073 current_yaw -13.1038
+mode 0 Cur_speed 0.2 All_adjust -0.0301662 arc_in_flag 1 Speed_ob 0 x 3.08655 y 0.205245 current_yaw -13.4625
+mode 0 Cur_speed 0.2 All_adjust -0.0295605 arc_in_flag 1 Speed_ob 0 x 3.10296 y 0.201316 current_yaw -13.8273
+mode 0 Cur_speed 0.2 All_adjust -0.0289853 arc_in_flag 1 Speed_ob 0 x 3.12187 y 0.197402 current_yaw -14.1035
+mode 0 Cur_speed 0.2 All_adjust -0.0283425 arc_in_flag 1 Speed_ob 0 x 3.13941 y 0.193348 current_yaw -14.3974
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.17212 y 0.184953 current_yaw -15.0652
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.18842 y 0.180565 current_yaw -15.3619
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.2047 y 0.176093 current_yaw -15.5658
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.22095 y 0.171565 current_yaw -15.7574
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.2372 y 0.166981 current_yaw -12.9029
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.25365 y 0.163211 current_yaw -10.0483
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.27029 y 0.160264 current_yaw -7.7449
+mode 0 Cur_speed 0.2 All_adjust 0.196078 arc_in_flag 1 Speed_ob 0.196078 x 3.28701 y 0.157989 current_yaw -5.5653
+mode 0 Cur_speed 0.2 All_adjust -0.0232418 arc_in_flag 1 Speed_ob 0 x 3.30381 y 0.156352 current_yaw -4.01093
+mode 0 Cur_speed 0.2 All_adjust -0.0225805 arc_in_flag 1 Speed_ob 0 x 3.31589 y 0.153779 current_yaw -2.13678
+mode 0 Cur_speed 0.2 All_adjust -0.0222544 arc_in_flag 1 Speed_ob 0 x 3.32604 y 0.151168 current_yaw -0.470318
+mode 0 Cur_speed 0.2 All_adjust -0.0228301 arc_in_flag 1 Speed_ob 0 x 3.34292 y 0.15103 current_yaw 1.26854
+mode 0 Cur_speed 0.2 All_adjust -0.0228114 arc_in_flag 1 Speed_ob 0 x 3.3598 y 0.151404 current_yaw 3.00741
+mode 0 Cur_speed 0.2 All_adjust -0.0233715 arc_in_flag 1 Speed_ob 0 x 3.39352 y 0.153175 current_yaw 0.222197
+mode 0 Cur_speed 0.2 All_adjust -0.0228601 arc_in_flag 1 Speed_ob 0 x 3.41041 y 0.153241 current_yaw 0.786463
+mode 0 Cur_speed 0.2 All_adjust -0.0230711 arc_in_flag 1 Speed_ob 0 x 3.42728 y 0.153472 current_yaw 0.285788
+mode 0 Cur_speed 0.2 All_adjust -0.0230351 arc_in_flag 1 Speed_ob 0 x 3.44417 y 0.153556 current_yaw -0.0295609
+mode 0 Cur_speed 0.2 All_adjust -0.0230272 arc_in_flag 1 Speed_ob 0 x 3.46053 y 0.153558 current_yaw -0.495005
+mode 0 Cur_speed 0.2 All_adjust -0.0230353 arc_in_flag 1 Speed_ob 0 x 3.47054 y 0.153562 current_yaw -0.433181
+mode 0 Cur_speed 0.2 All_adjust -0.0230077 arc_in_flag 1 Speed_ob 0 x 3.48496 y 0.153495 current_yaw -0.411006
+mode 0 Cur_speed 0.2 All_adjust -0.0229351 arc_in_flag 1 Speed_ob 0 x 3.51872 y 0.153253 current_yaw -0.81876
+mode 0 Cur_speed 0.2 All_adjust -0.0229132 arc_in_flag 1 Speed_ob 0 x 3.5356 y 0.153011 current_yaw -1.14028
+mode 0 Cur_speed 0.2 All_adjust -0.02284 arc_in_flag 1 Speed_ob 0 x 3.55248 y 0.152675 current_yaw -1.37511
+mode 0 Cur_speed 0.2 All_adjust -0.0227702 arc_in_flag 1 Speed_ob 0 x 3.56935 y 0.15227 current_yaw -1.5728
+mode 0 Cur_speed 0.2 All_adjust -0.0226923 arc_in_flag 1 Speed_ob 0 x 3.58623 y 0.151807 current_yaw -1.84476
+mode 0 Cur_speed 0.2 All_adjust -0.0225962 arc_in_flag 1 Speed_ob 0 x 3.6031 y 0.151264 current_yaw -2.12291
+mode 0 Cur_speed 0.2 All_adjust -0.0224891 arc_in_flag 1 Speed_ob 0 x 3.61997 y 0.150638 current_yaw -2.40106
+mode 0 Cur_speed 0.2 All_adjust -0.0220941 arc_in_flag 1 Speed_ob 0 x 3.6537 y 0.149224 current_yaw -2.83358
+mode 0 Cur_speed 0.2 All_adjust -0.0221712 arc_in_flag 1 Speed_ob 0 x 3.67056 y 0.148389 current_yaw -3.04366
+mode 0 Cur_speed 0.2 All_adjust -0.0241898 arc_in_flag 1 Speed_ob 0 x 3.68411 y 0.15317 current_yaw -3.18413
+mode 0 Cur_speed 0.2 All_adjust -0.0238612 arc_in_flag 1 Speed_ob 0 x 3.69853 y 0.156422 current_yaw -3.33231
+mode 0 Cur_speed 0.2 All_adjust -0.0228204 arc_in_flag 1 Speed_ob 0 x 3.71538 y 0.155441 current_yaw -3.54858
+mode 0 Cur_speed 0.2 All_adjust -0.0229871 arc_in_flag 1 Speed_ob 0 x 3.73223 y 0.154396 current_yaw -3.80199
+mode 0 Cur_speed 0.2 All_adjust -0.02237 arc_in_flag 1 Speed_ob 0 x 3.76591 y 0.152157 current_yaw -4.05541
+mode 0 Cur_speed 0.2 All_adjust -0.022537 arc_in_flag 1 Speed_ob 0 x 3.78275 y 0.150963 current_yaw -4.48793
+mode 0 Cur_speed 0.2 All_adjust -0.0222249 arc_in_flag 1 Speed_ob 0 x 3.79958 y 0.149642 current_yaw -4.73512
+mode 0 Cur_speed 0.2 All_adjust -0.0220085 arc_in_flag 1 Speed_ob 0 x 3.81641 y 0.148249 current_yaw -4.97616
+mode 0 Cur_speed 0.2 All_adjust -0.0217777 arc_in_flag 1 Speed_ob 0 x 3.83323 y 0.146784 current_yaw -5.211
+mode 0 Cur_speed 0.2 All_adjust -0.0215368 arc_in_flag 1 Speed_ob 0 x 3.85004 y 0.145251 current_yaw -5.45824
+mode 0 Cur_speed 0.2 All_adjust -0.0212841 arc_in_flag 1 Speed_ob 0 x 3.86684 y 0.143645 current_yaw -5.70547
+mode 0 Cur_speed 0.2 All_adjust -0.020879 arc_in_flag 1 Speed_ob 0 x 3.88443 y 0.141604 current_yaw -6.18572
+mode 0 Cur_speed 0.2 All_adjust -0.020418 arc_in_flag 1 Speed_ob 0 x 3.90271 y 0.139076 current_yaw -6.47099
+mode 0 Cur_speed 0.2 All_adjust -0.0203216 arc_in_flag 1 Speed_ob 0 x 3.91948 y 0.137173 current_yaw -6.73678
+mode 0 Cur_speed 0.2 All_adjust -0.0199536 arc_in_flag 1 Speed_ob 0 x 3.9363 y 0.135187 current_yaw -7.00327
+mode 0 Cur_speed 0.2 All_adjust -0.0188052 arc_in_flag 1 Speed_ob 0 x 3.96975 y 0.131003 current_yaw -7.48462
+mode 0 Cur_speed 0.2 All_adjust -0.0191276 arc_in_flag 1 Speed_ob 0 x 3.98649 y 0.128804 current_yaw -7.71327
+mode 0 Cur_speed 0.2 All_adjust -0.0177292 arc_in_flag 1 Speed_ob 0 x 4.01994 y 0.124272 current_yaw -8.18294
+mode 0 Cur_speed 0.2 All_adjust -0.0180659 arc_in_flag 1 Speed_ob 0 x 4.03666 y 0.121868 current_yaw -8.18294
+mode 0 Cur_speed 0.2 All_adjust -0.0175355 arc_in_flag 1 Speed_ob 0 x 4.05337 y 0.119466 current_yaw -8.33729
+mode 0 Cur_speed 0.2 All_adjust -0.0171548 arc_in_flag 1 Speed_ob 0 x 4.07012 y 0.117011 current_yaw -8.33729
+mode 0 Cur_speed 0.2 All_adjust -0.0167496 arc_in_flag 1 Speed_ob 0 x 4.0875 y 0.114451 current_yaw -8.34285
+mode 0 Cur_speed 0.2 All_adjust -0.0160896 arc_in_flag 1 Speed_ob 0 x 4.10927 y 0.111162 current_yaw -8.59835
+mode 0 Cur_speed 0.2 All_adjust -0.0148949 arc_in_flag 1 Speed_ob 0 x 4.14376 y 0.105924 current_yaw -8.82323
+mode 0 Cur_speed 0.2 All_adjust -0.0152959 arc_in_flag 1 Speed_ob 0 x 4.16047 y 0.10333 current_yaw -8.82323
+mode 0 Cur_speed 0.2 All_adjust -0.0146985 arc_in_flag 1 Speed_ob 0 x 4.17713 y 0.100744 current_yaw -9.00212
+mode 0 Cur_speed 0.2 All_adjust 0.013271 arc_in_flag 2 Speed_ob 0 x 4.19381 y 0.0981025 current_yaw -9.25555
+mode 0 Cur_speed 0.2 All_adjust 0.0136488 arc_in_flag 2 Speed_ob 0 x 4.21047 y 0.0953873 current_yaw -9.25555
+mode 0 Cur_speed 0.2 All_adjust 0.0140487 arc_in_flag 2 Speed_ob 0 x 4.22713 y 0.0926721 current_yaw -9.25555
+mode 0 Cur_speed 0.2 All_adjust 0.0144727 arc_in_flag 2 Speed_ob 0 x 4.24379 y 0.089957 current_yaw -9.25555
+mode 0 Cur_speed 0.2 All_adjust 0.0164446 arc_in_flag 2 Speed_ob 0 x 4.27712 y 0.0845265 current_yaw -9.56425
+mode 0 Cur_speed 0.2 All_adjust 0.017009 arc_in_flag 2 Speed_ob 0 x 4.29376 y 0.0817218 current_yaw -9.56425
+mode 0 Cur_speed 0.2 All_adjust 0.016758 arc_in_flag 2 Speed_ob 0 x 4.31041 y 0.0789171 current_yaw -9.32856
+mode 0 Cur_speed 0.2 All_adjust 0.0166145 arc_in_flag 2 Speed_ob 0 x 4.32468 y 0.0766568 current_yaw -9.15416
+mode 0 Cur_speed 0.2 All_adjust 0.0165085 arc_in_flag 2 Speed_ob 0 x 4.33937 y 0.0743578 current_yaw -8.98669
+mode 0 Cur_speed 0.2 All_adjust 0.0165305 arc_in_flag 2 Speed_ob 0 x 4.35605 y 0.0717208 current_yaw -8.83147
+mode 0 Cur_speed 0.2 All_adjust 0.0165539 arc_in_flag 2 Speed_ob 0 x 4.37273 y 0.0691288 current_yaw -8.67625
+mode 0 Cur_speed 0.2 All_adjust 0.0158877 arc_in_flag 2 Speed_ob 0 x 4.38943 y 0.0665805 current_yaw -8.34114
+mode 0 Cur_speed 0.2 All_adjust 0.0157914 arc_in_flag 2 Speed_ob 0 x 4.40613 y 0.0641314 current_yaw -8.16114
+mode 0 Cur_speed 0.2 All_adjust 0.015593 arc_in_flag 2 Speed_ob 0 x 4.42284 y 0.0617348 current_yaw -7.95639
+mode 0 Cur_speed 0.2 All_adjust 0.0155319 arc_in_flag 2 Speed_ob 0 x 4.43956 y 0.0593982 current_yaw -7.7888
+mode 0 Cur_speed 0.2 All_adjust 0.0154674 arc_in_flag 2 Speed_ob 0 x 4.45629 y 0.05711 current_yaw -7.62119
+mode 0 Cur_speed 0.2 All_adjust 0.0160986 arc_in_flag 2 Speed_ob 0 x 4.47302 y 0.0548708 current_yaw -7.62119
+mode 0 Cur_speed 0.2 All_adjust 0.0175287 arc_in_flag 2 Speed_ob 0 x 4.50648 y 0.0503941 current_yaw -7.62119
+mode 0 Cur_speed 0.2 All_adjust 0.0184906 arc_in_flag 2 Speed_ob 0 x 4.52387 y 0.047901 current_yaw -7.63144
+mode 0 Cur_speed 0.2 All_adjust 0.0197756 arc_in_flag 2 Speed_ob 0 x 4.54217 y 0.0450629 current_yaw -7.65483
+mode 0 Cur_speed 0.2 All_adjust 0.0199786 arc_in_flag 2 Speed_ob 0 x 4.55881 y 0.0428266 current_yaw -7.50046
+mode 0 Cur_speed 0.2 All_adjust 0.0210628 arc_in_flag 2 Speed_ob 0 x 4.57555 y 0.0406223 current_yaw -7.50046
+mode 0 Cur_speed 0.2 All_adjust 0.0209304 arc_in_flag 2 Speed_ob 0 x 4.59229 y 0.0384192 current_yaw -7.27096
+mode 0 Cur_speed 0.2 All_adjust 0.0209335 arc_in_flag 2 Speed_ob 0 x 4.60903 y 0.0362831 current_yaw -7.0662
+mode 0 Cur_speed 0.2 All_adjust 0.0222894 arc_in_flag 2 Speed_ob 0 x 4.64252 y 0.032132 current_yaw -6.86144
+mode 0 Cur_speed 0.2 All_adjust 0.021194 arc_in_flag 2 Speed_ob 0 x 4.65929 y 0.0301144 current_yaw -6.47682
+mode 0 Cur_speed 0.2 All_adjust 0.0201849 arc_in_flag 2 Speed_ob 0 x 4.67606 y 0.0282101 current_yaw -6.1173
+mode 0 Cur_speed 0.2 All_adjust 0.0194733 arc_in_flag 2 Speed_ob 0 x 4.69284 y 0.0264111 current_yaw -5.81349
+mode 0 Cur_speed 0.2 All_adjust 0.0187877 arc_in_flag 2 Speed_ob 0 x 4.70964 y 0.0247011 current_yaw -5.52206
+mode 0 Cur_speed 0.2 All_adjust 0.0192098 arc_in_flag 2 Speed_ob 0 x 4.72695 y 0.0219786 current_yaw -5.26687
+mode 0 Cur_speed 0.2 All_adjust 0.029873 arc_in_flag 2 Speed_ob 0 x 4.74695 y 0.0134226 current_yaw -5.13263
+mode 0 Cur_speed 0.2 All_adjust 0.0430661 arc_in_flag 2 Speed_ob 0 x 4.78144 y 0.00844772 current_yaw -4.88885
+mode 0 Cur_speed 0.2 All_adjust 0.0421548 arc_in_flag 2 Speed_ob 0 x 4.79827 y 0.00700783 current_yaw -4.40514
+mode 0 Cur_speed 0.2 All_adjust 0.0471694 arc_in_flag 2 Speed_ob 0 x 4.8151 y 0.00571128 current_yaw -4.20661
+mode 0 Cur_speed 0.2 All_adjust 0.0546766 arc_in_flag 2 Speed_ob 0 x 4.83194 y 0.00447321 current_yaw -4.00808
+mode 0 Cur_speed 0.2 All_adjust -0.000309381 arc_in_flag 1 Speed_ob 0 x 4.84879 y 0.00329207 current_yaw -3.77836
+mode 0 Cur_speed 0.2 All_adjust -0.000154913 arc_in_flag 1 Speed_ob 0 x 4.86562 y 0.00218081 current_yaw -3.45012
+mode 0 Cur_speed 0.2 All_adjust -2.02365e-05 arc_in_flag 1 Speed_ob 0 x 4.88245 y 0.00116598 current_yaw -3.12188
+mode 0 Cur_speed 0.2 All_adjust 0.000461027 arc_in_flag 1 Speed_ob 0 x 4.91617 y -0.000672767 current_yaw -2.31616
+mode 0 Cur_speed 0.2 All_adjust 0.000219771 arc_in_flag 1 Speed_ob 0 x 4.93303 y -0.0013547 current_yaw -1.87601
+mode 0 Cur_speed 0.2 All_adjust 0.000364202 arc_in_flag 1 Speed_ob 0 x 4.9499 y -0.0019074 current_yaw -2.06752
+mode 0 Cur_speed 0.2 All_adjust 0.00196662 arc_in_flag 1 Speed_ob 0 x 4.96436 y -0.00632977 current_yaw -2.13969
+mode 0 Cur_speed 0.2 All_adjust 0.00166602 arc_in_flag 1 Speed_ob 0 x 4.9799 y -0.00907424 current_yaw -2.17948
+mode 0 Cur_speed 0.2 All_adjust 0.00139195 arc_in_flag 1 Speed_ob 0 x 4.99677 y -0.00971623 current_yaw -2.17948
+mode 0 Cur_speed 0.2 All_adjust 0.00165655 arc_in_flag 1 Speed_ob 0 x 5.01364 y -0.0103585 current_yaw -2.17948
+mode 0 Cur_speed 0.194 All_adjust 0.00175297 arc_in_flag 1 Speed_ob 0 x 5.03053 y -0.011001 current_yaw -2.17948
+mode 0 Cur_speed 0.190236 All_adjust 0.00184918 arc_in_flag 1 Speed_ob 0 x 5.0474 y -0.0116431 current_yaw -2.17948
+mode 0 Cur_speed 0.186617 All_adjust 0.00194544 arc_in_flag 1 Speed_ob 0 x 5.06427 y -0.012285 current_yaw -2.17948
+mode 0 Cur_speed 0.183135 All_adjust 0.00203349 arc_in_flag 1 Speed_ob 0 x 5.08058 y -0.0129058 current_yaw -2.17948
+mode 0 Cur_speed 0.179781 All_adjust 0.00211984 arc_in_flag 1 Speed_ob 0 x 5.09632 y -0.0135048 current_yaw -2.17948
+mode 0 Cur_speed 0.176549 All_adjust 0.00221143 arc_in_flag 1 Speed_ob 0 x 5.11206 y -0.0141039 current_yaw -2.17948
+mode 0 Cur_speed 0.173432 All_adjust 0.0025349 arc_in_flag 1 Speed_ob 0 x 5.14354 y -0.0153019 current_yaw -2.17948
+mode 0 Cur_speed 0.170424 All_adjust 0.00341931 arc_in_flag 1 Speed_ob 0 x 5.15384 y -0.0184298 current_yaw -2.19499
+mode 0 Cur_speed 0.16752 All_adjust 0.00426125 arc_in_flag 1 Speed_ob 0 x 5.16095 y -0.0229093 current_yaw -2.2188
+mode 0 Cur_speed 0.164713 All_adjust 0.00329895 arc_in_flag 1 Speed_ob 0 x 5.17557 y -0.0234758 current_yaw -2.2188
+mode 0 Cur_speed 0.162 All_adjust 0.00368847 arc_in_flag 1 Speed_ob 0 x 5.18963 y -0.0240204 current_yaw -2.2188
+mode 0 Cur_speed 0.159376 All_adjust 0.00377191 arc_in_flag 1 Speed_ob 0 x 5.20369 y -0.0245651 current_yaw -2.2188
+mode 0 Cur_speed 0.156836 All_adjust 0.00385361 arc_in_flag 1 Speed_ob 0 x 5.21774 y -0.0251098 current_yaw -2.2188
+mode 0 Cur_speed 0.154376 All_adjust 0.00413058 arc_in_flag 1 Speed_ob 0 x 5.24472 y -0.0261551 current_yaw -2.2188
+mode 0 Cur_speed 0.151993 All_adjust 0.00404357 arc_in_flag 1 Speed_ob 0 x 5.25822 y -0.026678 current_yaw -2.2188
+mode 0 Cur_speed 0.149683 All_adjust 0.00435921 arc_in_flag 1 Speed_ob 0 x 5.28465 y -0.0277019 current_yaw -2.2188
+mode 0 Cur_speed 0.147442 All_adjust 0.0042688 arc_in_flag 1 Speed_ob 0 x 5.29758 y -0.028203 current_yaw -2.2188
+mode 0 Cur_speed 0.145268 All_adjust 0.00437729 arc_in_flag 1 Speed_ob 0 x 5.30995 y -0.0286823 current_yaw -2.2188
+mode 0 Cur_speed 0.143158 All_adjust 0.00445093 arc_in_flag 1 Speed_ob 0 x 5.32232 y -0.0291616 current_yaw -2.2188
+mode 0 Cur_speed 0.141109 All_adjust 0.00580163 arc_in_flag 1 Speed_ob 0 x 5.34417 y -0.0329199 current_yaw -2.25957
+mode 0 Cur_speed 0.139117 All_adjust 0.00571772 arc_in_flag 1 Speed_ob 0 x 5.3536 y -0.0356902 current_yaw -2.29302
+mode 0 Cur_speed 0.137182 All_adjust 0.00531635 arc_in_flag 1 Speed_ob 0 x 5.36541 y -0.0361631 current_yaw -2.29302
+mode 0 Cur_speed 0.1353 All_adjust 0.00557099 arc_in_flag 1 Speed_ob 0 x 5.37722 y -0.0366358 current_yaw -2.29302
+mode 0 Cur_speed 0.13347 All_adjust 0.0056331 arc_in_flag 1 Speed_ob 0 x 5.38846 y -0.0370859 current_yaw -2.29302
+mode 0 Cur_speed 0.131688 All_adjust 0.00570247 arc_in_flag 1 Speed_ob 0 x 5.39971 y -0.0375362 current_yaw -2.29302
+mode 0 Cur_speed 0.129954 All_adjust 0.00576124 arc_in_flag 1 Speed_ob 0 x 5.41039 y -0.0379639 current_yaw -2.29302
+mode 0 Cur_speed 0.128265 All_adjust 0.00582727 arc_in_flag 1 Speed_ob 0 x 5.42108 y -0.0383919 current_yaw -2.29302
+mode 0 Cur_speed 0.12662 All_adjust 0.00589139 arc_in_flag 1 Speed_ob 0 x 5.43176 y -0.0388197 current_yaw -2.29302
+mode 0 Cur_speed 0.125017 All_adjust 0.00595628 arc_in_flag 1 Speed_ob 0 x 5.44249 y -0.0392493 current_yaw -2.29302
+mode 0 Cur_speed 0.123454 All_adjust 0.00601044 arc_in_flag 1 Speed_ob 0 x 5.45257 y -0.0396529 current_yaw -2.29302
+mode 0 Cur_speed 0.12193 All_adjust 0.00607367 arc_in_flag 1 Speed_ob 0 x 5.46269 y -0.0400581 current_yaw -2.29302
+mode 0 Cur_speed 0.120443 All_adjust 0.00613434 arc_in_flag 1 Speed_ob 0 x 5.47281 y -0.0404633 current_yaw -2.29302
+mode 0 Cur_speed 0.118992 All_adjust 0.00619512 arc_in_flag 1 Speed_ob 0 x 5.48293 y -0.0408686 current_yaw -2.29302
+mode 0 Cur_speed 0.117576 All_adjust 0.00661952 arc_in_flag 1 Speed_ob 0 x 5.49768 y -0.0422061 current_yaw -2.28625
+mode 0 Cur_speed 0.116194 All_adjust 0.0065976 arc_in_flag 1 Speed_ob 0 x 5.50122 y -0.0431643 current_yaw -2.27883
+mode 0 Cur_speed 0.114844 All_adjust 0.00654635 arc_in_flag 1 Speed_ob 0 x 5.51077 y -0.0435447 current_yaw -2.27883
+mode 0 Cur_speed 0.113525 All_adjust 0.00664961 arc_in_flag 1 Speed_ob 0 x 5.52033 y -0.0439251 current_yaw -2.27883
+mode 0 Cur_speed 0.112236 All_adjust 0.00670669 arc_in_flag 1 Speed_ob 0 x 5.52989 y -0.0443055 current_yaw -2.27883
+mode 0 Cur_speed 0.110977 All_adjust 0.00676375 arc_in_flag 1 Speed_ob 0 x 5.53945 y -0.0446859 current_yaw -2.27883
+mode 0 Cur_speed 0.109745 All_adjust 0.00695163 arc_in_flag 1 Speed_ob 0 x 5.55744 y -0.0454017 current_yaw -2.27883
+mode 0 Cur_speed 0.108541 All_adjust 0.00689268 arc_in_flag 1 Speed_ob 0 x 5.56644 y -0.0457599 current_yaw -2.27883
+mode 0 Cur_speed 0.107362 All_adjust 0.00697495 arc_in_flag 1 Speed_ob 0 x 5.57544 y -0.0461179 current_yaw -2.27883
+mode 0 Cur_speed 0.10621 All_adjust 0.00702868 arc_in_flag 1 Speed_ob 0 x 5.58443 y -0.0464759 current_yaw -2.27883
+mode 0 Cur_speed 0.105082 All_adjust 0.00708237 arc_in_flag 1 Speed_ob 0 x 5.59343 y -0.0468339 current_yaw -2.27883
+mode 0 Cur_speed 0.103977 All_adjust 0.00712734 arc_in_flag 1 Speed_ob 0 x 5.60186 y -0.0471695 current_yaw -2.27883
+mode 0 Cur_speed 0.102896 All_adjust 0.00717947 arc_in_flag 1 Speed_ob 0 x 5.6103 y -0.0475052 current_yaw -2.27883
+mode 0 Cur_speed 0.101838 All_adjust 0.00736072 arc_in_flag 1 Speed_ob 0 x 5.62717 y -0.0481764 current_yaw -2.27883
+mode 0 Cur_speed 0.1008 All_adjust 0.00730376 arc_in_flag 1 Speed_ob 0 x 5.63561 y -0.0485123 current_yaw -2.27883
+mode 0 Cur_speed 0.0997844 All_adjust 0.00738091 arc_in_flag 1 Speed_ob 0 x 5.64404 y -0.048848 current_yaw -2.27883
+mode 0 Cur_speed 0.0987887 All_adjust 0.00743122 arc_in_flag 1 Speed_ob 0 x 5.65248 y -0.0491836 current_yaw -2.27883
+mode 0 Cur_speed 0.0978128 All_adjust 0.00747284 arc_in_flag 1 Speed_ob 0 x 5.66035 y -0.0494968 current_yaw -2.09887
+mode 0 Cur_speed 0.0968561 All_adjust 0.00738424 arc_in_flag 1 Speed_ob 0 x 5.66806 y -0.0494578 current_yaw -2.08342
+mode 0 Cur_speed 0.095918 All_adjust 0.00688482 arc_in_flag 1 Speed_ob 0 x 5.67514 y -0.0480809 current_yaw -2.00548
+mode 0 Cur_speed 0.0949979 All_adjust 0.00743113 arc_in_flag 1 Speed_ob 0 x 5.69076 y -0.04836 current_yaw -1.99288
+mode 0 Cur_speed 0.0940955 All_adjust 0.00733843 arc_in_flag 1 Speed_ob 0 x 5.69862 y -0.0486337 current_yaw -1.99288
+mode 0 Cur_speed 0.0932101 All_adjust 0.00737998 arc_in_flag 1 Speed_ob 0 x 5.70649 y -0.0489076 current_yaw -1.99288
+mode 0 Cur_speed 0.0923413 All_adjust 0.0074211 arc_in_flag 1 Speed_ob 0 x 5.71437 y -0.0491817 current_yaw -1.99288
+mode 0 Cur_speed 0.0914886 All_adjust 0.00745454 arc_in_flag 1 Speed_ob 0 x 5.72168 y -0.0494361 current_yaw -1.99288
+mode 0 Cur_speed 0.0906516 All_adjust 0.00749469 arc_in_flag 1 Speed_ob 0 x 5.72902 y -0.0496915 current_yaw -1.99288
+mode 0 Cur_speed 0.0898298 All_adjust 0.00753209 arc_in_flag 1 Speed_ob 0 x 5.7363 y -0.0499449 current_yaw -1.99288
+mode 0 Cur_speed 0.0890229 All_adjust 0.00757097 arc_in_flag 1 Speed_ob 0 x 5.74364 y -0.0502 current_yaw -1.99288
+mode 0 Cur_speed 0.0882303 All_adjust 0.00760859 arc_in_flag 1 Speed_ob 0 x 5.75093 y -0.0504539 current_yaw -1.99288
+mode 0 Cur_speed 0.0874519 All_adjust 0.00764698 arc_in_flag 1 Speed_ob 0 x 5.75824 y -0.0507082 current_yaw -1.99288
+mode 0 Cur_speed 0.0866871 All_adjust 0.0076851 arc_in_flag 1 Speed_ob 0 x 5.76555 y -0.0509626 current_yaw -1.99288
+mode 0 Cur_speed 0.0859356 All_adjust 0.00772326 arc_in_flag 1 Speed_ob 0 x 5.77286 y -0.051217 current_yaw -1.99288
+mode 0 Cur_speed 0.0851972 All_adjust 0.00776142 arc_in_flag 1 Speed_ob 0 x 5.78017 y -0.0514714 current_yaw -1.99288
+mode 0 Cur_speed 0.0844713 All_adjust 0.00788353 arc_in_flag 1 Speed_ob 0 x 5.79367 y -0.0519411 current_yaw -1.99288
+mode 0 Cur_speed 0.0837578 All_adjust 0.00784517 arc_in_flag 1 Speed_ob 0 x 5.80042 y -0.0521759 current_yaw -1.99288
+mode 0 Cur_speed 0.0830562 All_adjust 0.00789919 arc_in_flag 1 Speed_ob 0 x 5.80717 y -0.0524107 current_yaw -1.99288
+mode 0 Cur_speed 0.0823664 All_adjust 0.00793444 arc_in_flag 1 Speed_ob 0 x 5.81392 y -0.0526457 current_yaw -1.99288
+mode 0 Cur_speed 0.081688 All_adjust 0.00796961 arc_in_flag 1 Speed_ob 0 x 5.82067 y -0.0528804 current_yaw -1.99288
+mode 0 Cur_speed 0.0810207 All_adjust 0.00800485 arc_in_flag 1 Speed_ob 0 x 5.82741 y -0.0531152 current_yaw -1.99288
+mode 0 Cur_speed 0.0803642 All_adjust 0.00804006 arc_in_flag 1 Speed_ob 0 x 5.83416 y -0.05335 current_yaw -1.99288
+mode 0 Cur_speed 0.0797184 All_adjust 0.00816688 arc_in_flag 1 Speed_ob 0 x 5.84766 y -0.0538196 current_yaw -1.99288
+mode 0 Cur_speed 0.0790829 All_adjust 0.00812695 arc_in_flag 1 Speed_ob 0 x 5.85441 y -0.0540544 current_yaw -1.99288
+mode 0 Cur_speed 0.0784575 All_adjust 0.00844262 arc_in_flag 1 Speed_ob 0 x 5.86026 y -0.0549602 current_yaw -2.00653
+mode 0 Cur_speed 0.0778419 All_adjust 0.0100007 arc_in_flag 1 Speed_ob 0 x 5.8643 y -0.0596502 current_yaw -1.8591
+mode 0 Cur_speed 0.077236 All_adjust 0.00917611 arc_in_flag 1 Speed_ob 0 x 5.86984 y -0.0611983 current_yaw -1.88563
+mode 0 Cur_speed 0.0766395 All_adjust 0.00913534 arc_in_flag 1 Speed_ob 0 x 5.87603 y -0.061402 current_yaw -1.88563
+mode 0 Cur_speed 0.0760521 All_adjust 0.00927345 arc_in_flag 1 Speed_ob 0 x 5.88221 y -0.0616057 current_yaw -1.88563
+mode 0 Cur_speed 0.0754737 All_adjust 0.00938343 arc_in_flag 1 Speed_ob 0 x 5.89459 y -0.0620131 current_yaw -1.88563
+mode 0 Cur_speed 0.0749041 All_adjust 0.00934882 arc_in_flag 1 Speed_ob 0 x 5.90077 y -0.0622168 current_yaw -1.88563
+mode 0 Cur_speed 0.074343 All_adjust 0.00939564 arc_in_flag 1 Speed_ob 0 x 5.90696 y -0.0624204 current_yaw -1.88563
+mode 0 Cur_speed 0.0737903 All_adjust 0.00942621 arc_in_flag 1 Speed_ob 0 x 5.91315 y -0.0626241 current_yaw -1.88563
+mode 0 Cur_speed 0.0732458 All_adjust 0.00945672 arc_in_flag 1 Speed_ob 0 x 5.91933 y -0.0628277 current_yaw -1.7117
+mode 0 Cur_speed 0.0727093 All_adjust 0.00948008 arc_in_flag 1 Speed_ob 0 x 5.92553 y -0.0630129 current_yaw -1.53776
+mode 0 Cur_speed 0.0721807 All_adjust 0.00956073 arc_in_flag 1 Speed_ob 0 x 5.93733 y -0.0633298 current_yaw -1.53776
+mode 0 Cur_speed 0.0716597 All_adjust 0.00953301 arc_in_flag 1 Speed_ob 0 x 5.94296 y -0.0634808 current_yaw -1.53776
+mode 0 Cur_speed 0.0711462 All_adjust 0.00956969 arc_in_flag 1 Speed_ob 0 x 5.94866 y -0.0636338 current_yaw -1.53776
+mode 0 Cur_speed 0.07064 All_adjust 0.00959098 arc_in_flag 1 Speed_ob 0 x 5.95421 y -0.0637829 current_yaw -1.53776
+mode 0 Cur_speed 0.070141 All_adjust 0.00961439 arc_in_flag 1 Speed_ob 0 x 5.95983 y -0.0639339 current_yaw -1.53776
+mode 0 Cur_speed 0.069649 All_adjust 0.00963689 arc_in_flag 1 Speed_ob 0 x 5.96546 y -0.0640849 current_yaw -1.53776
+mode 0 Cur_speed 0.0691639 All_adjust 0.00971844 arc_in_flag 1 Speed_ob 0 x 5.97671 y -0.0643869 current_yaw -1.53776
+mode 0 Cur_speed 0.0686855 All_adjust 0.00969275 arc_in_flag 1 Speed_ob 0 x 5.98233 y -0.0645379 current_yaw -1.53776
+mode 0 Cur_speed 0.0682138 All_adjust 0.00972751 arc_in_flag 1 Speed_ob 0 x 5.98796 y -0.0646889 current_yaw -1.53776
+mode 0 Cur_speed 0.0677484 All_adjust 0.00975013 arc_in_flag 1 Speed_ob 0 x 5.99358 y -0.0648399 current_yaw -1.53776
+mode 0 Cur_speed 0.0672895 All_adjust 0.0097728 arc_in_flag 1 Speed_ob 0 x 5.99921 y -0.0649909 current_yaw -1.38254
+mode 0 Cur_speed 0.0668367 All_adjust 0.00978946 arc_in_flag 1 Speed_ob 0 x 6.00483 y -0.0651266 current_yaw -1.38254
+Selection_action_mode 0 Speed_change_of_obstacle 0 All_adjust -0.0395367 Cur_speed 0.2 W_x 5.962
+Selection_action_mode 0 Speed_change_of_obstacle 0 All_adjust -0.0434321 Cur_speed 0.2 W_x 5.962
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0427931 Cur_speed 0.2 W_x 5.962
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0417206 Cur_speed 0.2 W_x 5.94513
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0413366 Cur_speed 0.2 W_x 5.92825
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0408397 Cur_speed 0.2 W_x 5.91138
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0401225 Cur_speed 0.2 W_x 5.89452
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0393213 Cur_speed 0.2 W_x 5.87767
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0384524 Cur_speed 0.2 W_x 5.86083
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust -0.0375742 Cur_speed 0.2 W_x 5.844
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust -0.0347163 Cur_speed 0.2 W_x 5.81033
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0345491 Cur_speed 0.2 W_x 5.79352
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0331939 Cur_speed 0.2 W_x 5.77673
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0318435 Cur_speed 0.2 W_x 5.75993
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0305119 Cur_speed 0.2 W_x 5.74316
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.029045 Cur_speed 0.2 W_x 5.72639
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0275531 Cur_speed 0.2 W_x 5.70963
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 5.67614
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 5.65944
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 5.64274
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 5.62605
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 5.60938
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0353158 Cur_speed 0.2 W_x 5.59271
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.023241 Cur_speed 0.2 W_x 5.57383
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0171384 Cur_speed 0.2 W_x 5.5352
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00988924 Cur_speed 0.2 W_x 5.51836
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00640552 Cur_speed 0.2 W_x 5.50151
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00547896 Cur_speed 0.2 W_x 5.48465
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.0057367 Cur_speed 0.2 W_x 5.46779
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00484774 Cur_speed 0.2 W_x 5.45092
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00397846 Cur_speed 0.2 W_x 5.43404
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00414888 Cur_speed 0.2 W_x 5.41717
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00331212 Cur_speed 0.2 W_x 5.40029
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0034469 Cur_speed 0.2 W_x 5.38342
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00336613 Cur_speed 0.2 W_x 5.36573
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0022064 Cur_speed 0.2 W_x 5.34275
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00199241 Cur_speed 0.2 W_x 5.32405
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0021058 Cur_speed 0.2 W_x 5.2903
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00216776 Cur_speed 0.2 W_x 5.27335
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0022329 Cur_speed 0.2 W_x 5.25655
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00237633 Cur_speed 0.2 W_x 5.22279
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00245516 Cur_speed 0.2 W_x 5.20592
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0025394 Cur_speed 0.2 W_x 5.18905
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00272653 Cur_speed 0.2 W_x 5.1553
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00283082 Cur_speed 0.2 W_x 5.13842
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00203163 Cur_speed 0.2 W_x 5.11852
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00164724 Cur_speed 0.2 W_x 5.09957
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00168978 Cur_speed 0.2 W_x 5.08269
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00173462 Cur_speed 0.2 W_x 5.06581
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00178189 Cur_speed 0.2 W_x 5.04893
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00188459 Cur_speed 0.2 W_x 5.01517
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00194051 Cur_speed 0.2 W_x 4.99829
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00199985 Cur_speed 0.2 W_x 4.98141
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00206291 Cur_speed 0.2 W_x 4.96454
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00213009 Cur_speed 0.2 W_x 4.94767
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0022018 Cur_speed 0.2 W_x 4.93079
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00188619 Cur_speed 0.2 W_x 4.91411
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00147918 Cur_speed 0.2 W_x 4.88072
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00151475 Cur_speed 0.2 W_x 4.86385
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00155208 Cur_speed 0.2 W_x 4.84697
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00159132 Cur_speed 0.2 W_x 4.83009
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00163258 Cur_speed 0.2 W_x 4.81322
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00167611 Cur_speed 0.2 W_x 4.79631
+section back liner  
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00113761 Cur_speed 0.2 W_x 4.57977
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00116154 Cur_speed 0.2 W_x 4.5628
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0011865 Cur_speed 0.2 W_x 4.54584
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00123937 Cur_speed 0.2 W_x 4.51216
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00126768 Cur_speed 0.2 W_x 4.49529
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00129732 Cur_speed 0.2 W_x 4.47841
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0150403 Cur_speed 0.2 W_x 4.46081
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0211373 Cur_speed 0.2 W_x 4.44268
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0151399 Cur_speed 0.2 W_x 4.42579
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0160397 Cur_speed 0.2 W_x 4.4089
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0155199 Cur_speed 0.2 W_x 4.37515
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0155832 Cur_speed 0.2 W_x 4.35827
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000759951 Cur_speed 0.2 W_x 4.34139
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00129003 Cur_speed 0.2 W_x 4.32451
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00131411 Cur_speed 0.2 W_x 4.30764
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00195694 Cur_speed 0.2 W_x 4.29076
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00275497 Cur_speed 0.2 W_x 4.27388
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00183012 Cur_speed 0.2 W_x 4.25683
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00134508 Cur_speed 0.2 W_x 4.23928
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00129244 Cur_speed 0.2 W_x 4.22223
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00131508 Cur_speed 0.2 W_x 4.20541
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00133861 Cur_speed 0.2 W_x 4.18853
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00136299 Cur_speed 0.2 W_x 4.17165
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.0014145 Cur_speed 0.2 W_x 4.1379
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00144176 Cur_speed 0.2 W_x 4.12103
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00147007 Cur_speed 0.2 W_x 4.10415
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00149954 Cur_speed 0.2 W_x 4.08727
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00153019 Cur_speed 0.2 W_x 4.0704
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.00156213 Cur_speed 0.2 W_x 4.05352
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000758534 Cur_speed 0.2 W_x 4.03358
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000501214 Cur_speed 0.2 W_x 3.99792
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000505829 Cur_speed 0.2 W_x 3.98104
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000510529 Cur_speed 0.2 W_x 3.96417
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000515319 Cur_speed 0.2 W_x 3.94729
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000520203 Cur_speed 0.2 W_x 3.93039
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000525177 Cur_speed 0.2 W_x 3.91351
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000530247 Cur_speed 0.2 W_x 3.89663
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000540683 Cur_speed 0.2 W_x 3.86288
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000546057 Cur_speed 0.2 W_x 3.846
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.000551539 Cur_speed 0.2 W_x 3.82912
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust -0.0274214 Cur_speed 0.2 W_x 3.8105
+Selection_action_mode 1 Speed_change_of_obstacle -0.0123692 All_adjust -0.0123692 Cur_speed 0.2 W_x 3.79097
+Selection_action_mode 1 Speed_change_of_obstacle -0.013608 All_adjust -0.013608 Cur_speed 0.2 W_x 3.77409
+Selection_action_mode 1 Speed_change_of_obstacle -0.0137115 All_adjust -0.0137115 Cur_speed 0.2 W_x 3.7572
+Selection_action_mode 1 Speed_change_of_obstacle -0.0149913 All_adjust -0.0149913 Cur_speed 0.2 W_x 3.72345
+Selection_action_mode 1 Speed_change_of_obstacle -0.0162864 All_adjust -0.0162864 Cur_speed 0.2 W_x 3.70658
+Selection_action_mode 1 Speed_change_of_obstacle -0.0179214 All_adjust -0.0179214 Cur_speed 0.2 W_x 3.6897
+Selection_action_mode 1 Speed_change_of_obstacle -0.0179214 All_adjust -0.0179214 Cur_speed 0.2 W_x 3.67282
+Selection_action_mode 1 Speed_change_of_obstacle -0.0200832 All_adjust -0.0200832 Cur_speed 0.2 W_x 3.65595
+Selection_action_mode 1 Speed_change_of_obstacle -0.0222724 All_adjust -0.0222724 Cur_speed 0.2 W_x 3.63907
+Selection_action_mode 1 Speed_change_of_obstacle -0.0222711 All_adjust -0.0222711 Cur_speed 0.2 W_x 3.62218
+Selection_action_mode 1 Speed_change_of_obstacle -0.0251678 All_adjust -0.0251678 Cur_speed 0.2 W_x 3.60517
+Selection_action_mode 1 Speed_change_of_obstacle -0.0274219 All_adjust -0.0274219 Cur_speed 0.2 W_x 3.58759
+Selection_action_mode 1 Speed_change_of_obstacle -0.0312635 All_adjust -0.0312635 Cur_speed 0.2 W_x 3.57055
+Selection_action_mode 1 Speed_change_of_obstacle -0.0312634 All_adjust -0.0312634 Cur_speed 0.2 W_x 3.55366
+Selection_action_mode 1 Speed_change_of_obstacle -0.0342061 All_adjust -0.0342061 Cur_speed 0.2 W_x 3.5368
+Selection_action_mode 1 Speed_change_of_obstacle -0.0400146 All_adjust -0.0400146 Cur_speed 0.2 W_x 3.51994
+Selection_action_mode 1 Speed_change_of_obstacle -0.0400011 All_adjust -0.0400011 Cur_speed 0.2 W_x 3.48623
+Selection_action_mode 1 Speed_change_of_obstacle -0.043063 All_adjust -0.043063 Cur_speed 0.2 W_x 3.46937
+Selection_action_mode 1 Speed_change_of_obstacle -0.0507225 All_adjust -0.0507225 Cur_speed 0.2 W_x 3.45251
+Selection_action_mode 1 Speed_change_of_obstacle -0.057492 All_adjust -0.057492 Cur_speed 0.2 W_x 3.43566
+Selection_action_mode 1 Speed_change_of_obstacle -0.0574542 All_adjust -0.0574542 Cur_speed 0.2 W_x 3.41882
+Selection_action_mode 1 Speed_change_of_obstacle -0.065915 All_adjust -0.065915 Cur_speed 0.2 W_x 3.40198
+Selection_action_mode 1 Speed_change_of_obstacle -0.075552 All_adjust -0.075552 Cur_speed 0.2 W_x 3.38236
+Selection_action_mode 1 Speed_change_of_obstacle -0.0754544 All_adjust -0.0754544 Cur_speed 0.2 W_x 3.34715
+Selection_action_mode 1 Speed_change_of_obstacle -0.0859932 All_adjust -0.0859932 Cur_speed 0.2 W_x 3.33034
+Selection_action_mode 1 Speed_change_of_obstacle -0.099825 All_adjust -0.099825 Cur_speed 0.2 W_x 3.31355
+Selection_action_mode 1 Speed_change_of_obstacle -0.0995595 All_adjust -0.0995595 Cur_speed 0.2 W_x 3.28
+Selection_action_mode 1 Speed_change_of_obstacle -0.103199 All_adjust -0.103199 Cur_speed 0.2 W_x 3.26328
+Selection_action_mode 1 Speed_change_of_obstacle -0.103199 All_adjust -0.103199 Cur_speed 0.2 W_x 3.24659
+Selection_action_mode 1 Speed_change_of_obstacle -0.103199 All_adjust -0.103199 Cur_speed 0.2 W_x 3.21324
+Selection_action_mode 1 Speed_change_of_obstacle -0.103199 All_adjust -0.103199 Cur_speed 0.2 W_x 3.19665
+Selection_action_mode 1 Speed_change_of_obstacle -0.103199 All_adjust -0.103199 Cur_speed 0.2 W_x 3.18011
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 3.16294
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 3.14566
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.12929
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.11301
+Selection_action_mode 1 Speed_change_of_obstacle -0.0171411 All_adjust -0.0171411 Cur_speed 0.2 W_x 3.09689
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.08087
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.06494
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.04888
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.03281
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 3.01679
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.9848
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.96817
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.95079
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.93423
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.91774
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.90118
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.88457
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.85127
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.83452
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.81774
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.80093
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.78417
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.76743
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.75074
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.71838
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.70326
+Selection_action_mode 1 Speed_change_of_obstacle -0.108932 All_adjust -0.108932 Cur_speed 0.2 W_x 2.68679
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.67038
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.65405
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.6378
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.62163
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.58949
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.57362
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.55759
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.54153
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.52499
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.1 Cur_speed 0.2 W_x 2.50725
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.49079
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.47432
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.45781
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.44123
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.42461
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.40794
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.39126
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.35787
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.34113
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.32438
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.30761
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.29048
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.27308
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.25626
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.22258
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust 0.055 Cur_speed 0.2 W_x 2.20572
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.18886
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.172
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.15511
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.13823
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.12135
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.08759
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.07003
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.05033
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.03289
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 2.0159
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.99918
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.98233
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.9655
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.94867
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.93186
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.91507
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.89829
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust 0.055 Cur_speed 0.2 W_x 1.88153
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust -0.1 Cur_speed 0.2 W_x 1.84605
+Selection_action_mode 1 Speed_change_of_obstacle 0 All_adjust -0.1 Cur_speed 0.2 W_x 1.82778
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust -0.1 Cur_speed 0.2 W_x 1.81111
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust -0.1 Cur_speed 0.2 W_x 1.77784
+Selection_action_mode 1 Speed_change_of_obstacle -0 All_adjust -0.1 Cur_speed 0.2 W_x 1.76125
+Selection_action_mode 0 Speed_change_of_obstacle -0.196078 All_adjust -0.196078 Cur_speed 0.2 W_x 1.74458
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0390779 Cur_speed 0.2 W_x 1.71113
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0404708 Cur_speed 0.2 W_x 1.69433
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0391782 Cur_speed 0.2 W_x 1.67751
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0386432 Cur_speed 0.2 W_x 1.66067
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0286224 Cur_speed 0.2 W_x 1.64244
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00091447 Cur_speed 0.2 W_x 1.62368
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.000590378 Cur_speed 0.2 W_x 1.60681
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00240444 Cur_speed 0.2 W_x 1.57305
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00301228 Cur_speed 0.2 W_x 1.55619
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0030783 Cur_speed 0.2 W_x 1.5393
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00277381 Cur_speed 0.2 W_x 1.52246
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0028333 Cur_speed 0.2 W_x 1.5056
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00289543 Cur_speed 0.2 W_x 1.48873
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00296034 Cur_speed 0.2 W_x 1.47186
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00234302 Cur_speed 0.2 W_x 1.43813
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00263604 Cur_speed 0.2 W_x 1.42073
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00436398 Cur_speed 0.2 W_x 1.40155
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00506779 Cur_speed 0.2 W_x 1.38433
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00528429 Cur_speed 0.2 W_x 1.36746
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0055202 Cur_speed 0.2 W_x 1.35059
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00577814 Cur_speed 0.2 W_x 1.33372
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.0060613 Cur_speed 0.2 W_x 1.31685
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00637359 Cur_speed 0.2 W_x 1.29998
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00671986 Cur_speed 0.2 W_x 1.28312
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00710591 Cur_speed 0.2 W_x 1.26625
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00753909 Cur_speed 0.2 W_x 1.24938
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.00802852 Cur_speed 0.2 W_x 1.23251
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust -0.055 Cur_speed 0.2 W_x 1.19533
+section back liner  
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00111484 Cur_speed 0.2 W_x 0.973635
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0021815 Cur_speed 0.2 W_x 0.956747
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0060004 Cur_speed 0.2 W_x 0.922998
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00874924 Cur_speed 0.2 W_x 0.906139
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0105539 Cur_speed 0.2 W_x 0.889288
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0112192 Cur_speed 0.2 W_x 0.872435
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0100706 Cur_speed 0.2 W_x 0.855596
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00888024 Cur_speed 0.2 W_x 0.838739
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0094456 Cur_speed 0.2 W_x 0.821867
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0100875 Cur_speed 0.2 W_x 0.805004
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00779782 Cur_speed 0.2 W_x 0.787768
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00476712 Cur_speed 0.2 W_x 0.769385
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00397726 Cur_speed 0.2 W_x 0.752218
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00411158 Cur_speed 0.2 W_x 0.735349
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00425529 Cur_speed 0.2 W_x 0.71848
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00308317 Cur_speed 0.2 W_x 0.684756
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0031813 Cur_speed 0.2 W_x 0.667885
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00328676 Cur_speed 0.2 W_x 0.650877
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00339761 Cur_speed 0.2 W_x 0.634138
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00351715 Cur_speed 0.2 W_x 0.617268
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00364543 Cur_speed 0.2 W_x 0.600397
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00378341 Cur_speed 0.2 W_x 0.583526
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00271274 Cur_speed 0.2 W_x 0.551413
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00234785 Cur_speed 0.2 W_x 0.535296
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00240997 Cur_speed 0.2 W_x 0.518422
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00247548 Cur_speed 0.2 W_x 0.501548
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00254465 Cur_speed 0.2 W_x 0.484674
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00261778 Cur_speed 0.2 W_x 0.467802
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00269524 Cur_speed 0.2 W_x 0.45093
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0028648 Cur_speed 0.2 W_x 0.417182
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00295784 Cur_speed 0.2 W_x 0.400309
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00305713 Cur_speed 0.2 W_x 0.383435
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00316331 Cur_speed 0.2 W_x 0.366561
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00192604 Cur_speed 0.2 W_x 0.347137
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00133476 Cur_speed 0.2 W_x 0.328007
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00135753 Cur_speed 0.2 W_x 0.311132
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00140548 Cur_speed 0.2 W_x 0.277381
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00143074 Cur_speed 0.2 W_x 0.260514
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00145693 Cur_speed 0.2 W_x 0.243635
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0014841 Cur_speed 0.2 W_x 0.226763
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.0015123 Cur_speed 0.2 W_x 0.209887
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00154159 Cur_speed 0.2 W_x 0.193012
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00157206 Cur_speed 0.2 W_x 0.176128
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00160376 Cur_speed 0.2 W_x 0.159241
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00139872 Cur_speed 0.2 W_x 0.141981
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.000991744 Cur_speed 0.2 W_x 0.124168
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00100573 Cur_speed 0.2 W_x 0.10729
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00102012 Cur_speed 0.2 W_x 0.0904126
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00103492 Cur_speed 0.2 W_x 0.0735352
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00106584 Cur_speed 0.2 W_x 0.0397918
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00108202 Cur_speed 0.2 W_x 0.0229053
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00109869 Cur_speed 0.2 W_x 0.00602854
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00111588 Cur_speed 0.2 W_x -0.0108517
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00113362 Cur_speed 0.2 W_x -0.0277266
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00115193 Cur_speed 0.2 W_x -0.0446032
+Selection_action_mode 0 Speed_change_of_obstacle -0 All_adjust 0.00116161 Cur_speed 0.2 W_x -0.0614647
+section back liner  

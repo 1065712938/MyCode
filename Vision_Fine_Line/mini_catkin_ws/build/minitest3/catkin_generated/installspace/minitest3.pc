@@ -1,0 +1,8 @@
+prefix=/home/crazy/mini_catkin_ws/install
+
+Name: minitest3
+Description: Description of minitest3
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/crazy/mini_catkin_ws/install/lib 
+Requires: 

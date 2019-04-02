@@ -1,0 +1,4 @@
+float32 levels_of_anger
+float32 min_lidar_data
+float32[] Avoidance_Classification_group
+float32 Speed_change_of_obstacle 

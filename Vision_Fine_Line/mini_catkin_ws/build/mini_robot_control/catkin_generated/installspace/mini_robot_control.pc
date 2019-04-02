@@ -1,0 +1,8 @@
+prefix=/home/crazy/mini_catkin_ws/install
+
+Name: mini_robot_control
+Description: Description of mini_robot_control
+Version: 0.0.0
+Cflags: -I/home/crazy/mini_catkin_ws/install/include
+Libs: -L/home/crazy/mini_catkin_ws/install/lib -lmini_robot_control
+Requires: 

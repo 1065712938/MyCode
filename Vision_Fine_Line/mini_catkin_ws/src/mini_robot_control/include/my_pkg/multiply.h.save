@@ -1,0 +1,10 @@
+#ifndef _MULTIPLY_H_
+#define _MULTIPLY_H_
+#ifdef __cpluscplus
+extern "c"
+{
+#endif
+    int multiply(int a,int b);
+#ifdef __cpluscplus
+#endif
+#endif

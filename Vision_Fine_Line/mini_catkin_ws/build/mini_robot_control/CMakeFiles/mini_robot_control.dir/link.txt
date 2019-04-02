@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -g  -shared -Wl,-soname,libmini_robot_control.so -o /home/crazy/mini_catkin_ws/devel/lib/libmini_robot_control.so CMakeFiles/mini_robot_control.dir/src/trajectory_planning.cpp.o CMakeFiles/mini_robot_control.dir/src/amcl_linear_x_ahead.cpp.o 

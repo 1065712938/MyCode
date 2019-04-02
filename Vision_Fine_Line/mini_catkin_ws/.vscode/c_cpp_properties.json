@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/crazy/mini_catkin_ws/devel/include",
+                "/home/crazy/catkin_ws/devel/include",
+                "/opt/ros/kinetic/include",
+                "/home/crazy/mini_catkin_ws/src/custom_msg_topic/include",
+                "/home/crazy/mini_catkin_ws/src/imu_calib/include",
+                "/home/crazy/mini_catkin_ws/src/mini_robot_control/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_bullet/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_eigen/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_geometry_msgs/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_kdl/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_msgs/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_ros/include",
+                "/home/crazy/mini_catkin_ws/src/geometry2/tf2_sensor_msgs/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

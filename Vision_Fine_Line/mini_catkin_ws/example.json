@@ -1,0 +1,31 @@
+{
+    "encoding" : "UTF-8",
+    "plug-ins" : [
+        "python",
+        "c++",
+        "ruby"
+        ],
+    "indent" : { "length" : 3, "use_space": true },
+    "arrayobj2" : [{"name":"张三","age":18,"weight":60.3},{"name":"李四","age":19,"weight":66.6}],
+     "content": {
+	    "targetPos": {
+	      "x": 1.2,
+	      "y": 5.6
+	    },
+	    "passPos": [
+			      {
+				"x": 1.21,
+				"y": 5.6
+			      },
+			      {
+				"x": 1.22,
+				"y": 5.6
+			      },
+			      {
+				"x": 1.23,
+				"y": 5.6
+			      }
+	              ]
+  },
+  "command": "set_pos"
+}

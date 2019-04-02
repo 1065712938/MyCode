@@ -1,0 +1,8 @@
+<launch>
+   <node name="mini_pid" pkg="mini_robot_control" type="mini_pid" output="screen">
+  </node>
+  <node name="get_odom_pose" pkg="mini_robot_control" type="get_odom_pose" output="screen">
+    <param name="angular_scale" type="double" value="0.85" />
+    <param name="linear_scale" type="double" value="1.0" />
+  </node>
+</launch>
