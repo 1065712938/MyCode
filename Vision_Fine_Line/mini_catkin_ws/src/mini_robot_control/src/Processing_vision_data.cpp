@@ -1,29 +1,80 @@
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/opencv.hpp>
+//#include <opencv2/legacy/compat.hpp>
 #include <cv_bridge/cv_bridge.h>
+#include "mini_robot_control/vision_function.h"
+//#include "vision_function.h"
+
 #include <vector>
 #include <stdio.h>
 using namespace cv;
 using namespace std;
-vector<Mat> HSVChannels;
-cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);
-int g_nThresholdValue_GARY = 180;
 //阈值回调函数
+ void on_Threshold(int, void*)
+ {
+    // threshold(Split_S_img, Split_S_img, g_nThresholdValue_GARY, 255, THRESH_BINARY_INV);
+ }
 
-void on_Threshold(int, void*)
+/*
+void drawGrayImage(void)
 {
-    threshold(Split_S_img, Split_S_img, g_nThresholdValue_GARY, 255, THRESH_BINARY_INV);
+	IplImage *img=cvLoadImage("lena.jpg", CV_LOAD_IMAGE_GRAYSCALE);
+	if (img == NULL)
+		exit(0);
+	int dims=1; //创建一维直方图
+	int sizes[]={256}; //共有256个取值范围
+	int type=CV_HIST_ARRAY; //表示使用密集多维矩阵结构
+	float range[]={0, 255}; //取值范围为0-255
+	float *ranges[]={range}; 
+	CvHistogram *hist=NULL;//创建直方图的空指针结构
+ 
+	hist=cvCreateHist(dims, sizes, type, ranges, 1);//创建直方图
+	cvCalcHist(&img, hist, 0, NULL); //统计直方图 计算图像直方图的函数
+	cvNormalizeHist(hist, 1.0); //归一化直方图
+ 
+	int hist_height=256; //直方图高度
+	int hist_size=256;   //直方图尺寸
+	int scale=2;
+	//创建一张一维直方图的“图”，横坐标为灰度级，纵坐标为像素个数（*scale） 彩色图像
+	IplImage *hist_image=cvCreateImage(cvSize((hist_size*scale), hist_height), IPL_DEPTH_8U, 3); 
+	if (hist_image == NULL)
+		exit(0);
+	cvZero(hist_image);
+ 
+	float max=0; //直方图中的最大值
+	cvGetMinMaxHistValue(hist, 0, &max, NULL, NULL);
+
+	for (int i=0; i<hist_size; i++)
+	{
+		float val=cvQueryHistValue_1D(hist, i);
+		int intensity=cvRound(hist_height*val/max);
+		cvRectangle(hist_image, cvPoint(i*scale, hist_height-1), cvPoint((i+1)*scale-1, hist_height-intensity-1), CV_RGB(255, 255, 255), -1, 8, 0);
+	}
+ 
+	cvNamedWindow("img");
+	cvNamedWindow("hist_image");
+	cvShowImage("img", img);
+	cvShowImage("hist_image", hist_image);
+	cvWaitKey(0);
+	cvDestroyAllWindows();
+	cvReleaseImage(&img);
+	cvReleaseImage(&hist_image);
 }
+*/
+
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "image_publisher");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
     image_transport::Publisher pub = it.advertise("camera/image", 1);
-    cv::VideoCapture cap(0);
-    cap.set(CV_CAP_PROP_FRAME_WIDTH, 240);//宽度 
-    cap.set(CV_CAP_PROP_FRAME_HEIGHT, 320);//高度
+    cv::VideoCapture cap(1);//1 0s
+    cap.set(CV_CAP_PROP_FRAME_WIDTH,140);//宽度 320
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT,180);//高度240
+    cap.set(CV_CAP_PROP_FPS, 120);///30
+    cap.set(CV_CAP_PROP_AUTO_EXPOSURE, 1);
     printf("width = %.2f\n",cap.get(CV_CAP_PROP_FRAME_WIDTH));
     printf("height = %.2f\n",cap.get(CV_CAP_PROP_FRAME_HEIGHT));
     printf("fbs = %.2f\n",cap.get(CV_CAP_PROP_FPS));
@@ -36,31 +87,41 @@ int main(int argc, char** argv) {
     ROS_INFO("cannot open video device\n");
     return 1;
     }
-    cv::Mat frame;
+    cv::Mat frame= Mat(120, 160, CV_8UC3);;
+    cv::Mat frame_gray= Mat(120, 160,CV_8UC1);;
     sensor_msgs::ImagePtr msg;
-    ros::Rate loop_rate(10);//以10ms间隔发送图片
+    ros::Rate loop_rate(5);//以10ms间隔发送图片
     string ShowName="current_video";
     namedWindow(ShowName, 1 );
-    createTrackbar("参数值", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
+    createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
+    vision_processing VPF;
+    //drawGrayImage();
     while (nh.ok()) {
         cap >> frame;  
         if (!frame.empty()) {  
             //bgr8: CV_8UC3,带有颜色信息并且颜色的顺序是BGR顺序
             //mono8：CV_8UC1， 灰度图像
             //OpenCV图像转换为ROS消息的函数
-            cvtColor(frame, frame, CV_BGR2HSV);
-            split(frame, HSVChannels); //分离通道
-            resize(HSVChannels.at(1), Split_S_img, Split_S_img.size());
-            GaussianBlur(Split_S_img,Split_S_img,Size(5,5),0,0);
-            on_Threshold(0, 0);
-            msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", Split_S_img).toImageMsg();  
+            resize(frame, frame, frame_gray.size());
+            cv::imshow("BGR",frame);
+            GaussianBlur(frame,frame,Size(9,9),0,0);
+            cv::medianBlur(frame,frame,5);
+            VPF.Deal_gray_Vision(frame);
+            //VPF.Deal_HSV_Vision (frame);
+            // cvtColor(frame, frame, CV_BGR2HSV);
+            // split(frame, HSVChannels); //分离通道
+            // resize(HSVChannels.at(1), Split_S_img, Split_S_img.size());
+            // cv::imshow("frame_S",Split_S_img);
+            // on_Threshold(0, 0);
+            msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", frame).toImageMsg();  
             pub.publish(msg);  
-            cv::imshow(ShowName,Split_S_img);
-            if(waitKey(30) >=0) 
+            circle(frame,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,8);
+            cv::imshow(ShowName,frame);
+            if(waitKey(20) >=0) 
              break;
         }
         ROS_INFO("runnning!");
         ros::spinOnce();  
-        loop_rate.sleep();//与ros::Rate loop_rate相对应,休息10ms
+        //loop_rate.sleep();//与ros::Rate loop_rate相对应,休息10ms
     }
 }

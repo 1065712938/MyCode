@@ -1809,7 +1809,7 @@ void get_obstacle_point_fun()
   //  cout<<"Obstacle_block_num = "<<Obstacle_block_num<<endl;
     Deal_with_whole_pose(whole_point3_vector);
 }
-int main1(int argc, char **argv)
+int main(int argc, char **argv)
 { 
     ros::init(argc,argv,"Processing_lidar_data");
     ros::NodeHandle n;
@@ -1871,86 +1871,4 @@ int main1(int argc, char **argv)
     oFile_init.close();
    
         return 0;
-}
-
-
-#include <ros/ros.h>
-#include <image_transport/image_transport.h>
-#include <opencv2/highgui/highgui.hpp>
-#include <cv_bridge/cv_bridge.h>
-#include <stdio.h>
-using namespace cv;
-
-int main2(int argc, char** argv)
-{
-  ros::init(argc, argv, "image_publisher");
-  ros::NodeHandle nh; 
-  cv::Mat image = cv::imread("airplane.jpg",CV_LOAD_IMAGE_COLOR);
-  //Mat image = imread("airplane.jpg", CV_LOAD_IMAGE_COLOR);
-  //Mat sorc_img = imread("box.png",1);
-  //imshow("test",sorc_img);
-  //cv::Mat image = cv::imread("/mini_catkin_ws/src/mini_robot_control/airplane.jpg", CV_LOAD_IMAGE_COLOR);
-  //cv::Mat image = cv::imread("~/mini_catkin_ws/src/mini_robot_control/airplane.jpg", CV_LOAD_IMAGE_COLOR);
-  //cv::Mat image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);
-  if(image.empty())
-  {
-    printf("open error 图片打不开\n");
-  }
-  cv::imshow("",image);
-  cv::waitKey(3000);
-  //cv::destroyWindow("");
-  ros::spin();
-}
-
-int main3(int argc, char** argv)
-{
-  ros::init(argc, argv, "image_publisher");
-  ros::NodeHandle nh;
-  image_transport::ImageTransport it(nh);//用之前声明的节点句柄初始化it，其实这里的it和nh的功能基本一样，可以像之前一样使用it来发布和订阅相消息。
-  image_transport::Publisher pub = it.advertise("camera/image", 1);
- 
-  cv::Mat image = cv::imread("airplane.jpg",CV_LOAD_IMAGE_COLOR);
-  if(image.empty())
-  {
-    printf("open error\n");
-  }
-  sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();//图像格式转换
- 
-  ros::Rate loop_rate(5);//每秒5帧
-  while (nh.ok()) 
-  {
-    pub.publish(msg);
-    ros::spinOnce();
-    loop_rate.sleep();
-  }
-}
-
-int main(int argc, char** argv) {
-    ros::init(argc, argv, "image_publisher1");
-    ros::NodeHandle nh;
-    image_transport::ImageTransport it(nh);
-    image_transport::Publisher pub = it.advertise("camera/image1", 1);
-
-    cv::VideoCapture cap(0);
-    if (!cap.isOpened()) {
-    ROS_INFO("cannot open video device\n");
-    return 1;
-    }
-    cv::Mat frame;
-    sensor_msgs::ImagePtr msg;
-
-    ros::Rate loop_rate(10);//以10ms间隔发送图片
-    while (nh.ok()) {
-        cap >> frame;  
-        if (!frame.empty()) {  
-            msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame).toImageMsg();  
-            pub.publish(msg);  
-            cv::imshow("video",frame);
-            if(waitKey(30) >=0) 
-             break;
-        }
-            ROS_INFO("runnning!");
-        ros::spinOnce();  
-        loop_rate.sleep();//与ros::Rate loop_rate相对应,休息10ms
-    }
 }

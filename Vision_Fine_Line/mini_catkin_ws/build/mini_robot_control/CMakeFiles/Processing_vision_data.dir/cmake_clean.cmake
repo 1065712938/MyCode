@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Processing_vision_data.dir/src/Processing_vision_data.cpp.o"
+  "CMakeFiles/Processing_vision_data.dir/src/vision_function.cpp.o"
   "/home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/Processing_vision_data.pdb"
   "/home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/Processing_vision_data"
 )

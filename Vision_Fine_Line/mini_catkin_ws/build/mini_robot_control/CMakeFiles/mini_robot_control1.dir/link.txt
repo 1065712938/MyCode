@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -g  -shared -Wl,-soname,libmini_robot_control1.so -o /home/crazy/mini_catkin_ws/devel/lib/libmini_robot_control1.so CMakeFiles/mini_robot_control1.dir/src/vision_function.cpp.o 

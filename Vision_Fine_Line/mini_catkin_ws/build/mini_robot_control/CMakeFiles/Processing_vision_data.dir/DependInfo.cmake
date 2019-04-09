@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/crazy/mini_catkin_ws/src/mini_robot_control/src/Processing_vision_data.cpp" "/home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/Processing_vision_data.dir/src/Processing_vision_data.cpp.o"
+  "/home/crazy/mini_catkin_ws/src/mini_robot_control/src/vision_function.cpp" "/home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/Processing_vision_data.dir/src/vision_function.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

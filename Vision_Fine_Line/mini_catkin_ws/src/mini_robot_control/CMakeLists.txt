@@ -132,9 +132,12 @@ include_directories(
 # add_library(${mini_robot_control}
 #   src/${mini_robot_control}mini_pid.cpp
  #)
+#target_link_libraries(vision_function mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+#add_library(mini_robot_control ${OpenCV_LIBRARIES})
 add_library(mini_robot_control
  src/trajectory_planning.cpp
- src/amcl_linear_x_ahead.cpp)#wiringPi.c 
+ #src/vision_function.cpp 
+src/amcl_linear_x_ahead.cpp)#wiringPi.c 
 #add_library(mini_robot_control src/amcl_linear_x_ahead.cpp)#wiringPi.c  wiringSerial.c
 
 
@@ -231,14 +234,22 @@ add_executable(Processing_lidar_data src/Processing_lidar_data.cpp)
 add_dependencies(Processing_lidar_data mini_robot_control)
 target_link_libraries(Processing_lidar_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
-add_executable(Processing_vision_data src/Processing_vision_data.cpp)
+
+#add_executable(vision_function src/vision_function.cpp)
+#add_dependencies(vision_function mini_robot_control)
+#target_link_libraries(vision_function mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+
+add_executable(Processing_vision_data src/Processing_vision_data.cpp src/vision_function.cpp)
 add_dependencies(Processing_vision_data mini_robot_control)
-target_link_libraries(Processing_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(Processing_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${vision_function})
 
 
 add_executable(subscriber_vision_data src/subscriber_vision_data.cpp)
 add_dependencies(subscriber_vision_data mini_robot_control)
 target_link_libraries(subscriber_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+
 
 #add_executable(amcl_linear_x_ahead src/amcl_linear_x_ahead.cpp) subscriber_vision_data.cpp
 #add_dependencies(amcl_linear_x_ahead mini_robot_control)

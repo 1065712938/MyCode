@@ -53,7 +53,8 @@
         "iomanip": "cpp",
         "memory": "cpp",
         "algorithm": "cpp",
-        "eigen": "cpp"
+        "eigen": "cpp",
+        "*.ipp": "cpp"
     },
     "python.autoComplete.extraPaths": [
         "/home/crazy/mini_catkin_ws/devel/lib/python2.7/dist-packages",
