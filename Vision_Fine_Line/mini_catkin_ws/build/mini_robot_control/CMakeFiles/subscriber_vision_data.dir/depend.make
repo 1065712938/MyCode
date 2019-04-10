@@ -3,6 +3,7 @@
 
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /home/crazy/mini_catkin_ws/src/mini_robot_control/src/subscriber_vision_data.cpp
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/cv_bridge/cv_bridge.h
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point32.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/image_transport/camera_publisher.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/image_transport/camera_subscriber.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/image_transport/exception.h
@@ -202,8 +203,10 @@ mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_d
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/ros/wall_timer_options.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/CameraInfo.h
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/ChannelFloat32.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/CompressedImage.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/Image.h
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/PointCloud.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/RegionOfInterest.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/sensor_msgs/image_encodings.h
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h

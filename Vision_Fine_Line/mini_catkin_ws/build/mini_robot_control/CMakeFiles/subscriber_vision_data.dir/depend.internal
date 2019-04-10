@@ -4,6 +4,7 @@
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o
  /home/crazy/mini_catkin_ws/src/mini_robot_control/src/subscriber_vision_data.cpp
  /opt/ros/kinetic/include/cv_bridge/cv_bridge.h
+ /opt/ros/kinetic/include/geometry_msgs/Point32.h
  /opt/ros/kinetic/include/image_transport/camera_publisher.h
  /opt/ros/kinetic/include/image_transport/camera_subscriber.h
  /opt/ros/kinetic/include/image_transport/exception.h
@@ -203,8 +204,10 @@ mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_d
  /opt/ros/kinetic/include/ros/wall_timer_options.h
  /opt/ros/kinetic/include/rosconsole/macros_generated.h
  /opt/ros/kinetic/include/sensor_msgs/CameraInfo.h
+ /opt/ros/kinetic/include/sensor_msgs/ChannelFloat32.h
  /opt/ros/kinetic/include/sensor_msgs/CompressedImage.h
  /opt/ros/kinetic/include/sensor_msgs/Image.h
+ /opt/ros/kinetic/include/sensor_msgs/PointCloud.h
  /opt/ros/kinetic/include/sensor_msgs/RegionOfInterest.h
  /opt/ros/kinetic/include/sensor_msgs/image_encodings.h
  /opt/ros/kinetic/include/std_msgs/Header.h

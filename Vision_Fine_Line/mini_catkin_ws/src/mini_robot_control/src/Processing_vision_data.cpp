@@ -68,12 +68,6 @@ void drawGrayImage(void)
 */
 
 
-void test()
-{
-     ros::NodeHandle n;
-     ros::Publisher send_vel = n.advertise<geometry_msgs::Twist>("cmd_vel",2);
-}
-
 typedef Point_<double> Point2d;
 sensor_msgs::PointCloud g_Set_Points;
 Point2d get_midlinear_poin1;
@@ -82,6 +76,7 @@ int main(int argc, char** argv)
 {
     ros::init(argc, argv, "image_publisher");
     ros::NodeHandle nh;
+   // ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1    
     image_transport::ImageTransport it(nh);
     image_transport::Publisher pub = it.advertise("camera/image", 1);
     //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
@@ -128,12 +123,10 @@ int main(int argc, char** argv)
             cv::imshow("BGR",frame);
             GaussianBlur(frame,frame,Size(9,9),0,0);
             cv::medianBlur(frame,frame,5);
-           // VPF.Deal_gray_Vision(frame);
+            VPF.Deal_gray_Vision(frame);
             //VPF.Deal_HSV_Vision (frame);
             msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", frame).toImageMsg();  
             pub.publish(msg); 
-            test();
-            
             circle(frame,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,8);
             cv::imshow(ShowName,frame);
             if(waitKey(20) >=0) 
@@ -142,6 +135,6 @@ int main(int argc, char** argv)
         ROS_INFO("runnning!");
         ros::spinOnce();  
         loop_rate.sleep();//与ros::Rate loop_rate相对应,休息10ms
-    }
+    } 
     return 0;
 }

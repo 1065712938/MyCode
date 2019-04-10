@@ -158,12 +158,8 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
 
 */
 
- void  Fine_Center_Line(cv::Mat frame)
- {
-
-    ros::NodeHandle linear_nh;
-    ros::Publisher send_Linear_Point = linear_nh.advertise<sensor_msgs::PointCloud>("Linear_Point",1);//改为1
-    cout<<"OK"<<endl;
+ void vision_processing::Fine_Center_Line(cv::Mat frame)
+ { 
     Canny(frame, frame, 3, 9, 3);
     cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
     int rows = frame.rows;
@@ -211,8 +207,8 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
         _Mid_Linear_Points.points[i].y = Mid_Linear_Points.at(i).y;
         _Mid_Linear_Points.points[i].z = 0;
     }
-    send_Linear_Point.publish(_Mid_Linear_Points);
     //先publish 再clear
+    Send_Linear_Point.publish(_Mid_Linear_Points);
     Mid_Linear_Points.clear();
     //cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
     //cv::circle(img_rgb,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,2);
@@ -229,6 +225,7 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
 */
 void vision_processing::Deal_gray_Vision(cv::Mat frame)
 { 
+    //vision_processing VPF1;
     cvtColor(frame, frame, CV_BGR2GRAY);
     //cv::imshow("frame_gray",frame) ;
     threshold(frame, frame, g_nThresholdValue_GARY, 255, THRESH_BINARY);

@@ -17,6 +17,8 @@ opencv2/opencv.hpp
 -
 sensor_msgs/PointCloud.h
 -
+geometry_msgs/Twist.h
+-
 cv_bridge/cv_bridge.h
 -
 
