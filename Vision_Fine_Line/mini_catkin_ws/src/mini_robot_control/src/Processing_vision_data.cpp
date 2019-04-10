@@ -5,6 +5,9 @@
 //#include <opencv2/legacy/compat.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include "mini_robot_control/vision_function.h"
+#include <sensor_msgs/PointCloud.h>
+#include <geometry_msgs/Twist.h>
+
 //#include "vision_function.h"
 
 #include <vector>
@@ -65,12 +68,26 @@ void drawGrayImage(void)
 */
 
 
-int main(int argc, char** argv) {
+void test()
+{
+     ros::NodeHandle n;
+     ros::Publisher send_vel = n.advertise<geometry_msgs::Twist>("cmd_vel",2);
+}
+
+typedef Point_<double> Point2d;
+sensor_msgs::PointCloud g_Set_Points;
+Point2d get_midlinear_poin1;
+
+int main(int argc, char** argv) 
+{
     ros::init(argc, argv, "image_publisher");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
     image_transport::Publisher pub = it.advertise("camera/image", 1);
+    //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
+   
     cv::VideoCapture cap(1);//1 0s
+
     cap.set(CV_CAP_PROP_FRAME_WIDTH,140);//宽度 320
     cap.set(CV_CAP_PROP_FRAME_HEIGHT,180);//高度240
     cap.set(CV_CAP_PROP_FPS, 120);///30
@@ -83,38 +100,40 @@ int main(int argc, char** argv) {
     printf("saturation = %.2f\n",cap.get(CV_CAP_PROP_SATURATION));
     printf("hue = %.2f\n",cap.get(CV_CAP_PROP_HUE));
     printf("exposure = %.2f\n",cap.get(CV_CAP_PROP_EXPOSURE));
+
     if (!cap.isOpened()) {
-    ROS_INFO("cannot open video device\n");
-    return 1;
-    }
+                ROS_INFO("cannot open video device\n");
+                return 1;
+     }
     cv::Mat frame= Mat(120, 160, CV_8UC3);;
-    cv::Mat frame_gray= Mat(120, 160,CV_8UC1);;
+    cv::Mat frame_gray= Mat(120, 160,CV_8UC1);
     sensor_msgs::ImagePtr msg;
-    ros::Rate loop_rate(5);//以10ms间隔发送图片
+    ros::Rate loop_rate(100);//以10ms间隔发送图片
     string ShowName="current_video";
     namedWindow(ShowName, 1 );
     createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
     vision_processing VPF;
+   
     //drawGrayImage();
-    while (nh.ok()) {
+     while(ros::ok())
+        {
+        ros::spinOnce();
         cap >> frame;  
         if (!frame.empty()) {  
             //bgr8: CV_8UC3,带有颜色信息并且颜色的顺序是BGR顺序
             //mono8：CV_8UC1， 灰度图像
             //OpenCV图像转换为ROS消息的函数
+            //Send_stop();
             resize(frame, frame, frame_gray.size());
             cv::imshow("BGR",frame);
             GaussianBlur(frame,frame,Size(9,9),0,0);
             cv::medianBlur(frame,frame,5);
-            VPF.Deal_gray_Vision(frame);
+           // VPF.Deal_gray_Vision(frame);
             //VPF.Deal_HSV_Vision (frame);
-            // cvtColor(frame, frame, CV_BGR2HSV);
-            // split(frame, HSVChannels); //分离通道
-            // resize(HSVChannels.at(1), Split_S_img, Split_S_img.size());
-            // cv::imshow("frame_S",Split_S_img);
-            // on_Threshold(0, 0);
             msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", frame).toImageMsg();  
-            pub.publish(msg);  
+            pub.publish(msg); 
+            test();
+            
             circle(frame,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,8);
             cv::imshow(ShowName,frame);
             if(waitKey(20) >=0) 
@@ -122,6 +141,7 @@ int main(int argc, char** argv) {
         }
         ROS_INFO("runnning!");
         ros::spinOnce();  
-        //loop_rate.sleep();//与ros::Rate loop_rate相对应,休息10ms
+        loop_rate.sleep();//与ros::Rate loop_rate相对应,休息10ms
     }
+    return 0;
 }

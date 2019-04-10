@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(mini_robot_control)
-
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -242,7 +241,7 @@ target_link_libraries(Processing_lidar_data mini_robot_control ${catkin_LIBRARIE
 
 add_executable(Processing_vision_data src/Processing_vision_data.cpp src/vision_function.cpp)
 add_dependencies(Processing_vision_data mini_robot_control)
-target_link_libraries(Processing_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${vision_function})
+target_link_libraries(Processing_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} )#${vision_function}
 
 
 add_executable(subscriber_vision_data src/subscriber_vision_data.cpp)
