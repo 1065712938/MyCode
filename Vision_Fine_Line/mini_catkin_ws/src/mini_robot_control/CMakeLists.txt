@@ -244,7 +244,7 @@ add_dependencies(Processing_vision_data mini_robot_control)
 target_link_libraries(Processing_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} )#${vision_function}
 
 
-add_executable(subscriber_vision_data src/subscriber_vision_data.cpp)
+add_executable(subscriber_vision_data src/subscriber_vision_data.cpp src/vision_function.cpp)
 add_dependencies(subscriber_vision_data mini_robot_control)
 target_link_libraries(subscriber_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 

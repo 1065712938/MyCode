@@ -567,6 +567,7 @@ src/vision_function.o: src/vision_function.cpp.o
 
 # target to build an object file
 src/vision_function.cpp.o:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build.make mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o
 	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/Processing_vision_data.dir/build.make mini_robot_control/CMakeFiles/Processing_vision_data.dir/src/vision_function.cpp.o
 .PHONY : src/vision_function.cpp.o
 
@@ -576,6 +577,7 @@ src/vision_function.i: src/vision_function.cpp.i
 
 # target to preprocess a source file
 src/vision_function.cpp.i:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build.make mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.i
 	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/Processing_vision_data.dir/build.make mini_robot_control/CMakeFiles/Processing_vision_data.dir/src/vision_function.cpp.i
 .PHONY : src/vision_function.cpp.i
 
@@ -585,6 +587,7 @@ src/vision_function.s: src/vision_function.cpp.s
 
 # target to generate assembly for a file
 src/vision_function.cpp.s:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build.make mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.s
 	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/Processing_vision_data.dir/build.make mini_robot_control/CMakeFiles/Processing_vision_data.dir/src/vision_function.cpp.s
 .PHONY : src/vision_function.cpp.s
 

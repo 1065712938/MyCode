@@ -250,6 +250,127 @@ void vision_processing::Deal_HSV_Vision(cv::Mat frame)
     imshow("frame_S_bool",Split_S_img);
 }
 
+
+/*
+函数名      ：fit_linear_fun_experiment
+功能       ：测试线性拟合函数
+调用方式    ：
+说明       ：以图片的形式打印出拟合的结果
+*/
+void vision_processing::fit_linear_fun_experiment()
+{
+  //创建一个用于绘制图像的空白图
+	cv::Mat image = cv::Mat::zeros(480, 640, CV_8UC3);
+	//输入拟合点
+	std::vector<cv::Point> points;
+	points.push_back(cv::Point(48, 58));
+	points.push_back(cv::Point(105, 98));
+	points.push_back(cv::Point(155, 160));
+	points.push_back(cv::Point(212, 220));
+	points.push_back(cv::Point(248, 260));
+	points.push_back(cv::Point(320, 300));
+	points.push_back(cv::Point(350, 360));
+	points.push_back(cv::Point(412, 400));
+ 
+	//将拟合点绘制到空白图上
+	for (int i = 0; i < points.size(); i++)
+	{
+		cv::circle(image, points[i], 5, cv::Scalar(0, 0, 255), 2, 8, 0);
+	}
+ 
+	cv::Vec4f line_para; 
+	cv::fitLine(points, line_para,CV_DIST_L2, 0, 1e-2, 1e-2);
+ 
+	std::cout << "line_para = " << line_para << std::endl;
+ 
+	//获取点斜式的点和斜率
+	cv::Point point0;
+	point0.x = line_para[2];
+	point0.y = line_para[3];
+ 
+	double k = line_para[1] / line_para[0];
+ 
+	//计算直线的端点(y = k(x - x0) + y0)
+	cv::Point point1, point2;
+	point1.x = 0;
+	point1.y = k * (0 - point0.x) + point0.y;
+	point2.x = 640;
+	point2.y = k * (640 - point0.x) + point0.y;
+	cv::line(image, point1, point2, cv::Scalar(0, 255, 0), 2, 8, 0);
+	cv::imshow("image", image);
+	cv::waitKey(10);
+}
+
+void Draw_Line(std::vector<cv::Point> Fit_Points,cv::Vec4f _line_para)
+{
+        cv::Mat image1 = cv::Mat::zeros(120, 160, CV_8UC3);
+        cv::Vec4f line_para; 
+        for (int i = 0; i < Fit_Points.size(); i++)
+        {
+            cv::circle(image1, Fit_Points[i], 1, cv::Scalar(0, 0, 255), 2, 8, 0);
+        }
+        double cos_theta = _line_para[0];
+        double sin_theta = _line_para[1];
+        cv::Point point0;
+        point0.x = _line_para[2];
+        point0.y = _line_para[3];
+        double D_K = sin_theta / cos_theta;
+        if(D_K>50) D_K = 50;
+        if(D_K<-50) D_K = -50;
+        cv::Point point1, point2;
+        point1.x = 1;//fit_line_points[fit_line_points.size()/8].x
+        point1.y = D_K * (point1.x - point0.x) + point0.y;
+        point2.x = 110;//fit_line_points[fit_line_points.size()].x
+        point2.y = D_K * (point2.x - point0.x) + point0.y;
+        cv::line(image1, point1, point2, cv::Scalar(0, 255, 0), 2, 8, 0);
+        cv::imshow("image1", image1);
+}
+
+/*
+函数名称 :  fit_lnear 
+调用方式 :  cout<<"K = "<<VP_Control.fit_lnear(fit_line_points)<<endl;
+功能  :    根据图像处理得到的线中心坐标点 进行拟合 得到斜率K值
+说明  :    返回K值
+*/
+double Line_K = 0;
+double vision_processing:: fit_lnear(std::vector<cv::Point> Fit_Points)
+{
+     if(Fit_Points.size()>2)
+     {
+            cv::Vec4f line_para; 
+            cv::fitLine(Fit_Points, line_para,CV_DIST_L2, 0, 1e-2, 1e-2);
+            double cos_theta = line_para[0];
+            double sin_theta = line_para[1];
+            cv::Point point0;
+            point0.x = line_para[2];
+            point0.y = line_para[3];
+            Line_K = sin_theta / cos_theta;
+            if(Line_K>50) Line_K = 50;
+            if(Line_K<-50) Line_K = -50;
+            Line_K = -(1/Line_K)*50;//小于45 时 Line_K<1
+            if(Line_K>80) Line_K = 80;
+            if(Line_K<-80) Line_K = 80-50;
+            double b = point0.y - Line_K*point0.x;
+            Draw_Line(Fit_Points,line_para);
+     }
+     return Line_K;
+
+}
+ 
+
+void vision_processing:: Send_speed(float speed ,float adjust)
+{
+    //cout<<"auto_ration"<<endl;
+    //ros::NodeHandle robot_stop;
+    //ros::Publisher send_stop = robot_stop.advertise<geometry_msgs::Twist>("cmd_vel",1);//改为1
+   // for(int i = 0;i<5;i++)
+     {
+        geometry_msgs::Twist twist1;
+        twist1.linear.x = speed; twist1.linear.y = 0; twist1.linear.z = 0;
+        twist1.angular.x = 0; twist1.angular.y = 0; twist1.angular.z = adjust;//angle_adjust_linear
+        Send_Request_Speed.publish(twist1);
+     }
+}
 void vision_processing::print_amcl_linear_x_ahead1()
 {
   cout<<"Hello SLAM amcl_linear_x_ahead"<<endl;

@@ -81,14 +81,40 @@ mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_d
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o.provides.build: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o
 
 
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/flags.make
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o: /home/crazy/mini_catkin_ws/src/mini_robot_control/src/vision_function.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crazy/mini_catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o"
+	cd /home/crazy/mini_catkin_ws/build/mini_robot_control && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o -c /home/crazy/mini_catkin_ws/src/mini_robot_control/src/vision_function.cpp
+
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.i"
+	cd /home/crazy/mini_catkin_ws/build/mini_robot_control && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/crazy/mini_catkin_ws/src/mini_robot_control/src/vision_function.cpp > CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.i
+
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.s"
+	cd /home/crazy/mini_catkin_ws/build/mini_robot_control && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/crazy/mini_catkin_ws/src/mini_robot_control/src/vision_function.cpp -o CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.s
+
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.requires:
+
+.PHONY : mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.requires
+
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.provides: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.requires
+	$(MAKE) -f mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build.make mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.provides.build
+.PHONY : mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.provides
+
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.provides.build: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o
+
+
 # Object files for target subscriber_vision_data
 subscriber_vision_data_OBJECTS = \
-"CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o"
+"CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o" \
+"CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o"
 
 # External object files for target subscriber_vision_data
 subscriber_vision_data_EXTERNAL_OBJECTS =
 
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o
+/home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build.make
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: /home/crazy/mini_catkin_ws/devel/lib/libmini_robot_control.so
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: /opt/ros/kinetic/lib/libtf.so
@@ -175,7 +201,7 @@ subscriber_vision_data_EXTERNAL_OBJECTS =
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_imgproc3.so.3.3.1
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_core3.so.3.3.1
 /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/crazy/mini_catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/crazy/mini_catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable /home/crazy/mini_catkin_ws/devel/lib/mini_robot_control/subscriber_vision_data"
 	cd /home/crazy/mini_catkin_ws/build/mini_robot_control && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/subscriber_vision_data.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -184,6 +210,7 @@ mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build: /home/crazy/mini
 .PHONY : mini_robot_control/CMakeFiles/subscriber_vision_data.dir/build
 
 mini_robot_control/CMakeFiles/subscriber_vision_data.dir/requires: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/subscriber_vision_data.cpp.o.requires
+mini_robot_control/CMakeFiles/subscriber_vision_data.dir/requires: mini_robot_control/CMakeFiles/subscriber_vision_data.dir/src/vision_function.cpp.o.requires
 
 .PHONY : mini_robot_control/CMakeFiles/subscriber_vision_data.dir/requires
 

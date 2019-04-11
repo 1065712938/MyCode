@@ -81,7 +81,7 @@ int main(int argc, char** argv)
     image_transport::Publisher pub = it.advertise("camera/image", 1);
     //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
    
-    cv::VideoCapture cap(1);//1 0s
+    cv::VideoCapture cap(0);//1 0s
 
     cap.set(CV_CAP_PROP_FRAME_WIDTH,140);//宽度 320
     cap.set(CV_CAP_PROP_FRAME_HEIGHT,180);//高度240
