@@ -105,8 +105,8 @@ int main(int argc, char** argv)
     sensor_msgs::ImagePtr msg;
     ros::Rate loop_rate(100);//以10ms间隔发送图片
     string ShowName="current_video";
-    namedWindow(ShowName, 1 );
-    createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
+    //namedWindow(ShowName, 1 );
+    //createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
     vision_processing VPF;
    
     //drawGrayImage();
