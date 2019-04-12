@@ -8,7 +8,7 @@
 #include <sensor_msgs/PointCloud.h>
 #include <geometry_msgs/Twist.h>
 
-//#include "vision_function.h"
+
 
 #include <vector>
 #include <stdio.h>
@@ -78,10 +78,10 @@ int main(int argc, char** argv)
     ros::NodeHandle nh;
    // ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1    
     image_transport::ImageTransport it(nh);
-    image_transport::Publisher pub = it.advertise("camera/image", 1);
+    image_transport::Publisher pub = it.advertise("camera/image", 1);//为图片的发布者
     //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
    
-    cv::VideoCapture cap(0);//1 0s
+    cv::VideoCapture cap(1);//1 0s
 
     cap.set(CV_CAP_PROP_FRAME_WIDTH,140);//宽度 320
     cap.set(CV_CAP_PROP_FRAME_HEIGHT,180);//高度240
@@ -105,13 +105,16 @@ int main(int argc, char** argv)
     sensor_msgs::ImagePtr msg;
     ros::Rate loop_rate(100);//以10ms间隔发送图片
     string ShowName="current_video";
-    //namedWindow(ShowName, 1 );
-    //createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
-    vision_processing VPF;
+    namedWindow(ShowName, 1 );
+    createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
+    // vision_processing VPF=vision_processing::getInstance();
    
+   //vision_processing * a=vision_processing::getInstance();
+   vision_processing VPF;
     //drawGrayImage();
      while(ros::ok())
         {
+
         ros::spinOnce();
         cap >> frame;  
         if (!frame.empty()) {  
@@ -120,12 +123,13 @@ int main(int argc, char** argv)
             //OpenCV图像转换为ROS消息的函数
             //Send_stop();
             resize(frame, frame, frame_gray.size());
-            cv::imshow("BGR",frame);
+            //cv::imshow("BGR",frame);
             GaussianBlur(frame,frame,Size(9,9),0,0);
             cv::medianBlur(frame,frame,5);
             VPF.Deal_gray_Vision(frame);
             //VPF.Deal_HSV_Vision (frame);
-            msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", frame).toImageMsg();  
+            //mono8 bgr8
+            msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame).toImageMsg();  
             pub.publish(msg); 
             circle(frame,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,8);
             cv::imshow(ShowName,frame);

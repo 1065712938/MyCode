@@ -10,6 +10,7 @@
 #include <iostream>
 using namespace cv;
 using namespace std;
+
 std::vector<cv::Point> Creat_vector_point;
 std::ofstream oFile_init;
 void Creat_vector_pointfun()
@@ -61,9 +62,11 @@ void Get_Linear_PoseCallback(const sensor_msgs::PointCloud& Points)
 }
 
 
-void Along_Linear_travel(float Slope_Value)
+void Along_Linear_travel(vision_processing &VPSend_speed,float Slope_Value)
 {
-    vision_processing VP_sendSpeed;
+    //vision_processing *VP_sendSpeed=vision_processing::getInstance();
+    //vision_processing VP_sendSpeed;
+
      pid.Kp=0.05;//0.16 度直线参数
      pid.Ki=0.03;
      pid.Kd=0.2;
@@ -71,7 +74,8 @@ void Along_Linear_travel(float Slope_Value)
      float Speed_Value = 0.1;
      cout<<"adjust_amcl_Y = "<<adjust_amcl_Y<<endl;
 
-     VP_sendSpeed.Send_speed(Speed_Value,adjust_amcl_Y);
+    // VP_sendSpeed.Send_speed(Speed_Value,adjust_amcl_Y);
+     VPSend_speed.Send_speed(Speed_Value,adjust_amcl_Y);
 }
 int main(int argc, char **argv)  
 {  
@@ -83,11 +87,14 @@ int main(int argc, char **argv)
   image_transport::Subscriber sub = it.subscribe("camera/image", 1, imageCallback);
   ros::Subscriber Get_Pose = nh.subscribe("Linear_Point", 1000, Get_Linear_PoseCallback);
   vision_processing VP_Control;
+   //vision_processing *VP_Control=vision_processing::getInstance();
+  // vision_processing VP_Control;
   oFile_init.open("subscriber_vision_data.csv",ios::out|ios::trunc);
   PID_init();
   while(ros::ok()){
+     //double K = 0;
      double K = VP_Control.fit_lnear(fit_line_points);
-     Along_Linear_travel(K);
+     Along_Linear_travel(VP_Control,K);
      cout<<"K = "<<K<<endl;
      oFile_init<<"K = "<<K<<endl;
      ros::spinOnce();

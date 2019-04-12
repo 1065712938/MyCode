@@ -213,6 +213,9 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
     //cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
     //cv::circle(img_rgb,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,2);
     cv::line(img_rgb,cv::Point2i(frame.cols/2,0),cv::Point2i(frame.cols/2,frame.rows), cv::Scalar(0,0,100), 1,CV_AA ); 
+    //mono8 bgr8
+    Publisher_msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img_rgb).toImageMsg();  
+    Publisher_Image.publish(Publisher_msg); 
     imshow("frame_gray_Canny",img_rgb);
  }
 
@@ -230,7 +233,7 @@ void vision_processing::Deal_gray_Vision(cv::Mat frame)
     //cv::imshow("frame_gray",frame) ;
     threshold(frame, frame, g_nThresholdValue_GARY, 255, THRESH_BINARY);
     cv::medianBlur(frame,frame,3);
-    imshow("frame_gray_bool",frame);
+    //imshow("frame_gray_bool",frame);
     Fine_Center_Line(frame);
 }
 
@@ -301,7 +304,7 @@ void vision_processing::fit_linear_fun_experiment()
 	cv::waitKey(10);
 }
 
-void Draw_Line(std::vector<cv::Point> Fit_Points,cv::Vec4f _line_para)
+void vision_processing::Draw_Line(std::vector<cv::Point> Fit_Points,cv::Vec4f _line_para)
 {
         cv::Mat image1 = cv::Mat::zeros(120, 160, CV_8UC3);
         cv::Vec4f line_para; 
@@ -323,6 +326,8 @@ void Draw_Line(std::vector<cv::Point> Fit_Points,cv::Vec4f _line_para)
         point2.x = 110;//fit_line_points[fit_line_points.size()].x
         point2.y = D_K * (point2.x - point0.x) + point0.y;
         cv::line(image1, point1, point2, cv::Scalar(0, 255, 0), 2, 8, 0);
+        Publisher_msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();  
+        Publisher_Fit_Image.publish(Publisher_msg); 
         cv::imshow("image1", image1);
 }
 
@@ -360,16 +365,11 @@ double vision_processing:: fit_lnear(std::vector<cv::Point> Fit_Points)
 
 void vision_processing:: Send_speed(float speed ,float adjust)
 {
-    //cout<<"auto_ration"<<endl;
-    //ros::NodeHandle robot_stop;
-    //ros::Publisher send_stop = robot_stop.advertise<geometry_msgs::Twist>("cmd_vel",1);//改为1
-   // for(int i = 0;i<5;i++)
-     {
-        geometry_msgs::Twist twist1;
-        twist1.linear.x = speed; twist1.linear.y = 0; twist1.linear.z = 0;
-        twist1.angular.x = 0; twist1.angular.y = 0; twist1.angular.z = adjust;//angle_adjust_linear
-        Send_Request_Speed.publish(twist1);
-     }
+    geometry_msgs::Twist twist1;
+    twist1.linear.x = speed; twist1.linear.y = 0; twist1.linear.z = 0;
+    twist1.angular.x = 0; twist1.angular.y = 0; twist1.angular.z = adjust;//angle_adjust_linear
+    Send_Request_Speed.publish(twist1);
+
 }
 void vision_processing::print_amcl_linear_x_ahead1()
 {
