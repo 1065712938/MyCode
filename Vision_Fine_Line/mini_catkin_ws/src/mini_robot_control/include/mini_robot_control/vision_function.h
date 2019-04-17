@@ -50,7 +50,8 @@ public:
   void print_amcl_linear_x_ahead1();
   void Send_stop();
   void fit_linear_fun_experiment();
-  double fit_lnear(std::vector<cv::Point> Fit_Points);
+  double fit_lnear(std::vector<cv::Point> Fit_Points);//
+  double Get_Deviation_Lnear(std::vector<cv::Point> Fit_Points);
   void Send_speed(float speed, float adjust);
 
 private:

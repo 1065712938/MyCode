@@ -14,6 +14,7 @@ extern float ranges[360];
 extern float flag_array[20];
 extern std::ofstream oFile_init;
 float PID_realize(float Target_value,float Real_time_value);
+float PID_Realize_Improve(float Target_value,float Real_time_value);
 void amcl_linear_back1(float V0,float V1,double Distance,char flag);
 void Track_pose(float L,float K,float x,float y,float x1,float y1);
 void Robot_Rotation(float L,float speed,float Set_Angle);

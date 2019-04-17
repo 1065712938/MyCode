@@ -194,7 +194,6 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
       filter_Mid_Linear_Points(Mid_Linear_Points);
     for(int i = 0; i < Mid_Linear_Points.size(); i++)
      {
-        
         cv::circle(img_rgb,cv::Point2i(Mid_Linear_Points.at(i).x,Mid_Linear_Points.at(i).y),2,cv::Scalar(255,0,0),-1,2);
         //cout<<" x1 = "<<Mid_Linear_Points.at(i).x<<" y = "<<Mid_Linear_Points.at(i).y<<endl;
      }
@@ -233,7 +232,7 @@ void vision_processing::Deal_gray_Vision(cv::Mat frame)
     //cv::imshow("frame_gray",frame) ;
     threshold(frame, frame, g_nThresholdValue_GARY, 255, THRESH_BINARY);
     cv::medianBlur(frame,frame,3);
-    //imshow("frame_gray_bool",frame);
+    imshow("frame_gray_bool",frame);
     Fine_Center_Line(frame);
 }
 
@@ -362,6 +361,32 @@ double vision_processing:: fit_lnear(std::vector<cv::Point> Fit_Points)
 
 }
  
+
+
+/*
+函数名称 :  fit_lnear 
+调用方式 :  cout<<"K = "<<VP_Control.fit_lnear(fit_line_points)<<endl;
+功能  :    根据图像处理得到的线中心坐标点 进行拟合 得到斜率K值
+说明  :    返回K值
+*/
+double Dev_Line_Value = 0;
+double vision_processing:: Get_Deviation_Lnear(std::vector<cv::Point> Fit_Points)
+{
+     int Point_Size = Fit_Points.size();
+     float Total_Value    = 0;
+     if(Fit_Points.size()>2)
+     {
+        for(int i = 2;i<Point_Size;)
+        {
+            Total_Value +=  (Fit_Points[i].x - 80);
+            cout<<"x = "<< Fit_Points[i].x<<" Total_Value = "<<Total_Value<<endl;
+            i += 3;
+        }
+        cout<<"Fit_Points.size() = "<<Point_Size<<endl;
+     }
+     return Dev_Line_Value;
+
+}
 
 void vision_processing:: Send_speed(float speed ,float adjust)
 {

@@ -83,18 +83,18 @@ int main(int argc, char** argv)
    
     cv::VideoCapture cap(1);//1 0s
 
-    cap.set(CV_CAP_PROP_FRAME_WIDTH,140);//宽度 320
-    cap.set(CV_CAP_PROP_FRAME_HEIGHT,180);//高度240
-    cap.set(CV_CAP_PROP_FPS, 120);///30
-    cap.set(CV_CAP_PROP_AUTO_EXPOSURE, 1);
-    printf("width = %.2f\n",cap.get(CV_CAP_PROP_FRAME_WIDTH));
-    printf("height = %.2f\n",cap.get(CV_CAP_PROP_FRAME_HEIGHT));
-    printf("fbs = %.2f\n",cap.get(CV_CAP_PROP_FPS));
-    printf("brightness = %.2f\n",cap.get(CV_CAP_PROP_BRIGHTNESS));
-    printf("contrast = %.2f\n",cap.get(CV_CAP_PROP_CONTRAST));
-    printf("saturation = %.2f\n",cap.get(CV_CAP_PROP_SATURATION));
-    printf("hue = %.2f\n",cap.get(CV_CAP_PROP_HUE));
-    printf("exposure = %.2f\n",cap.get(CV_CAP_PROP_EXPOSURE));
+    cap.set(CV_CAP_PROP_FRAME_WIDTH,160);//宽度 320
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT,120);//高度240
+    //cap.set(CV_CAP_PROP_FPS, 120);///30
+    //cap.set(CV_CAP_PROP_AUTO_EXPOSURE, 1);
+    // printf("width = %.2f\n",cap.get(CV_CAP_PROP_FRAME_WIDTH));
+    // printf("height = %.2f\n",cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+    // printf("fbs = %.2f\n",cap.get(CV_CAP_PROP_FPS));
+    // printf("brightness = %.2f\n",cap.get(CV_CAP_PROP_BRIGHTNESS));
+    // printf("contrast = %.2f\n",cap.get(CV_CAP_PROP_CONTRAST));
+    // printf("saturation = %.2f\n",cap.get(CV_CAP_PROP_SATURATION));
+    // printf("hue = %.2f\n",cap.get(CV_CAP_PROP_HUE));
+    // printf("exposure = %.2f\n",cap.get(CV_CAP_PROP_EXPOSURE));
 
     if (!cap.isOpened()) {
                 ROS_INFO("cannot open video device\n");
