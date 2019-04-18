@@ -14,18 +14,22 @@
 using namespace cv;
 using namespace std;
 typedef Point_<double> Point2d;
+typedef Point_<int> Point2dint;
 Point2d get_midlinear_point;
 std::vector<int> save_cols_date;
 vector<Point2d> Mid_Linear_Points;
+vector<vector<Point2d> > Mid_Linear_Points_2d;
+
 vector<Mat> HSVChannels;
 cv::Mat img_rgb;
 cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);//Mat(120, 160, CV_8UC1)
+int Select_Linear = 0;
 int g_nThresholdValue_GARY = 70;
 int pre_mid_linear = 80;
 const int discard_value = 1024;
-const int Filter_Point_Error_Value = 20;
+const int Filter_Point_Error_Value = 40;//20
 const int Linear_Min = 10;
-const int Linear_Max = 50;
+const int Linear_Max = 60;//
 void  Send_stop();
 
 
@@ -44,6 +48,20 @@ void  Send_stop()
      }
 }
 
+/*
+函数名     : print_vector 
+功能       :  打印一维容器
+调用方式    :  
+说明       :
+*/
+void print_vector(vector<int> point2)
+{
+     for(int i = 0; i < point2.size(); i++)
+     {
+         cout<<" x = "<<point2.at(i)<<endl;
+         //oFile_init<<" x = "<<point3.at(i).x<<" y = "<<point3.at(i).y<<" z = "<<point3.at(i).z<<endl;
+     }
+}
 
 /*
 函数名   : Read_Picture_W_Circle() 
@@ -65,6 +83,75 @@ void vision_processing::Read_Picture_W_Circle()   //传值
 }
 
 
+double rep_mid_linear_value = 80;
+double Select_Linear_fun(vector<int> filter_colsr)
+{
+    int linears = 0;
+    double save_linear_array[10];
+    for(int m = 0;m<filter_colsr.size()-1;)
+    {
+            int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
+            if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
+            {
+                save_linear_array[linears] = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
+                linears++;
+                m += 2;
+                rep_mid_linear_value = save_linear_array[0];
+            }
+            else m++;
+    }
+    cout<<"linears = "<<linears<<endl;
+    print_vector(filter_colsr);
+    if((linears - 1)<Select_Linear) 
+    {
+      return discard_value;
+    }
+    else{
+             if(linears == 0) return rep_mid_linear_value;
+             else if(linears == 1)  return save_linear_array[0];
+             else 
+             {
+                 //if((linears - 1)<Select_Linear)
+                  //   return discard_value;//Select_Linear save_linear_array[linears - 1]
+                 //else 
+                 return save_linear_array[Select_Linear];
+             }
+    }
+
+}
+
+
+
+/*
+函数名称 :  filter_Mid_Linear_Value 
+调用方式 :  filter_Mid_Linear_Points(Mid_Linear_Points);
+功能  :  
+说明  :  改变原容器的值  效果：原73 77 44 48 70过滤后为 73 77 70
+
+*/
+void filter_Mid_Linear_Value(vector<int> &_Mid_Linear_Points)
+{
+    vector<int> Re_Mid_Linear_Points;
+     print_vector(_Mid_Linear_Points);
+     int continu_value = 5;
+    for(int i = 0; i < (_Mid_Linear_Points.size()-1); i++)
+     {
+          float cur_z  = _Mid_Linear_Points.at(i);
+          float fut_z  = _Mid_Linear_Points.at(i+1);
+          if(abs(cur_z - fut_z)>continu_value)
+          {
+            Re_Mid_Linear_Points.push_back(_Mid_Linear_Points.at(i));
+           
+          }  
+      }
+     Re_Mid_Linear_Points.push_back(_Mid_Linear_Points.at(_Mid_Linear_Points.size()-1));
+    cout<<"测试 "<<endl;
+    print_vector(Re_Mid_Linear_Points);
+   _Mid_Linear_Points.assign(Re_Mid_Linear_Points.begin(), Re_Mid_Linear_Points.end());
+}
+
+
+
 /*
 函数名称 :  get_mid_linear 
 调用方式 :  mid_linear = get_mid_linear(save_cols_date);
@@ -73,25 +160,36 @@ void vision_processing::Read_Picture_W_Circle()   //传值
         也可以根据需要寻找从右到左的点（当优先考虑右侧的黑线时）
 */
 std::vector<int> save_cols_mid_date;
-int re_mid_linear = 80;//r若检测到小于两个点 则设置为中点值 如果将其放置函数外面则为上一次的保存值
-int get_mid_linear(vector<int> filter_colsr)
+double re_mid_linear = 80;//r若检测到小于两个点 则设置为中点值 如果将其放置函数外面则为上一次的保存值
+
+double get_mid_linear(vector<int> filter_colsr)
 {
+    //cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
     if(filter_colsr.size()> 2){
         //优先考虑从左到右的 满足的点
-         for(int m = 0;m<filter_colsr.size()-1;m++)
-            {
-                    int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
-                    if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
-                    {
-                        re_mid_linear = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
-                        break;
-                    }
-            }
+        //  for(int m = 0;m<filter_colsr.size()-1;m++)
+        //     {
+        //             int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
+        //             if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
+        //             {
+        //                 re_mid_linear = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
+        //                 break;
+        //             }
+        //     }
+         cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
+         filter_Mid_Linear_Value(filter_colsr);
+         re_mid_linear = Select_Linear_fun(filter_colsr);
+
     }  
     else if(filter_colsr.size()== 2){
             int Dy_cols2 = abs(filter_colsr.at(0)-filter_colsr.at(1));
+            cout<<"Dy_cols2 = "<<Dy_cols2<<endl;
             if((Dy_cols2>Linear_Min)&&(Dy_cols2<Linear_Max))
-              re_mid_linear = (filter_colsr.at(0)+filter_colsr.at(1))/2;
+            {
+               re_mid_linear = (filter_colsr.at(0)+filter_colsr.at(1))/2;
+               cout<<"Dy_cols2 = "<<Dy_cols2<<"  re_mid_linear = "<<re_mid_linear<<endl;
+
+            }
             else re_mid_linear = discard_value;      
     }
     else{
@@ -164,12 +262,12 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
     cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
     int rows = frame.rows;
     int cols = frame.cols;
-    int mid_linear = frame.cols/2;
+    double mid_linear = frame.cols/2;
     int flag_first = 0;
-    for (int i = 0; i < rows;)
+    for (int i = 5; i < (rows-5);)
     {  
         uchar* ptr = (uchar*)frame.data +i *cols;
-        for (int j = 0; j < cols; j++)
+        for (int j = 5; j < (cols - 5); j++)
         {
             int value = ptr[j];
             if(value>0)
@@ -177,6 +275,7 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
               save_cols_date.push_back(j);
             }
         }
+        cout<<"save_cols_date.size() = "<<save_cols_date.size()<<" i = "<<i<<endl;
         mid_linear = get_mid_linear(save_cols_date);
         if(mid_linear!=discard_value)
         {
@@ -189,15 +288,18 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
         i=i+5;
         ros::spinOnce();  
     }
-    //cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
-    if(Mid_Linear_Points.size()>2)
-      filter_Mid_Linear_Points(Mid_Linear_Points);
+    //根据需要选择其中的一个容器(其中一条黑线)进行以下的处理
+    //   _Mid_Linear_Points.assign(Re_Mid_Linear_Points.begin(), Re_Mid_Linear_Points.end());
+    cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
+    //if(Mid_Linear_Points.size()>2) //开头几行出错 可能会导致整体出错
+    //  filter_Mid_Linear_Points(Mid_Linear_Points);
+    cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
+
     for(int i = 0; i < Mid_Linear_Points.size(); i++)
      {
         cv::circle(img_rgb,cv::Point2i(Mid_Linear_Points.at(i).x,Mid_Linear_Points.at(i).y),2,cv::Scalar(255,0,0),-1,2);
-        //cout<<" x1 = "<<Mid_Linear_Points.at(i).x<<" y = "<<Mid_Linear_Points.at(i).y<<endl;
+        cout<<" x1 = "<<Mid_Linear_Points.at(i).x<<" y = "<<Mid_Linear_Points.at(i).y<<endl;
      }
-   
     unsigned int num_points = Mid_Linear_Points.size();// 
     sensor_msgs::PointCloud _Mid_Linear_Points;
     _Mid_Linear_Points.points.resize(num_points);
