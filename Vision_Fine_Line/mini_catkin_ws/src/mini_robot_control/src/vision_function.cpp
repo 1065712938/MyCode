@@ -24,13 +24,13 @@ vector<vector<Point2d> > Mid_Linear_Points_2d;
 vector<Mat> HSVChannels;
 cv::Mat img_rgb;
 cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);//Mat(120, 160, CV_8UC1)
-int Select_Linear = 1;
+int Select_Linear = 0;
 int g_nThresholdValue_GARY = 70;
 int pre_mid_linear = 80;
 const int discard_value = 1024;
 const int Filter_Point_Error_Value = 40;//20
 const int Linear_Min = 10;
-const int Linear_Max = 60;//
+const int Linear_Max = 60;//60
 const int Filter_X   = 0;
 const int Filter_Y   = 1;
 
@@ -111,18 +111,23 @@ double Select_Linear_fun(vector<int> filter_colsr)
     }
     cout<<"linears = "<<linears<<endl;
     print_vector(filter_colsr);
-    if((linears - 1)<Select_Linear) 
+    // if((linears - 1)<Select_Linear) 
+    // {
+    //   return discard_value;
+    // }
+    if(Select_Linear == 0)
     {
-      return discard_value;
+        if(linears == 0) return rep_mid_linear_value;
+        else if(linears == 1)  return save_linear_array[0];
+        else 
+        {
+            cout<<"Select_LinearSelect_LinearSelect_Linear"<<endl;
+            return save_linear_array[1];
+        }
     }
-    else{
-             if(linears == 0) return rep_mid_linear_value;
-             else if(linears == 1)  return save_linear_array[0];
-             else 
-             {
-                 cout<<"Select_LinearSelect_LinearSelect_Linear"<<endl;
-                 return save_linear_array[Select_Linear];
-             }
+    else
+    {
+        return save_linear_array[0];
     }
 
 }
@@ -171,26 +176,26 @@ double get_mid_linear(vector<int> filter_colsr)
 {
     //cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
     if(filter_colsr.size()> 2){
-         cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
+         //cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
          filter_Mid_Linear_Value(filter_colsr);
-         //re_mid_linear = Select_Linear_fun(filter_colsr);
-        for(int m = 0;m<filter_colsr.size()-1;m++)
-        {
-                int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
-                if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
-                {
-                    re_mid_linear = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
-                    break;
-                }
-        }
+         re_mid_linear = Select_Linear_fun(filter_colsr);
+        // for(int m = 0;m<filter_colsr.size()-1;m++)
+        // {
+        //         int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
+        //         if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
+        //         {
+        //             re_mid_linear = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
+        //             break;
+        //         }
+        // }
     }  
     else if(filter_colsr.size()== 2){
             int Dy_cols2 = abs(filter_colsr.at(0)-filter_colsr.at(1));
-            cout<<"Dy_cols2 = "<<Dy_cols2<<" at(0)  = "<<filter_colsr.at(0)<<" at(1) = "<<filter_colsr.at(1)<<endl;
+           // cout<<"Dy_cols2 = "<<Dy_cols2<<" at(0)  = "<<filter_colsr.at(0)<<" at(1) = "<<filter_colsr.at(1)<<endl;
             if((Dy_cols2>Linear_Min)&&(Dy_cols2<Linear_Max))
             {
                re_mid_linear = (filter_colsr.at(0)+filter_colsr.at(1))/2;
-               cout<<"Dy_cols2 = "<<Dy_cols2<<"  re_mid_linear = "<<re_mid_linear<<endl;
+            //   cout<<"Dy_cols2 = "<<Dy_cols2<<"  re_mid_linear = "<<re_mid_linear<<endl;
 
             }
             else re_mid_linear = discard_value;      
@@ -371,17 +376,17 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     int Gap_row   = 0;
     if(Select_Linear == 0)
     {
-        Start_Row = frame.rows-1;
+        Start_Row = rows-1;
         End_Row   = 5;
         Gap_row   = -5;
     }
     else{
-         Start_Row = frame.rows-1;
-         End_Row   = frame.rows-5;
+         Start_Row = rows-1;
+         End_Row   = rows-5;
          Gap_row   = -2;
     }
     
-    for (int m = (rows-1); m > (rows-5);m--)
+    for (int m = Start_Row; m > End_Row;)
     { 
         uchar* ptr = (uchar*)frame.data +m *cols;
         int re_j = cols/2;
@@ -395,19 +400,20 @@ float Get_Few_Linear_Mid(cv::Mat frame)
         }
         sort(save_few_cols_date.begin(),save_few_cols_date.end());
         mid_linear_few = get_mid_linear(save_few_cols_date);
-        cout<<"mid_linear_few = "<<mid_linear_few<<endl;
+        //cout<<"mid_linear_few = "<<mid_linear_few<<endl;
         if(mid_linear_few!=discard_value)
         {
             if(Select_Linear == 0)
             {
                 pre_mid_linear = mid_linear_few;
-                get_midlinear_point.x = m;//
-                get_midlinear_point.y = mid_linear_few;//
+                get_midlinear_point.x = mid_linear_few;//
+                get_midlinear_point.y =m  ;//
                 Mid_Linear_Points.push_back(get_midlinear_point);  
             }
            mid_linear_total = mid_linear_total+mid_linear_few;
            Number_rows++;
         }
+        m = m + Gap_row;
         save_few_cols_date.clear();   
     }
     if(Number_rows == 0)
@@ -422,7 +428,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     double mid_linear_average = frame.cols/2;
     mid_linear_average = Get_Few_Linear_Mid(frame);
     //if(mid_linear_average>frame.cols) mid_linear_average = frame.cols/6; 当最初的黑线丢失时
-    cout<<" mid_linear_average222 = "<<mid_linear_average<<endl;
+    //cout<<" mid_linear_average222 = "<<mid_linear_average<<endl;
 
     if(Select_Linear == 2)
     {
@@ -433,7 +439,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
       Index_Cols_Child_Left(frame,mid_linear_average);
     }
     else{
-
+        
     }
  }
 
@@ -453,7 +459,10 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     Index_Cols(frame);
     cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
     if(Mid_Linear_Points.size()>2) //开头几行出错 可能会导致整体出错
-      filter_Mid_Linear_Points(Mid_Linear_Points,Filter_Y);
+    {
+        if(Select_Linear == 0)filter_Mid_Linear_Points(Mid_Linear_Points,Filter_X);
+         else filter_Mid_Linear_Points(Mid_Linear_Points,Filter_Y);
+    }
     cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
     for(int i = 0; i < Mid_Linear_Points.size(); i++)
      {
