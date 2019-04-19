@@ -17,19 +17,23 @@ typedef Point_<double> Point2d;
 typedef Point_<int> Point2dint;
 Point2d get_midlinear_point;
 std::vector<int> save_cols_date;
+std::vector<int> save_few_cols_date;
 vector<Point2d> Mid_Linear_Points;
 vector<vector<Point2d> > Mid_Linear_Points_2d;
 
 vector<Mat> HSVChannels;
 cv::Mat img_rgb;
 cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);//Mat(120, 160, CV_8UC1)
-int Select_Linear = 0;
+int Select_Linear = 1;
 int g_nThresholdValue_GARY = 70;
 int pre_mid_linear = 80;
 const int discard_value = 1024;
 const int Filter_Point_Error_Value = 40;//20
 const int Linear_Min = 10;
 const int Linear_Max = 60;//
+const int Filter_X   = 0;
+const int Filter_Y   = 1;
+
 void  Send_stop();
 
 
@@ -82,7 +86,12 @@ void vision_processing::Read_Picture_W_Circle()   //传值
 	cv::waitKey(3);
 }
 
-
+/*
+函数名    :Select_Linear_fun 
+功能      :  根据SD选择需要跟随的黑线
+调用方式  :  
+说明     :使用数组保存每条线的中心坐标
+*/
 double rep_mid_linear_value = 80;
 double Select_Linear_fun(vector<int> filter_colsr)
 {
@@ -111,9 +120,7 @@ double Select_Linear_fun(vector<int> filter_colsr)
              else if(linears == 1)  return save_linear_array[0];
              else 
              {
-                 //if((linears - 1)<Select_Linear)
-                  //   return discard_value;//Select_Linear save_linear_array[linears - 1]
-                 //else 
+                 cout<<"Select_LinearSelect_LinearSelect_Linear"<<endl;
                  return save_linear_array[Select_Linear];
              }
     }
@@ -126,13 +133,12 @@ double Select_Linear_fun(vector<int> filter_colsr)
 函数名称 :  filter_Mid_Linear_Value 
 调用方式 :  filter_Mid_Linear_Points(Mid_Linear_Points);
 功能  :  
-说明  :  改变原容器的值  效果：原73 77 44 48 70过滤后为 73 77 70
-
+说明  :  改变原容器的值  效果：43 44 70 71 得到44 71
 */
 void filter_Mid_Linear_Value(vector<int> &_Mid_Linear_Points)
 {
     vector<int> Re_Mid_Linear_Points;
-     print_vector(_Mid_Linear_Points);
+    // print_vector(_Mid_Linear_Points);
      int continu_value = 5;
     for(int i = 0; i < (_Mid_Linear_Points.size()-1); i++)
      {
@@ -141,12 +147,11 @@ void filter_Mid_Linear_Value(vector<int> &_Mid_Linear_Points)
           if(abs(cur_z - fut_z)>continu_value)
           {
             Re_Mid_Linear_Points.push_back(_Mid_Linear_Points.at(i));
-           
           }  
       }
      Re_Mid_Linear_Points.push_back(_Mid_Linear_Points.at(_Mid_Linear_Points.size()-1));
-    cout<<"测试 "<<endl;
-    print_vector(Re_Mid_Linear_Points);
+    //cout<<"测试 "<<endl;
+    //print_vector(Re_Mid_Linear_Points);
    _Mid_Linear_Points.assign(Re_Mid_Linear_Points.begin(), Re_Mid_Linear_Points.end());
 }
 
@@ -166,24 +171,22 @@ double get_mid_linear(vector<int> filter_colsr)
 {
     //cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
     if(filter_colsr.size()> 2){
-        //优先考虑从左到右的 满足的点
-        //  for(int m = 0;m<filter_colsr.size()-1;m++)
-        //     {
-        //             int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
-        //             if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
-        //             {
-        //                 re_mid_linear = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
-        //                 break;
-        //             }
-        //     }
          cout<<"filter_colsr.size() = "<<filter_colsr.size()<<endl;
          filter_Mid_Linear_Value(filter_colsr);
-         re_mid_linear = Select_Linear_fun(filter_colsr);
-
+         //re_mid_linear = Select_Linear_fun(filter_colsr);
+        for(int m = 0;m<filter_colsr.size()-1;m++)
+        {
+                int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
+                if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
+                {
+                    re_mid_linear = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
+                    break;
+                }
+        }
     }  
     else if(filter_colsr.size()== 2){
             int Dy_cols2 = abs(filter_colsr.at(0)-filter_colsr.at(1));
-            cout<<"Dy_cols2 = "<<Dy_cols2<<endl;
+            cout<<"Dy_cols2 = "<<Dy_cols2<<" at(0)  = "<<filter_colsr.at(0)<<" at(1) = "<<filter_colsr.at(1)<<endl;
             if((Dy_cols2>Linear_Min)&&(Dy_cols2<Linear_Max))
             {
                re_mid_linear = (filter_colsr.at(0)+filter_colsr.at(1))/2;
@@ -222,48 +225,44 @@ void print_vector2d(vector<Point2d> point2)
 说明  :  改变原容器的值  效果：原73 77 44 48 70过滤后为 73 77 70
 
 */
-void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
+void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points,int Filter_X_OR_Y)
 {
     vector<Point2d> Re_Mid_Linear_Points;
     //print_vector2d(_Mid_Linear_Points);
     for(int i = 1; i < (_Mid_Linear_Points.size()-1);)
      {
-          float pre_z  = _Mid_Linear_Points.at(i-1).x;
-          float cur_z  = _Mid_Linear_Points.at(i).x;
-          float fut_z  = _Mid_Linear_Points.at(i+1).x;
-          //cout<<"abs(c - p) = "<<abs(cur_z - pre_z)<<"abs(c - f) = "<<abs(cur_z - fut_z)<<endl;
+          float pre_z = 0;
+          float cur_z = 0;
+          float fut_z = 0;
+          if(Filter_X_OR_Y = 0)
+          {
+             pre_z  = _Mid_Linear_Points.at(i-1).x;
+             cur_z  = _Mid_Linear_Points.at(i).x;
+             fut_z  = _Mid_Linear_Points.at(i+1).x;
+          }
+          else{
+             pre_z  = _Mid_Linear_Points.at(i-1).y;
+             cur_z  = _Mid_Linear_Points.at(i).y;
+             fut_z  = _Mid_Linear_Points.at(i+1).y;
+          }
           if((abs(cur_z - pre_z)<Filter_Point_Error_Value)&&(abs(cur_z - fut_z)<Filter_Point_Error_Value))
           {
             Re_Mid_Linear_Points.push_back(_Mid_Linear_Points.at(i));
             i++;
           }  
           else{
-             // cout<<"vaule = "<<_Mid_Linear_Points.at(i).x<<endl;
               _Mid_Linear_Points.erase(_Mid_Linear_Points.begin()+i);
-              //cout<<"vaule1 = "<<_Mid_Linear_Points.at(i).x<<endl;
           }
      }
     //print_vector2d(_Mid_Linear_Points);
    _Mid_Linear_Points.assign(Re_Mid_Linear_Points.begin(), Re_Mid_Linear_Points.end());
 }
 
-
-/*
-函数名称 :  Fine_Center_Line 
-调用方式 :  Fine_Center_Line(frame);
-功能  :    巡线程序总入口
-说明  :  
-
-*/
-
- void vision_processing::Fine_Center_Line(cv::Mat frame)
- { 
-    Canny(frame, frame, 3, 9, 3);
-    cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
-    int rows = frame.rows;
+ void  Index_Rows(cv::Mat frame)
+ {
+   int rows = frame.rows;
     int cols = frame.cols;
     double mid_linear = frame.cols/2;
-    int flag_first = 0;
     for (int i = 5; i < (rows-5);)
     {  
         uchar* ptr = (uchar*)frame.data +i *cols;
@@ -288,17 +287,178 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points)
         i=i+5;
         ros::spinOnce();  
     }
-    //根据需要选择其中的一个容器(其中一条黑线)进行以下的处理
-    //   _Mid_Linear_Points.assign(Re_Mid_Linear_Points.begin(), Re_Mid_Linear_Points.end());
-    cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
-    //if(Mid_Linear_Points.size()>2) //开头几行出错 可能会导致整体出错
-    //  filter_Mid_Linear_Points(Mid_Linear_Points);
-    cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
+ }
 
+void  Index_Cols_Child_Left(cv::Mat frame,double mid_linear_average)
+{
+    int rows = frame.rows;
+    int cols = frame.cols;
+    double mid_linear = frame.cols/2;
+    for (int i = mid_linear_average-10; i > 5;)
+    //for (int i = Initial_Traversing+20; i < End_Traversing;)
+    {  
+        uchar* ptr = (uchar*)frame.data + i;
+        for (int j = (rows - 5); j >0; )
+        {
+            int value = ptr[j*cols];
+            if(value>0)
+            {
+              save_cols_date.push_back(j);
+            }
+            j = j-1;
+        }
+        cout<<"save_cols_date.size()22 = "<<save_cols_date.size()<<" i = "<<i<<endl;
+        print_vector(save_cols_date);
+        sort(save_cols_date.begin(),save_cols_date.end());
+        mid_linear = get_mid_linear(save_cols_date);
+        if(mid_linear!=discard_value)
+        {
+            pre_mid_linear = mid_linear;
+            get_midlinear_point.x = i;//
+            get_midlinear_point.y = mid_linear;//
+            Mid_Linear_Points.push_back(get_midlinear_point);
+        }
+        save_cols_date.clear();
+        i=i-2;//gap
+        ros::spinOnce();  
+    }
+}
+
+void  Index_Cols_Child_Right(cv::Mat frame,double mid_linear_average)
+{
+    int rows = frame.rows;
+    int cols = frame.cols;
+    double mid_linear = frame.cols/2;
+    for (int i = mid_linear_average+20; i < (cols-5);)
+    {  
+        uchar* ptr = (uchar*)frame.data + i;
+        for (int j = (rows - 5); j >0; )
+        {
+            int value = ptr[j*cols];
+            if(value>0)
+            {
+              save_cols_date.push_back(j);
+            }
+            j = j-1;
+        }
+        cout<<"save_cols_date.size()22 = "<<save_cols_date.size()<<" i = "<<i<<endl;
+        print_vector(save_cols_date);
+        sort(save_cols_date.begin(),save_cols_date.end());
+        mid_linear = get_mid_linear(save_cols_date);
+        if(mid_linear!=discard_value)
+        {
+            pre_mid_linear = mid_linear;
+            get_midlinear_point.x = i;//
+            get_midlinear_point.y = mid_linear;//
+            Mid_Linear_Points.push_back(get_midlinear_point);
+        }
+        save_cols_date.clear();
+        i=i+5;//gap
+        ros::spinOnce();  
+    }
+}
+
+float Get_Few_Linear_Mid(cv::Mat frame)
+{
+    double mid_linear_few = 0;
+    double mid_linear_total = 0;
+    int Number_rows = 0;
+    double mid_linear = frame.cols/2;
+    int rows = frame.rows;
+    int cols = frame.cols;
+    int Start_Row = 0;
+    int End_Row   = 0;
+    int Gap_row   = 0;
+    if(Select_Linear == 0)
+    {
+        Start_Row = frame.rows-1;
+        End_Row   = 5;
+        Gap_row   = -5;
+    }
+    else{
+         Start_Row = frame.rows-1;
+         End_Row   = frame.rows-5;
+         Gap_row   = -2;
+    }
+    
+    for (int m = (rows-1); m > (rows-5);m--)
+    { 
+        uchar* ptr = (uchar*)frame.data +m *cols;
+        int re_j = cols/2;
+        for (int j = cols/2; j < (cols - 5); j++)
+        { 
+            re_j -=1;
+            int value_R = ptr[j];
+            int value_L = ptr[re_j];
+            if(value_R>0)save_few_cols_date.push_back(j);
+            if(value_L>0)save_few_cols_date.push_back(re_j);
+        }
+        sort(save_few_cols_date.begin(),save_few_cols_date.end());
+        mid_linear_few = get_mid_linear(save_few_cols_date);
+        cout<<"mid_linear_few = "<<mid_linear_few<<endl;
+        if(mid_linear_few!=discard_value)
+        {
+            if(Select_Linear == 0)
+            {
+                pre_mid_linear = mid_linear_few;
+                get_midlinear_point.x = m;//
+                get_midlinear_point.y = mid_linear_few;//
+                Mid_Linear_Points.push_back(get_midlinear_point);  
+            }
+           mid_linear_total = mid_linear_total+mid_linear_few;
+           Number_rows++;
+        }
+        save_few_cols_date.clear();   
+    }
+    if(Number_rows == 0)
+       return 80;
+    else
+    return  mid_linear_total/Number_rows;
+}
+ void  Index_Cols(cv::Mat frame)
+ {
+    int rows = frame.rows;
+    int cols = frame.cols;
+    double mid_linear_average = frame.cols/2;
+    mid_linear_average = Get_Few_Linear_Mid(frame);
+    //if(mid_linear_average>frame.cols) mid_linear_average = frame.cols/6; 当最初的黑线丢失时
+    cout<<" mid_linear_average222 = "<<mid_linear_average<<endl;
+
+    if(Select_Linear == 2)
+    {
+        Index_Cols_Child_Right(frame,mid_linear_average);
+    }
+    else if(Select_Linear == 1)
+    {
+      Index_Cols_Child_Left(frame,mid_linear_average);
+    }
+    else{
+
+    }
+ }
+
+/*
+函数名称 :  Fine_Center_Line 
+调用方式 :  Fine_Center_Line(frame);
+功能  :    巡线程序总入口
+说明  :  
+
+*/
+
+ void vision_processing::Fine_Center_Line(cv::Mat frame)
+ { 
+    Canny(frame, frame, 3, 9, 3);
+    cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
+    //Index_Rows(frame);
+    Index_Cols(frame);
+    cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
+    if(Mid_Linear_Points.size()>2) //开头几行出错 可能会导致整体出错
+      filter_Mid_Linear_Points(Mid_Linear_Points,Filter_Y);
+    cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
     for(int i = 0; i < Mid_Linear_Points.size(); i++)
      {
         cv::circle(img_rgb,cv::Point2i(Mid_Linear_Points.at(i).x,Mid_Linear_Points.at(i).y),2,cv::Scalar(255,0,0),-1,2);
-        cout<<" x1 = "<<Mid_Linear_Points.at(i).x<<" y = "<<Mid_Linear_Points.at(i).y<<endl;
+        //cout<<" x1 = "<<Mid_Linear_Points.at(i).x<<" y = "<<Mid_Linear_Points.at(i).y<<endl;
      }
     unsigned int num_points = Mid_Linear_Points.size();// 
     sensor_msgs::PointCloud _Mid_Linear_Points;
