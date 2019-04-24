@@ -103,9 +103,10 @@ void PID_init()
 float PID_realize(float Target_value,float Real_time_value)
 {
     //cout<<"PID_realizellllllllllllllllll"<<endl;
-//  比例系数：Kp；
+//  比例系数：Kp；s
 //  积分系数：Ki=Kp*T/Ti;
 //  微分系数：Kd=Kp*Td/T;
+    cout<<"pid.Kp = "<<pid.Kp<<endl;
     pid.SetSpeed=Target_value;
     pid.ActualSpeed = Real_time_value;
     pid.err=pid.SetSpeed-pid.ActualSpeed;
@@ -122,14 +123,13 @@ float PID_realize(float Target_value,float Real_time_value)
 float PID_Realize_Improve(float Target_value,float Real_time_value)
 {
     //cout<<"PID_realizellllllllllllllllll"<<endl;
-    int T = 1;
+    cout<<"pid.Kp = "<<pid.Kp<<endl;
+    float incrementSpeed = 0;
     pid.SetSpeed=Target_value;
     pid.ActualSpeed = Real_time_value;
     pid.err=pid.SetSpeed-pid.ActualSpeed;
-    pid.Ki=pid.Kp*T/pid.Ki;
-    pid.Kd=pid.Kp*pid.Kd/T;
-    float
-    incrementSpeed=pid.Kp*(pid.err-pid.err_next)+pid.Ki*pid.err+pid.Kd*(pid.err-2*pid.err_next+pid.err_last);
+    if(pid.err>1)
+     incrementSpeed=pid.Kp*(pid.err-pid.err_next)+pid.Ki*pid.err+pid.Kd*(pid.err-2*pid.err_next+pid.err_last);
     //pid.ActualSpeed+=incrementSpeed;
     pid.err_last=pid.err_next;
     pid.err_next=pid.err;

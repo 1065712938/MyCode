@@ -16,13 +16,15 @@ class ImageCreator():
       def __init__(self):
         print 'hello, world!'
         self.bridge = CvBridge()
-        with rosbag.Bag('2019-04-02-16-35-52.bag', 'r') as bag:  #要读取的bag文件；
+        with rosbag.Bag('2019-04-23-10-26-24.bag','r') as bag:  #要读取的bag文件；
+
             for topic,msg,t in bag.read_messages():
                 print 'camera1',topic
-                if topic == "/camera/image": #图像的topic；
+                if topic == "/camera1/grayimage": #图像的topic；
+                        #print 'have the topic'
                         try:
                             print 'camera'
-                            cv_image = self.bridge.imgmsg_to_cv2(msg,"mono8")#"mono8"bgr8
+                            cv_image = self.bridge.imgmsg_to_cv2(msg,"bgr8")#"mono8"bgr8
                         except CvBridgeError as e:
                             print e
                         print 'camera1',topic
@@ -32,8 +34,9 @@ class ImageCreator():
                         image_name = str(flagpp[0])+ ".png" #图像命名：时间戳.png
                         cv2.imshow('image',cv_image)
                         cv2.imwrite(image_name,cv_image)  #保存；
-                        cv2.waitKey(5)
+                        cv2.waitKey(35)
                 elif topic == "camera/depth_registered/image_raw": #图像的topic；
+                        print 'NO this topic'
                         try:
                             cv_image = self.bridge.imgmsg_to_cv2(msg,"16UC1")
                         except CvBridgeError as e:

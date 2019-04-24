@@ -9,7 +9,7 @@
 #include <cv_bridge/cv_bridge.h>
 using namespace std;
 extern int g_nThresholdValue_GARY;
-
+extern const int Frame_Width;
 class vision_processing
 {
 
@@ -52,6 +52,7 @@ public:
   void fit_linear_fun_experiment();
   double fit_lnear(std::vector<cv::Point> Fit_Points);//
   double Get_Deviation_Lnear(std::vector<cv::Point> Fit_Points);
+  double Get_Deviation_MidLnear(std::vector<cv::Point> Fit_Points);
   void Send_speed(float speed, float adjust);
 
 private:

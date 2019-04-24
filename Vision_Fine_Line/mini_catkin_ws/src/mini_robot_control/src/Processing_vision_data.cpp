@@ -81,9 +81,9 @@ int main(int argc, char** argv)
     image_transport::Publisher pub = it.advertise("camera/image", 1);//为图片的发布者
     //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
    
-    cv::VideoCapture cap(0);//1 0s
+    cv::VideoCapture cap(1);//1 0s
 
-    cap.set(CV_CAP_PROP_FRAME_WIDTH,160);//宽度 320
+    cap.set(CV_CAP_PROP_FRAME_WIDTH,Frame_Width);//宽度 320
     cap.set(CV_CAP_PROP_FRAME_HEIGHT,120);//高度240
     //cap.set(CV_CAP_PROP_FPS, 120);///30
     //cap.set(CV_CAP_PROP_AUTO_EXPOSURE, 1);
@@ -100,13 +100,13 @@ int main(int argc, char** argv)
                 ROS_INFO("cannot open video device\n");
                 return 1;
      }
-    cv::Mat frame= Mat(120, 160, CV_8UC3);;
-    cv::Mat frame_gray= Mat(120, 160,CV_8UC1);
+    cv::Mat frame= Mat(120, Frame_Width, CV_8UC3);;
+    cv::Mat frame_gray= Mat(120, Frame_Width,CV_8UC1);
     sensor_msgs::ImagePtr msg;
     ros::Rate loop_rate(100);//以10ms间隔发送图片
     string ShowName="current_video";
-    namedWindow(ShowName, 1 );
-    createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
+    //namedWindow(ShowName, 1 );
+    //createTrackbar("parameter", ShowName, &g_nThresholdValue_GARY, 255, on_Threshold);
     // vision_processing VPF=vision_processing::getInstance();
    
    //vision_processing * a=vision_processing::getInstance();
@@ -132,7 +132,7 @@ int main(int argc, char** argv)
             msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame).toImageMsg();  
             pub.publish(msg); 
             circle(frame,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,8);
-            cv::imshow(ShowName,frame);
+            //cv::imshow(ShowName,frame);
             if(waitKey(20) >=0) 
              break;
         }

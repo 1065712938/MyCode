@@ -24,16 +24,16 @@ vector<vector<Point2d> > Mid_Linear_Points_2d;
 vector<Mat> HSVChannels;
 cv::Mat img_rgb;
 cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);//Mat(120, 160, CV_8UC1)
+const int Frame_Width = 140;
 int Select_Linear = 0;
 int g_nThresholdValue_GARY = 70;
-int pre_mid_linear = 80;
+int pre_mid_linear = Frame_Width/2.0;
 const int discard_value = 1024;
 const int Filter_Point_Error_Value = 40;//20
 const int Linear_Min = 10;
 const int Linear_Max = 60;//60
 const int Filter_X   = 0;
 const int Filter_Y   = 1;
-
 void  Send_stop();
 
 
@@ -92,7 +92,7 @@ void vision_processing::Read_Picture_W_Circle()   //传值
 调用方式  :  
 说明     :使用数组保存每条线的中心坐标
 */
-double rep_mid_linear_value = 80;
+double rep_mid_linear_value = Frame_Width/2.0;
 double Select_Linear_fun(vector<int> filter_colsr)
 {
     int linears = 0;
@@ -109,8 +109,8 @@ double Select_Linear_fun(vector<int> filter_colsr)
             }
             else m++;
     }
-    cout<<"linears = "<<linears<<endl;
-    print_vector(filter_colsr);
+    //cout<<"linears = "<<linears<<endl;
+    //print_vector(filter_colsr);
     // if((linears - 1)<Select_Linear) 
     // {
     //   return discard_value;
@@ -121,7 +121,7 @@ double Select_Linear_fun(vector<int> filter_colsr)
         else if(linears == 1)  return save_linear_array[0];
         else 
         {
-            cout<<"Select_LinearSelect_LinearSelect_Linear"<<endl;
+            //cout<<"Select_LinearSelect_LinearSelect_Linear"<<endl;
             return save_linear_array[1];
         }
     }
@@ -170,7 +170,7 @@ void filter_Mid_Linear_Value(vector<int> &_Mid_Linear_Points)
         也可以根据需要寻找从右到左的点（当优先考虑右侧的黑线时）
 */
 std::vector<int> save_cols_mid_date;
-double re_mid_linear = 80;//r若检测到小于两个点 则设置为中点值 如果将其放置函数外面则为上一次的保存值
+double re_mid_linear = Frame_Width/2.0;//r若检测到小于两个点 则设置为中点值 如果将其放置函数外面则为上一次的保存值
 
 double get_mid_linear(vector<int> filter_colsr)
 {
@@ -417,7 +417,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
         save_few_cols_date.clear();   
     }
     if(Number_rows == 0)
-       return 80;
+       return Frame_Width/2.0;
     else
     return  mid_linear_total/Number_rows;
 }
@@ -482,7 +482,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     Mid_Linear_Points.clear();
     //cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
     //cv::circle(img_rgb,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,2);
-    cv::line(img_rgb,cv::Point2i(frame.cols/2,0),cv::Point2i(frame.cols/2,frame.rows), cv::Scalar(0,0,100), 1,CV_AA ); 
+    cv::line(img_rgb,cv::Point2i(frame.cols/2,0),cv::Point2i(frame.cols/2,frame.rows), cv::Scalar(0,0,100), 2,CV_AA ); 
     //mono8 bgr8
     Publisher_msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img_rgb).toImageMsg();  
     Publisher_Image.publish(Publisher_msg); 
@@ -503,7 +503,7 @@ void vision_processing::Deal_gray_Vision(cv::Mat frame)
     //cv::imshow("frame_gray",frame) ;
     threshold(frame, frame, g_nThresholdValue_GARY, 255, THRESH_BINARY);
     cv::medianBlur(frame,frame,3);
-    imshow("frame_gray_bool",frame);
+    //imshow("frame_gray_bool",frame);
     Fine_Center_Line(frame);
 }
 
@@ -635,28 +635,67 @@ double vision_processing:: fit_lnear(std::vector<cv::Point> Fit_Points)
 
 
 /*
-函数名称 :  fit_lnear 
-调用方式 :  cout<<"K = "<<VP_Control.fit_lnear(fit_line_points)<<endl;
-功能  :    根据图像处理得到的线中心坐标点 进行拟合 得到斜率K值
+函数名称 :  Get_Deviation_MidLnear 
+调用方式 :   
+功能  :     
 说明  :    返回K值
 */
+float Total_Value    = 0;
+double vision_processing:: Get_Deviation_MidLnear(std::vector<cv::Point> Fit_Points)
+{
+     int Point_Size = Fit_Points.size();
+     int Piont_Number     = 0; 
+     if(Fit_Points.size()>2)
+     {
+        // for(int i = 2;i<Point_Size;)
+        // {
+        //     Total_Value += (Fit_Points[i].x - Frame_Width/2.0);
+        //     //cout<<"x = "<< Fit_Points[i].x<<" Total_Value = "<<Total_Value<<endl;
+        //     i += 3;
+        //     Piont_Number++;
+        // }
+        // Total_Value = Total_Value/Piont_Number;
+        //Total_Value =  (Fit_Points[Point_Size-1].x - Frame_Width/2.0);
+
+        Total_Value = Fit_Points[2].x*0.2+Fit_Points[Fit_Points.size()/2].x*0.3+Fit_Points[Fit_Points.size()-2].x*0.5;
+        Total_Value = Total_Value- Frame_Width/2.0;
+        cout<<"Fit_Points.size() = "<<Point_Size<<endl;
+     }
+     return Total_Value;
+}
+
+
 double Dev_Line_Value = 0;
+//float Total_Value    = 0;
 double vision_processing:: Get_Deviation_Lnear(std::vector<cv::Point> Fit_Points)
 {
      int Point_Size = Fit_Points.size();
-     float Total_Value    = 0;
+     int Piont_Number     = 0; 
+     float All_Date       = 0;
+     cout<<"Get_Deviation_Lnear"<<endl;
      if(Fit_Points.size()>2)
      {
-        for(int i = 2;i<Point_Size;)
+        for(int i = 0;i<Point_Size;i++)
         {
-            Total_Value +=  (Fit_Points[i].x - 80);
-            cout<<"x = "<< Fit_Points[i].x<<" Total_Value = "<<Total_Value<<endl;
-            i += 3;
+            All_Date += Fit_Points[i].x;
+            //cout<<"Fit_Points[i].x = "<<Fit_Points[i].x<<endl;
+            Piont_Number++;
         }
+        cout<<"All_Date = "<<All_Date<<"  Piont_Number = "<<Piont_Number<<endl;
+        float Average_Value = All_Date/Piont_Number;
+        cout<<"Average_Value = "<<Average_Value<<endl;
+        for(int i = 1;i<Point_Size-1;)
+        {
+            Dev_Line_Value +=  abs(Fit_Points[i].x -Average_Value);
+            //cout<<"x = "<< Fit_Points[i].x<<" Total_Value = "<<Total_Value<<endl;
+            i += 2;
+            Piont_Number++;
+        }
+        Dev_Line_Value = Dev_Line_Value/Piont_Number;
+        //Total_Value =  (Fit_Points[Point_Size-1].x - Frame_Width/2.0);
         cout<<"Fit_Points.size() = "<<Point_Size<<endl;
      }
      return Dev_Line_Value;
-
 }
 
 void vision_processing:: Send_speed(float speed ,float adjust)
