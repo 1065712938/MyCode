@@ -168,6 +168,20 @@ void get_init_param()
   cout<<"Mini_speed = "<<Mini_speed<<"Arc_P = "<<Arc_P<<" Arc_I = "<<Arc_I<<" Arc_D = "<<Arc_D
   <<" Beeline_P = "<<Beeline_P<<" Beeline_I = "<<Beeline_I<<" Beeline_D = "<<Beeline_D<<endl;
 }
+
+//<launch>
+//  <node name="subscriber_vision_data" pkg="mini_robot_control" type="subscriber_vision_data" output="screen">
+//   <param name="Arc_P" value="0.03" />
+//   <param name="Arc_I" value="50" />
+//   <param name="Arc_D" value="0.02" />
+//   <param name="Beeline_P" value="0.015" />
+//   <param name="Beeline_I" value="50" />
+//   <param name="Beeline_D" value="0.01" />
+//   <param name="Mini_speed" value="0.25" />
+// </node>
+
+//</launch>
+
 int main(int argc, char **argv)  
 {  
   cout<<"OO2222"<<endl;
