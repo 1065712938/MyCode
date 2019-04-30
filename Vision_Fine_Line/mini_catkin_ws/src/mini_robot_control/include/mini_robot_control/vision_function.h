@@ -10,6 +10,7 @@
 using namespace std;
 extern int g_nThresholdValue_GARY;
 extern const int Frame_Width;
+extern const int Frame_Height;
 class vision_processing
 {
 

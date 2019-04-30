@@ -81,15 +81,15 @@ int main(int argc, char** argv)
     image_transport::Publisher pub = it.advertise("camera/image", 1);//为图片的发布者
     //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
    
-    cv::VideoCapture cap(1);//1 0s
+    cv::VideoCapture cap(0);//1 0s
 
     cap.set(CV_CAP_PROP_FRAME_WIDTH,Frame_Width);//宽度 320
-    cap.set(CV_CAP_PROP_FRAME_HEIGHT,120);//高度240
-    //cap.set(CV_CAP_PROP_FPS, 120);///30
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT,Frame_Height);//高度240
+   // cap.set(CV_CAP_PROP_FPS, 8);///30
     //cap.set(CV_CAP_PROP_AUTO_EXPOSURE, 1);
     // printf("width = %.2f\n",cap.get(CV_CAP_PROP_FRAME_WIDTH));
     // printf("height = %.2f\n",cap.get(CV_CAP_PROP_FRAME_HEIGHT));
-    // printf("fbs = %.2f\n",cap.get(CV_CAP_PROP_FPS));
+     printf("fbs = %.2f\n",cap.get(CV_CAP_PROP_FPS));
     // printf("brightness = %.2f\n",cap.get(CV_CAP_PROP_BRIGHTNESS));
     // printf("contrast = %.2f\n",cap.get(CV_CAP_PROP_CONTRAST));
     // printf("saturation = %.2f\n",cap.get(CV_CAP_PROP_SATURATION));
@@ -100,8 +100,8 @@ int main(int argc, char** argv)
                 ROS_INFO("cannot open video device\n");
                 return 1;
      }
-    cv::Mat frame= Mat(120, Frame_Width, CV_8UC3);;
-    cv::Mat frame_gray= Mat(120, Frame_Width,CV_8UC1);
+    cv::Mat frame= Mat(Frame_Height, Frame_Width, CV_8UC3);;
+    cv::Mat frame_gray= Mat(Frame_Height, Frame_Width,CV_8UC1);
     sensor_msgs::ImagePtr msg;
     ros::Rate loop_rate(100);//以10ms间隔发送图片
     string ShowName="current_video";
@@ -114,7 +114,7 @@ int main(int argc, char** argv)
     //drawGrayImage();
      while(ros::ok())
         {
-
+         printf("fbs = %.2f\n",cap.get(CV_CAP_PROP_FPS));
         ros::spinOnce();
         cap >> frame;  
         if (!frame.empty()) {  

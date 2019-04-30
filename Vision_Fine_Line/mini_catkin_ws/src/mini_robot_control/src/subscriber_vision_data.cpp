@@ -13,6 +13,15 @@ using namespace std;
 float adjust_amcl_Y = 0;
 std::vector<cv::Point> Creat_vector_point;
 std::ofstream oFile_init;
+const float Robot_L= 0.18;//两个轮子之间的距离
+int serial_number = -1;
+float Arc_P = 0.04;
+float Arc_I = 40;
+float Arc_D = 0.0;
+float Beeline_P = 0.01;
+float Beeline_I = 100;
+float Beeline_D = 0.0;
+float Mini_speed = 0.15;
 void Creat_vector_pointfun()
 {
   for(int i = 0;i<120;)
@@ -71,41 +80,102 @@ float Limit_Max_Min(float Contral_Value,float Speed_Value,float K)
             else  Contral_Value = Speed_Value/2.0;
          }
          else{
-            if(Contral_Value<=0) Contral_Value = -Speed_Value;
-            else  Contral_Value = Speed_Value;
+            if(Contral_Value<=0) Contral_Value = -Speed_Value*0.7;
+            else  Contral_Value = Speed_Value*0.7;
          }
 
      }
      return Contral_Value;
 }
-void Along_Linear_travel(vision_processing &VPSend_speed,float Slope_Value)
+float Model_Control(float Speed_Value,float Slope_Value)
+{
+     float R = 0;
+     float adjust = 0;//0.0225 speed = 0.1
+     if(abs(Slope_Value)<10)
+       R = (2*Slope_Value)/(Slope_Value*Slope_Value+0.2304)*20;
+     else R = (2*Slope_Value)/(Slope_Value*Slope_Value+0.2304)*2;
+     adjust = -(Robot_L*Speed_Value)/(2*R);
+     //if(Slope_Value>0) adjust = -adjust;
+     cout<<"R = "<<R<<" adjust = "<<adjust<<endl;
+     return adjust;
+}
+float Get_pid_value(float &Speed_Value,float Arc_K,float Linear_K)
+{
+     if((abs(Arc_K)<0.8)&&(abs(Linear_K)<20))//(abs(Slope_Value)<10)||
+     {
+        Speed_Value = Mini_speed*1.5;// 0.15
+        pid.Kp= Beeline_P*Speed_Value*8;//0.16 度直线参数
+        pid.Ki= Beeline_I;//0.002
+        pid.Kd= Beeline_D;// 1*Speed_Value*5
+        return 0;
+     }
+     else{
+        Speed_Value = Mini_speed*1.2;
+        pid.Kp= Arc_P*Speed_Value*8;//0.16 曲线参数
+        pid.Ki= Arc_I;//0.03
+        pid.Kd= Arc_D;// 1*Speed_Value*5
+        return 1;
+     }
+}
+void Along_Linear_travel(vision_processing &VPSend_speed,float Slope_Value,float Arc_K,float Linear_K)
 {
     //vision_processing *VP_sendSpeed=vision_processing::getInstance();
     //vision_processing VP_sendSpeed;
-     float Speed_Value = 0.25;
-     if(Slope_Value<10)
+    float Speed_Value = Mini_speed;
+    char Arc_Flag    = 0;
+    //if(abs(Linear_K)<10) 
+       
+     if((abs(Arc_K)<0.8)&&(abs(Linear_K)<20))//(abs(Slope_Value)<10)||
      {
-        pid.Kp= 0.01*Speed_Value*8;//0.16 度直线参数
-        pid.Ki=0.002;//
-        pid.Kd=0;// 1*Speed_Value*5
+        Speed_Value = Mini_speed;// 0.15 *1.5
+        pid.Kp= Beeline_P*Speed_Value*8;//0.16 度直线参数
+        if(Speed_Value<=0.25)
+         pid.Ki= Beeline_I;//0.002
+        else  pid.Ki= Beeline_I*0.8;
+        pid.Kd= Beeline_D;// 1*Speed_Value*5
      }
      else{
-        pid.Kp= 0.05*Speed_Value*8;//0.16 度直线参数
-        pid.Ki=0.03;//
-        pid.Kd=0;// 1*Speed_Value*5
+        Speed_Value = Mini_speed;//*1.2
+        pid.Kp= Arc_P*Speed_Value*8;//0.16 曲线参数
+        pid.Ki= Arc_I;//0.03
+        pid.Kd= Arc_D;// 1*Speed_Value*5
+        Arc_Flag = 1;
      }
       adjust_amcl_Y       = PID_Realize_Improve(0,Slope_Value);
-     
-     cout<<"Slope_Value = "<<Slope_Value<<"  adjust_amcl_Y = "<<adjust_amcl_Y<<endl;
+     // adjust_amcl_Y       = Model_Control(Speed_Value,Slope_Value);
      adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
+     if((Arc_Flag == 1)&&(Speed_Value>0.25))
+     {
+        if(Linear_K>20)   Speed_Value=Speed_Value+adjust_amcl_Y;
+        if(Linear_K<-20)   Speed_Value=Speed_Value-adjust_amcl_Y;
+     }
+
+     //cout<<"Slope_Value = "<<Slope_Value<<"  adjust_amcl_Y = "<<adjust_amcl_Y<<endl;
+     //adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
      VPSend_speed.Send_speed(Speed_Value,adjust_amcl_Y);
+}
+
+void get_init_param()
+{
+  ros::NodeHandle nh_private_("~");
+  nh_private_.getParam("Arc_P", Arc_P);
+  nh_private_.getParam("Arc_I", Arc_I);
+  nh_private_.getParam("Arc_D", Arc_D);
+  nh_private_.getParam("Beeline_P", Beeline_P);
+  nh_private_.getParam("Beeline_I", Beeline_I);
+  nh_private_.getParam("Beeline_D", Beeline_D);
+  nh_private_.getParam("Mini_speed", Mini_speed);
+  cout<<"Mini_speed = "<<Mini_speed<<"Arc_P = "<<Arc_P<<" Arc_I = "<<Arc_I<<" Arc_D = "<<Arc_D
+  <<" Beeline_P = "<<Beeline_P<<" Beeline_I = "<<Beeline_I<<" Beeline_D = "<<Beeline_D<<endl;
 }
 int main(int argc, char **argv)  
 {  
   cout<<"OO2222"<<endl;
   ros::init(argc, argv, "image_subscriber1");  
-  ros::NodeHandle nh;  
+  ros::NodeHandle nh; // ("~")
+  //ros::NodeHandle nh_private_("~"); 
   cout<<"OOKK"<<endl;
+  get_init_param();
   //cv::namedWindow("view", CV_WINDOW_NORMAL);  //然后打开一个图像显示窗口,并单独安排一个线程显示图像  
   //cv::startWindowThread();  
   image_transport::ImageTransport it(nh);  
@@ -121,28 +191,30 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(100);
   cout<<"OOKK1133"<<endl;
   while(ros::ok()){
-     double K1 = VP_Control.fit_lnear(fit_line_points);
+     double Linear_K = VP_Control.fit_lnear(fit_line_points);
      double Arc_K= VP_Control.Get_Deviation_Lnear(fit_line_points);
      double K = VP_Control.Get_Deviation_MidLnear(fit_line_points);
      cout<<" K = "<<K<<" Arc_K = "<<Arc_K<<endl;
      get_control_value.linear.x = K;
      get_control_value.linear.y = Arc_K;
      get_control_value.linear.z = adjust_amcl_Y;
+     get_control_value.angular.x = Linear_K;
      send_get_control_value.publish(get_control_value);
-     if(abs(K)<2) K = 0;
-     else{
-       if(K>0)
-       K = K - 2;
-       else K = K + 2;
-     }
-     Along_Linear_travel(VP_Control,K);
+    // if(abs(K)<2) K = 0;
+    //  else{
+    //    if(K>0)
+    //    K = K - 2;
+    //    else K = K + 2;
+    //  }
+     Along_Linear_travel(VP_Control,K,Arc_K,Linear_K);
      cout<<"K = "<<K<<endl;
-     oFile_init<<"K "<<K<<" Arc_K "<<Arc_K<<" adjust_amcl_Y "<<adjust_amcl_Y<<endl;
+     oFile_init<<"K "<<K<<" Arc_K "<<Arc_K<<" L_K "<<Linear_K<<"  adjust_amcl_Y "<<adjust_amcl_Y<<endl;
      ros::spinOnce();
      ROS_INFO("subscriber_vision_data runnning!");
+    // ROS_INFO("Serial was %d",Arc_P);
     if(waitKey(20) >=0) 
       break;
-    //loop_rate.sleep();
+    loop_rate.sleep();
   }
   oFile_init.close();
   ros::spin();  //等待message的到来

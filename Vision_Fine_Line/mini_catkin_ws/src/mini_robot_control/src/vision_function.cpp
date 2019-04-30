@@ -24,7 +24,8 @@ vector<vector<Point2d> > Mid_Linear_Points_2d;
 vector<Mat> HSVChannels;
 cv::Mat img_rgb;
 cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);//Mat(120, 160, CV_8UC1)
-const int Frame_Width = 140;
+const int Frame_Width = 160;//140
+const int Frame_Height = 140;//140
 int Select_Linear = 0;
 int g_nThresholdValue_GARY = 70;
 int pre_mid_linear = Frame_Width/2.0;
@@ -486,7 +487,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     //mono8 bgr8
     Publisher_msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img_rgb).toImageMsg();  
     Publisher_Image.publish(Publisher_msg); 
-    imshow("frame_gray_Canny",img_rgb);
+    //imshow("frame_gray_Canny",img_rgb);
  }
 
 
@@ -576,7 +577,7 @@ void vision_processing::fit_linear_fun_experiment()
 
 void vision_processing::Draw_Line(std::vector<cv::Point> Fit_Points,cv::Vec4f _line_para)
 {
-        cv::Mat image1 = cv::Mat::zeros(120, 160, CV_8UC3);
+        cv::Mat image1 = cv::Mat::zeros(Frame_Height, 160, CV_8UC3);
         cv::Vec4f line_para; 
         for (int i = 0; i < Fit_Points.size(); i++)
         {
@@ -656,8 +657,8 @@ double vision_processing:: Get_Deviation_MidLnear(std::vector<cv::Point> Fit_Poi
         // }
         // Total_Value = Total_Value/Piont_Number;
         //Total_Value =  (Fit_Points[Point_Size-1].x - Frame_Width/2.0);
-
-        Total_Value = Fit_Points[2].x*0.2+Fit_Points[Fit_Points.size()/2].x*0.3+Fit_Points[Fit_Points.size()-2].x*0.5;
+        float Mean_Mid_value = (Fit_Points[Fit_Points.size()/2+1].x+Fit_Points[Fit_Points.size()/2].x+Fit_Points[Fit_Points.size()/2-1].x)/3;
+        Total_Value = Fit_Points[2].x*0.0+Mean_Mid_value*1+Fit_Points[Fit_Points.size()-2].x*0.0;
         Total_Value = Total_Value- Frame_Width/2.0;
         cout<<"Fit_Points.size() = "<<Point_Size<<endl;
      }
@@ -681,10 +682,10 @@ double vision_processing:: Get_Deviation_Lnear(std::vector<cv::Point> Fit_Points
             //cout<<"Fit_Points[i].x = "<<Fit_Points[i].x<<endl;
             Piont_Number++;
         }
-        cout<<"All_Date = "<<All_Date<<"  Piont_Number = "<<Piont_Number<<endl;
+        //cout<<"All_Date = "<<All_Date<<"  Piont_Number = "<<Piont_Number<<endl;
         float Average_Value = All_Date/Piont_Number;
-        cout<<"Average_Value = "<<Average_Value<<endl;
-        for(int i = 1;i<Point_Size-1;)
+        //cout<<"Average_Value = "<<Average_Value<<endl;
+        for(int i = Point_Size/2;i<Point_Size-1;)
         {
             Dev_Line_Value +=  abs(Fit_Points[i].x -Average_Value);
             //cout<<"x = "<< Fit_Points[i].x<<" Total_Value = "<<Total_Value<<endl;
@@ -693,7 +694,7 @@ double vision_processing:: Get_Deviation_Lnear(std::vector<cv::Point> Fit_Points
         }
         Dev_Line_Value = Dev_Line_Value/Piont_Number;
         //Total_Value =  (Fit_Points[Point_Size-1].x - Frame_Width/2.0);
-        cout<<"Fit_Points.size() = "<<Point_Size<<endl;
+        //cout<<"Fit_Points.size() = "<<Point_Size<<endl;
      }
      return Dev_Line_Value;
 }
@@ -702,9 +703,9 @@ void vision_processing:: Send_speed(float speed ,float adjust)
 {
     geometry_msgs::Twist twist1;
     twist1.linear.x = speed; twist1.linear.y = 0; twist1.linear.z = 0;
-    twist1.angular.x = 0; twist1.angular.y = 0; twist1.angular.z = adjust;//angle_adjust_linear
+    twist1.angular.x = 0; twist1.angular.y = 0; twist1.angular.z = adjust/0.2136;//angle_adjust_linear
     Send_Request_Speed.publish(twist1);
-
+    cout<<"adjust = "<<adjust<<endl;
 }
 void vision_processing::print_amcl_linear_x_ahead1()
 {
