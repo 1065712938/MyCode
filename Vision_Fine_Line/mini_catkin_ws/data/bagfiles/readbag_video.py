@@ -26,7 +26,7 @@ class ImageCreator():
       def __init__(self):
         print 'hello, world!'
         self.bridge = CvBridge()
-        with rosbag.Bag('2019-04-29-13-56-36.bag','r') as bag:  #要读取的bag文件；
+        with rosbag.Bag('2019-04-30-15-27-36.bag','r') as bag:  #要读取的bag文件；
             for topic,msg,t in bag.read_messages():
                 print 'camera1',topic
                 if topic == "/get_control_value":
@@ -49,8 +49,8 @@ class ImageCreator():
                         image_name = str(flagpp[0])+'-'+str(round(value3[0],2))+'-'+str(round(value1[0],2))+'-'+str(round(value2[0],5))+ ".png" #图像命名：时间戳.png
                         cv_image = cv2.putText(cv_image, str(round(get_control_value[0],3)), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
                         cv2.imshow('image',cv_image)
-                        cv2.imwrite(image_name,cv_image)  #保存；
-                        cv2.waitKey(35)#35
+                        #cv2.imwrite(image_name,cv_image)  #保存；
+                        cv2.waitKey(10)#35
                 elif topic == "camera/depth_registered/image_raw": #图像的topic；
                         print 'NO this topic'
                         try:

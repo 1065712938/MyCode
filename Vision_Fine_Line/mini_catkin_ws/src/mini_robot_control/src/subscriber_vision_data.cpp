@@ -85,6 +85,8 @@ float Limit_Max_Min(float Contral_Value,float Speed_Value,float K)
          }
 
      }
+     if(Contral_Value>0.1)  Contral_Value =  0.1;
+     if(Contral_Value<-0.1) Contral_Value = -0.1;
      return Contral_Value;
 }
 float Model_Control(float Speed_Value,float Slope_Value)
@@ -99,23 +101,46 @@ float Model_Control(float Speed_Value,float Slope_Value)
      cout<<"R = "<<R<<" adjust = "<<adjust<<endl;
      return adjust;
 }
-float Get_pid_value(float &Speed_Value,float Arc_K,float Linear_K)
-{
-     if((abs(Arc_K)<0.8)&&(abs(Linear_K)<20))//(abs(Slope_Value)<10)||
+float Judge_Curve(float &Speed_Value,float Arc_K,float Linear_K)
+{ 
+     //0.8 
+     if((abs(Arc_K)<0.7)&&(abs(Linear_K)<20))//(abs(Slope_Value)<10)||
      {
-        Speed_Value = Mini_speed*1.5;// 0.15
+        cout<<"zhixian"<<"Arc_K = "<<Arc_K<<" Linear_K = "<<Linear_K<<endl;
+        Speed_Value = Mini_speed*1.5;// *1.5
         pid.Kp= Beeline_P*Speed_Value*8;//0.16 度直线参数
         pid.Ki= Beeline_I;//0.002
         pid.Kd= Beeline_D;// 1*Speed_Value*5
         return 0;
      }
      else{
-        Speed_Value = Mini_speed*1.2;
+        cout<<"huxian"<<"Arc_K = "<<Arc_K<<" Linear_K = "<<Linear_K<<endl;
+        Speed_Value = Mini_speed*1.3;// *1.3
         pid.Kp= Arc_P*Speed_Value*8;//0.16 曲线参数
         pid.Ki= Arc_I;//0.03
         pid.Kd= Arc_D;// 1*Speed_Value*5
         return 1;
      }
+}
+float Outside_Speed_Constant(float &Speed_Value,float Arc_Flag,float Linear_K,float adjust_amcl_Y)
+{
+    if((Arc_Flag == 1)&&(Speed_Value>0.25))
+     {
+        if(Linear_K>20)  
+        {
+          if(abs(adjust_amcl_Y*2)>Speed_Value)
+          adjust_amcl_Y = -(Speed_Value*0.4);
+          Speed_Value=Speed_Value+adjust_amcl_Y;
+
+        } 
+        if(Linear_K<-20)  
+        {
+           if(abs(adjust_amcl_Y*2)>Speed_Value)
+           adjust_amcl_Y = (Speed_Value*0.4);
+           Speed_Value=Speed_Value-adjust_amcl_Y;
+        } 
+      }
+      return Speed_Value;
 }
 void Along_Linear_travel(vision_processing &VPSend_speed,float Slope_Value,float Arc_K,float Linear_K)
 {
@@ -123,35 +148,11 @@ void Along_Linear_travel(vision_processing &VPSend_speed,float Slope_Value,float
     //vision_processing VP_sendSpeed;
     float Speed_Value = Mini_speed;
     char Arc_Flag    = 0;
-    //if(abs(Linear_K)<10) 
-       
-     if((abs(Arc_K)<0.8)&&(abs(Linear_K)<20))//(abs(Slope_Value)<10)||
-     {
-        Speed_Value = Mini_speed;// 0.15 *1.5
-        pid.Kp= Beeline_P*Speed_Value*8;//0.16 度直线参数
-        if(Speed_Value<=0.25)
-         pid.Ki= Beeline_I;//0.002
-        else  pid.Ki= Beeline_I*0.8;
-        pid.Kd= Beeline_D;// 1*Speed_Value*5
-     }
-     else{
-        Speed_Value = Mini_speed;//*1.2
-        pid.Kp= Arc_P*Speed_Value*8;//0.16 曲线参数
-        pid.Ki= Arc_I;//0.03
-        pid.Kd= Arc_D;// 1*Speed_Value*5
-        Arc_Flag = 1;
-     }
-      adjust_amcl_Y       = PID_Realize_Improve(0,Slope_Value);
+    Arc_Flag = Judge_Curve(Speed_Value,Arc_K,Linear_K);
+    adjust_amcl_Y       = PID_Realize_Improve(0,Slope_Value);
      // adjust_amcl_Y       = Model_Control(Speed_Value,Slope_Value);
-     adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
-     if((Arc_Flag == 1)&&(Speed_Value>0.25))
-     {
-        if(Linear_K>20)   Speed_Value=Speed_Value+adjust_amcl_Y;
-        if(Linear_K<-20)   Speed_Value=Speed_Value-adjust_amcl_Y;
-     }
-
-     //cout<<"Slope_Value = "<<Slope_Value<<"  adjust_amcl_Y = "<<adjust_amcl_Y<<endl;
-     //adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
+    adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
+//adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
      VPSend_speed.Send_speed(Speed_Value,adjust_amcl_Y);
 }
 
@@ -168,20 +169,6 @@ void get_init_param()
   cout<<"Mini_speed = "<<Mini_speed<<"Arc_P = "<<Arc_P<<" Arc_I = "<<Arc_I<<" Arc_D = "<<Arc_D
   <<" Beeline_P = "<<Beeline_P<<" Beeline_I = "<<Beeline_I<<" Beeline_D = "<<Beeline_D<<endl;
 }
-
-//<launch>
-//  <node name="subscriber_vision_data" pkg="mini_robot_control" type="subscriber_vision_data" output="screen">
-//   <param name="Arc_P" value="0.03" />
-//   <param name="Arc_I" value="50" />
-//   <param name="Arc_D" value="0.02" />
-//   <param name="Beeline_P" value="0.015" />
-//   <param name="Beeline_I" value="50" />
-//   <param name="Beeline_D" value="0.01" />
-//   <param name="Mini_speed" value="0.25" />
-// </node>
-
-//</launch>
-
 int main(int argc, char **argv)  
 {  
   cout<<"OO2222"<<endl;
