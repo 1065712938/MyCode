@@ -500,6 +500,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "mini_robot_control/CMakeFiles/mini_robot_control.dir/DependInfo.cmake"
   "mini_robot_control/CMakeFiles/Processing_vision_data.dir/DependInfo.cmake"
   "mini_robot_control/CMakeFiles/mini_pid.dir/DependInfo.cmake"
+  "mini_robot_control/CMakeFiles/deal_with_sdcard.dir/DependInfo.cmake"
   "mini_robot_control/CMakeFiles/get_amcl_pose.dir/DependInfo.cmake"
   "mini_robot_control/CMakeFiles/Processing_lidar_data.dir/DependInfo.cmake"
   "geometry2/tf2_geometry_msgs/CMakeFiles/run_tests_tf2_geometry_msgs_gtest.dir/DependInfo.cmake"

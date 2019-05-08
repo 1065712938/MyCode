@@ -316,6 +316,21 @@ mini_pid/fast:
 .PHONY : mini_pid/fast
 
 # Convenience name for target.
+mini_robot_control/CMakeFiles/deal_with_sdcard.dir/rule:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 mini_robot_control/CMakeFiles/deal_with_sdcard.dir/rule
+.PHONY : mini_robot_control/CMakeFiles/deal_with_sdcard.dir/rule
+
+# Convenience name for target.
+deal_with_sdcard: mini_robot_control/CMakeFiles/deal_with_sdcard.dir/rule
+
+.PHONY : deal_with_sdcard
+
+# fast build rule for target.
+deal_with_sdcard/fast:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build.make mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build
+.PHONY : deal_with_sdcard/fast
+
+# Convenience name for target.
 mini_robot_control/CMakeFiles/get_amcl_pose.dir/rule:
 	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 mini_robot_control/CMakeFiles/get_amcl_pose.dir/rule
 .PHONY : mini_robot_control/CMakeFiles/get_amcl_pose.dir/rule
@@ -425,6 +440,33 @@ src/amcl_linear_x_ahead.s: src/amcl_linear_x_ahead.cpp.s
 src/amcl_linear_x_ahead.cpp.s:
 	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/mini_robot_control.dir/build.make mini_robot_control/CMakeFiles/mini_robot_control.dir/src/amcl_linear_x_ahead.cpp.s
 .PHONY : src/amcl_linear_x_ahead.cpp.s
+
+src/deal_with_sdcard.o: src/deal_with_sdcard.cpp.o
+
+.PHONY : src/deal_with_sdcard.o
+
+# target to build an object file
+src/deal_with_sdcard.cpp.o:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build.make mini_robot_control/CMakeFiles/deal_with_sdcard.dir/src/deal_with_sdcard.cpp.o
+.PHONY : src/deal_with_sdcard.cpp.o
+
+src/deal_with_sdcard.i: src/deal_with_sdcard.cpp.i
+
+.PHONY : src/deal_with_sdcard.i
+
+# target to preprocess a source file
+src/deal_with_sdcard.cpp.i:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build.make mini_robot_control/CMakeFiles/deal_with_sdcard.dir/src/deal_with_sdcard.cpp.i
+.PHONY : src/deal_with_sdcard.cpp.i
+
+src/deal_with_sdcard.s: src/deal_with_sdcard.cpp.s
+
+.PHONY : src/deal_with_sdcard.s
+
+# target to generate assembly for a file
+src/deal_with_sdcard.cpp.s:
+	cd /home/crazy/mini_catkin_ws/build && $(MAKE) -f mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build.make mini_robot_control/CMakeFiles/deal_with_sdcard.dir/src/deal_with_sdcard.cpp.s
+.PHONY : src/deal_with_sdcard.cpp.s
 
 src/get_amcl_pose.o: src/get_amcl_pose.cpp.o
 
@@ -613,6 +655,7 @@ help:
 	@echo "... Processing_vision_data"
 	@echo "... mini_pid"
 	@echo "... install/local"
+	@echo "... deal_with_sdcard"
 	@echo "... get_amcl_pose"
 	@echo "... edit_cache"
 	@echo "... Processing_lidar_data"
@@ -625,6 +668,9 @@ help:
 	@echo "... src/amcl_linear_x_ahead.o"
 	@echo "... src/amcl_linear_x_ahead.i"
 	@echo "... src/amcl_linear_x_ahead.s"
+	@echo "... src/deal_with_sdcard.o"
+	@echo "... src/deal_with_sdcard.i"
+	@echo "... src/deal_with_sdcard.s"
 	@echo "... src/get_amcl_pose.o"
 	@echo "... src/get_amcl_pose.i"
 	@echo "... src/get_amcl_pose.s"

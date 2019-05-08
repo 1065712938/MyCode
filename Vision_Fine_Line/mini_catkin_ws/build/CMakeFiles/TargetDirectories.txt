@@ -231,6 +231,7 @@
 /home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/Processing_vision_data.dir
 /home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/mini_pid.dir
 /home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/install/local.dir
+/home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/deal_with_sdcard.dir
 /home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/get_amcl_pose.dir
 /home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/edit_cache.dir
 /home/crazy/mini_catkin_ws/build/mini_robot_control/CMakeFiles/Processing_lidar_data.dir

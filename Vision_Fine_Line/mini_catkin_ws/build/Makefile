@@ -2025,6 +2025,19 @@ mini_pid/fast:
 .PHONY : mini_pid/fast
 
 #=============================================================================
+# Target rules for targets named deal_with_sdcard
+
+# Build rule for target.
+deal_with_sdcard: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 deal_with_sdcard
+.PHONY : deal_with_sdcard
+
+# fast build rule for target.
+deal_with_sdcard/fast:
+	$(MAKE) -f mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build.make mini_robot_control/CMakeFiles/deal_with_sdcard.dir/build
+.PHONY : deal_with_sdcard/fast
+
+#=============================================================================
 # Target rules for targets named get_amcl_pose
 
 # Build rule for target.
@@ -3064,6 +3077,7 @@ help:
 	@echo "... mini_robot_control"
 	@echo "... Processing_vision_data"
 	@echo "... mini_pid"
+	@echo "... deal_with_sdcard"
 	@echo "... get_amcl_pose"
 	@echo "... Processing_lidar_data"
 	@echo "... run_tests_tf2_geometry_msgs_gtest"

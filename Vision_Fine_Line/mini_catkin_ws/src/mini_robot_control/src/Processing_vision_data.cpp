@@ -81,7 +81,7 @@ int main(int argc, char** argv)
     image_transport::Publisher pub = it.advertise("camera/image", 1);//为图片的发布者
     //ros::Publisher send_Linear_Point1 = nh.advertise<sensor_msgs::PointCloud>("Linear_Point1",1);//改为1
    
-    cv::VideoCapture cap(0);//1 0s
+    cv::VideoCapture cap(1);//1 0s
 
     cap.set(CV_CAP_PROP_FRAME_WIDTH,Frame_Width);//宽度 320
     cap.set(CV_CAP_PROP_FRAME_HEIGHT,Frame_Height);//高度240
@@ -132,7 +132,7 @@ int main(int argc, char** argv)
             msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame).toImageMsg();  
             pub.publish(msg); 
             circle(frame,cv::Point2i(frame.cols/2,frame.rows/2),3,cv::Scalar(255,0,0),-1,8);
-            //cv::imshow(ShowName,frame);
+            cv::imshow(ShowName,frame);
             if(waitKey(20) >=0) 
              break;
         }

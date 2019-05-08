@@ -22,11 +22,16 @@ vector<Point2d> Mid_Linear_Points;
 vector<vector<Point2d> > Mid_Linear_Points_2d;
 
 vector<Mat> HSVChannels;
+#define No_Cross_TurnMid    0
+#define Turn_Left           1
+#define Turn_Right          2
+
 cv::Mat img_rgb;
 cv::Mat Split_S_img= Mat(120, 160, CV_8UC1);//Mat(120, 160, CV_8UC1)
 const int Frame_Width = 160;//140
 const int Frame_Height = 140;//140
-int Select_Linear = 0;
+int Select_Traversal_Mode = Turn_Right;
+int Select_Linear = Turn_Right;//向左转时 确保已转过后 再将其设置为0
 int g_nThresholdValue_GARY = 70;
 int pre_mid_linear = Frame_Width/2.0;
 const int discard_value = 1024;
@@ -100,7 +105,7 @@ double Select_Linear_fun(vector<int> filter_colsr)
     double save_linear_array[10];
     for(int m = 0;m<filter_colsr.size()-1;)
     {
-            int Dy_cols = filter_colsr.at(m+1)-filter_colsr.at(m);
+            int Dy_cols = abs(filter_colsr.at(m+1)-filter_colsr.at(m));
             if((Dy_cols>Linear_Min)&&(Dy_cols<Linear_Max))
             {
                 save_linear_array[linears] = (filter_colsr.at(m+1)+filter_colsr.at(m))/2;
@@ -123,11 +128,12 @@ double Select_Linear_fun(vector<int> filter_colsr)
         else 
         {
             //cout<<"Select_LinearSelect_LinearSelect_Linear"<<endl;
-            return save_linear_array[1];
+            return save_linear_array[0];
         }
     }
     else
     {
+        if(linears == 0) return discard_value;
         return save_linear_array[0];
     }
 
@@ -280,8 +286,8 @@ void filter_Mid_Linear_Points(vector<Point2d> &_Mid_Linear_Points,int Filter_X_O
               save_cols_date.push_back(j);
             }
         }
-        cout<<"save_cols_date.size() = "<<save_cols_date.size()<<" i = "<<i<<endl;
-        mid_linear = get_mid_linear(save_cols_date);
+        //cout<<"save_cols_date.size() = "<<save_cols_date.size()<<" i = "<<i<<endl;
+        //mid_linear = get_mid_linear(save_cols_date);
         if(mid_linear!=discard_value)
         {
             pre_mid_linear = mid_linear;
@@ -301,20 +307,19 @@ void  Index_Cols_Child_Left(cv::Mat frame,double mid_linear_average)
     int cols = frame.cols;
     double mid_linear = frame.cols/2;
     for (int i = mid_linear_average-10; i > 5;)
-    //for (int i = Initial_Traversing+20; i < End_Traversing;)
     {  
         uchar* ptr = (uchar*)frame.data + i;
         for (int j = (rows - 5); j >0; )
         {
-            int value = ptr[j*cols];
+            int value = ptr[j*cols];//遍历列元素
             if(value>0)
             {
               save_cols_date.push_back(j);
             }
             j = j-1;
         }
-        cout<<"save_cols_date.size()22 = "<<save_cols_date.size()<<" i = "<<i<<endl;
-        print_vector(save_cols_date);
+        //cout<<"save_cols_date.size() = "<<save_cols_date.size()<<"  i = "<<i<<endl;
+        //print_vector(save_cols_date);
         sort(save_cols_date.begin(),save_cols_date.end());
         mid_linear = get_mid_linear(save_cols_date);
         if(mid_linear!=discard_value)
@@ -347,8 +352,8 @@ void  Index_Cols_Child_Right(cv::Mat frame,double mid_linear_average)
             }
             j = j-1;
         }
-        cout<<"save_cols_date.size()22 = "<<save_cols_date.size()<<" i = "<<i<<endl;
-        print_vector(save_cols_date);
+        //cout<<"save_cols_date.size()22 = "<<save_cols_date.size()<<" i = "<<i<<endl;
+        //print_vector(save_cols_date);
         sort(save_cols_date.begin(),save_cols_date.end());
         mid_linear = get_mid_linear(save_cols_date);
         if(mid_linear!=discard_value)
@@ -359,9 +364,10 @@ void  Index_Cols_Child_Right(cv::Mat frame,double mid_linear_average)
             Mid_Linear_Points.push_back(get_midlinear_point);
         }
         save_cols_date.clear();
-        i=i+5;//gap
+        i=i+2;//gap
         ros::spinOnce();  
     }
+
 }
 
 float Get_Few_Linear_Mid(cv::Mat frame)
@@ -375,7 +381,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     int Start_Row = 0;
     int End_Row   = 0;
     int Gap_row   = 0;
-    if(Select_Linear == 0)
+    if(Select_Linear == 0)//无交叉线时
     {
         Start_Row = rows-1;
         End_Row   = 5;
@@ -394,12 +400,14 @@ float Get_Few_Linear_Mid(cv::Mat frame)
         for (int j = cols/2; j < (cols - 5); j++)
         { 
             re_j -=1;
-            int value_R = ptr[j];
-            int value_L = ptr[re_j];
+            int value_R = ptr[j];//向右遍历
+            int value_L = ptr[re_j];//向左遍历
             if(value_R>0)save_few_cols_date.push_back(j);
             if(value_L>0)save_few_cols_date.push_back(re_j);
         }
         sort(save_few_cols_date.begin(),save_few_cols_date.end());
+        if(Select_Traversal_Mode == Turn_Left)
+         reverse(save_few_cols_date.begin(),save_few_cols_date.end());
         mid_linear_few = get_mid_linear(save_few_cols_date);
         //cout<<"mid_linear_few = "<<mid_linear_few<<endl;
         if(mid_linear_few!=discard_value)
@@ -418,7 +426,15 @@ float Get_Few_Linear_Mid(cv::Mat frame)
         save_few_cols_date.clear();   
     }
     if(Number_rows == 0)
-       return Frame_Width/2.0;
+    {
+      if(Select_Linear == Turn_Left)
+        return (Frame_Width/1 - 10);
+      else if(Select_Linear == Turn_Right)
+         return Frame_Width/10;
+      else
+      return Frame_Width/2.0;
+
+    }
     else
     return  mid_linear_total/Number_rows;
 }
@@ -433,10 +449,12 @@ float Get_Few_Linear_Mid(cv::Mat frame)
 
     if(Select_Linear == 2)
     {
-        Index_Cols_Child_Right(frame,mid_linear_average);
+         cout<<"mid_linear_average_Right = "<<mid_linear_average<<endl;
+         Index_Cols_Child_Right(frame,mid_linear_average);
     }
     else if(Select_Linear == 1)
     {
+      cout<<"mid_linear_average_Left = "<<mid_linear_average<<endl;
       Index_Cols_Child_Left(frame,mid_linear_average);
     }
     else{
@@ -444,6 +462,21 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     }
  }
 
+int Recording_Num_Self_add = 0;
+int Pre_Recording_Num      = 0;
+void OverTurn(int Recording_Num)
+{
+   if((Recording_Num>15)&&(Pre_Recording_Num != Recording_Num))
+   {
+       Recording_Num_Self_add++;
+   }
+   if((Recording_Num_Self_add>50)&&(Recording_Num<8))
+   {
+       Select_Linear = 0;
+       Recording_Num_Self_add = 0;
+   }
+   Pre_Recording_Num = Recording_Num;
+}
 /*
 函数名称 :  Fine_Center_Line 
 调用方式 :  Fine_Center_Line(frame);
@@ -458,18 +491,23 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     cv::cvtColor(frame, img_rgb, CV_GRAY2RGB);
     //Index_Rows(frame);
     Index_Cols(frame);
+    cout<<"Rec_add = "<<Recording_Num_Self_add<<" Select_Linear = "<<Select_Linear<<endl;
+    //if(Select_Linear != 0)
+    //   OverTurn(Mid_Linear_Points.size());
     cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
     if(Mid_Linear_Points.size()>2) //开头几行出错 可能会导致整体出错
     {
+        //Select_Linear == 0 表明遍历行 对行进行滤波
+        //！= 0 则遍历列 则对列进行滤波 
         if(Select_Linear == 0)filter_Mid_Linear_Points(Mid_Linear_Points,Filter_X);
          else filter_Mid_Linear_Points(Mid_Linear_Points,Filter_Y);
     }
     cout<<"Mid_Linear_Points.size() = "<<Mid_Linear_Points.size()<<endl;
     for(int i = 0; i < Mid_Linear_Points.size(); i++)
-     {
+    {
         cv::circle(img_rgb,cv::Point2i(Mid_Linear_Points.at(i).x,Mid_Linear_Points.at(i).y),2,cv::Scalar(255,0,0),-1,2);
         //cout<<" x1 = "<<Mid_Linear_Points.at(i).x<<" y = "<<Mid_Linear_Points.at(i).y<<endl;
-     }
+    }
     unsigned int num_points = Mid_Linear_Points.size();// 
     sensor_msgs::PointCloud _Mid_Linear_Points;
     _Mid_Linear_Points.points.resize(num_points);
@@ -487,7 +525,7 @@ float Get_Few_Linear_Mid(cv::Mat frame)
     //mono8 bgr8
     Publisher_msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img_rgb).toImageMsg();  
     Publisher_Image.publish(Publisher_msg); 
-    //imshow("frame_gray_Canny",img_rgb);
+    imshow("frame_gray_Canny",img_rgb);
  }
 
 
@@ -504,7 +542,7 @@ void vision_processing::Deal_gray_Vision(cv::Mat frame)
     //cv::imshow("frame_gray",frame) ;
     threshold(frame, frame, g_nThresholdValue_GARY, 255, THRESH_BINARY);
     cv::medianBlur(frame,frame,3);
-    //imshow("frame_gray_bool",frame);
+    imshow("frame_gray_bool",frame);
     Fine_Center_Line(frame);
 }
 

@@ -244,10 +244,13 @@ add_dependencies(Processing_vision_data mini_robot_control)
 target_link_libraries(Processing_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} )#${vision_function}
 
 
-add_executable(subscriber_vision_data src/subscriber_vision_data.cpp src/vision_function.cpp)
+add_executable(subscriber_vision_data src/subscriber_vision_data.cpp src/vision_function.cpp)#
 add_dependencies(subscriber_vision_data mini_robot_control)
 target_link_libraries(subscriber_vision_data mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
+add_executable(deal_with_sdcard src/deal_with_sdcard.cpp )#src/vision_function.cpp
+add_dependencies(deal_with_sdcard mini_robot_control)
+target_link_libraries(deal_with_sdcard mini_robot_control ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 
 #add_executable(amcl_linear_x_ahead src/amcl_linear_x_ahead.cpp) subscriber_vision_data.cpp

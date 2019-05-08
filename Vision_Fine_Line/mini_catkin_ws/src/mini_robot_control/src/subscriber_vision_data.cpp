@@ -107,7 +107,7 @@ float Judge_Curve(float &Speed_Value,float Arc_K,float Linear_K)
      if((abs(Arc_K)<0.7)&&(abs(Linear_K)<20))//(abs(Slope_Value)<10)||
      {
         cout<<"zhixian"<<"Arc_K = "<<Arc_K<<" Linear_K = "<<Linear_K<<endl;
-        Speed_Value = Mini_speed*1.5;// *1.5
+        Speed_Value = Mini_speed;// *1.5
         pid.Kp= Beeline_P*Speed_Value*8;//0.16 度直线参数
         pid.Ki= Beeline_I;//0.002
         pid.Kd= Beeline_D;// 1*Speed_Value*5
@@ -115,7 +115,7 @@ float Judge_Curve(float &Speed_Value,float Arc_K,float Linear_K)
      }
      else{
         cout<<"huxian"<<"Arc_K = "<<Arc_K<<" Linear_K = "<<Linear_K<<endl;
-        Speed_Value = Mini_speed*1.3;// *1.3
+        Speed_Value = Mini_speed;// *1.3
         pid.Kp= Arc_P*Speed_Value*8;//0.16 曲线参数
         pid.Ki= Arc_I;//0.03
         pid.Kd= Arc_D;// 1*Speed_Value*5
@@ -153,7 +153,7 @@ void Along_Linear_travel(vision_processing &VPSend_speed,float Slope_Value,float
      // adjust_amcl_Y       = Model_Control(Speed_Value,Slope_Value);
     adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
 //adjust_amcl_Y = Limit_Max_Min(adjust_amcl_Y,Speed_Value,Slope_Value);
-     VPSend_speed.Send_speed(Speed_Value,adjust_amcl_Y);
+     //VPSend_speed.Send_speed(Speed_Value,adjust_amcl_Y);
 }
 
 void get_init_param()
